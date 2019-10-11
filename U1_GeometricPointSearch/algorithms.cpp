@@ -1,5 +1,6 @@
 #include "algorithms.h"
 #include <cmath>
+#include <QtMath>
 
 Algorithms::Algorithms()
 {
@@ -57,6 +58,10 @@ int Algorithms::positionPointPolygonWinding(QPoint &q, std::vector<QPoint> &pol)
     // Tolerance
     double eps = 1.0e-6;
 
+    double xir = pol[0].x();
+    double yir = pol[0].y();
+
+
     // The size of polygon
     int n = pol.size();
 
@@ -76,18 +81,34 @@ int Algorithms::positionPointPolygonWinding(QPoint &q, std::vector<QPoint> &pol)
         //Point in the right half plane
         else
             wn -= omega;
-    }
+
+       }
 
     //Point inside polygon
-    if (fabs(fabs(wn) - 2 * M_PI) <= eps)
+    if (fabs(fabs(wn) - 2 * M_PI) <= eps){
         return 1;
+    }
 
     //Point outside polygon
-    return 0;
-}
 
-int Algorithms::positionPointPolygonRayCrossing(QPoint &q, std::vector<QPoint> &pol)
-{
+    else if (fabs(fabs(wn)) <= eps){
+        return 0;
+    }
+
+
+    //Point on the boundary
+    else
+    {
+        return -1;
+    }
+    }
+
+
+
+int Algorithms::positionPointPolygonRayCrossing(QPoint &q, std::vector<QPoint> &pol){
+    // Tolerance
+    double eps = 1.0e-6;
+
     // Analyze Position of the Point and the Polygon
     int k = 0;
 
@@ -104,6 +125,17 @@ int Algorithms::positionPointPolygonRayCrossing(QPoint &q, std::vector<QPoint> &
         double xiir = pol[i%n].x() - q.x();
         double yiir = pol[i%n].y() - q.y();
 
+        // Calculate distance between [xi,yi] and [xii, yii]
+        double dist_i_and_ii = sqrt((xir - xiir)*(xir - xiir) + (yir - yiir)*(yir - yiir));
+
+        // Sum of distance between [xi, yi] and q, and [xiir, yiir] and q
+        double dist_q = sqrt((xir*xir + yir*yir)) + sqrt((xiir*xiir + yiir*yiir));
+
+        // Control if point is on the boundary
+        if (fabs(dist_i_and_ii-dist_q)< eps){
+            return -1;
+
+        }
         //Point in the upper half plane
         if ((yir > 0) && (yiir <= 0) || (yiir > 0) && (yir <= 0) )
         {
@@ -122,5 +154,13 @@ int Algorithms::positionPointPolygonRayCrossing(QPoint &q, std::vector<QPoint> &
     }
 
     //Odd/even amount of intersections
-    return k%2;
+    //0 - point is outside, 1 - point is inside
+        return k%2;
 }
+
+
+
+
+
+
+
