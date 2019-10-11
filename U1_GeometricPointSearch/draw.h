@@ -16,6 +16,7 @@ private:
     bool draw_mode;
     std::vector<std::vector<QPoint>> polygons;
     QPoint q;
+    std::vector<int> analyze_results_by_polygons; //store point-polygon analyze result
 
 public:
     explicit Draw(QWidget *parent = nullptr);

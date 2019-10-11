@@ -31,21 +31,53 @@ void Widget::on_drawModeButton_clicked()
 void Widget::on_analyzeButton_clicked()
 {
     //Analyze point and polygon position
-    QPoint q = ui->Canvas->getPoint();
-    std::vector<QPoint> polygon = ui->Canvas->getPolygon(0);
 
-    //Select method
-    int res = 0;
+    //Get point Q
+    QPoint q = ui->Canvas->getPoint();
+
+    //Get number of polygons in Canvas
+    int count_pol_Canvas = ui->Canvas->getNumberOfPolygons();
+
+    //OLD:Get one polygon for analysis
+    std::vector<QPoint> polygon = ui->Canvas->getPolygon(0); //Add loop through all polygons, forced the first one
+
+    //Store analysis results for each polygon
+    std::vector<int> res;
+
+    //Winding Number algorithm
     if (ui->comboBox->currentIndex() == 0)
-        res = Algorithms::positionPointPolygonWinding(q, polygon);
+        for(int h; h < count_pol_Canvas; h++)
+        {
+            //Get polygon from polygons for analysis
+            std::vector<QPoint> pol_analy = ui -> Canvas -> getPolygon(h);
+
+            //Analyze and store the result
+            res.push_back(Algorithms::positionPointPolygonWinding(q, pol_analy));
+
+            //Stop when point found inside one polygon
+            if(res[h] == 1)
+                break;
+
+        }
+
+    // Ray Crossing algorithm
     else
-        res = Algorithms::positionPointPolygonRayCrossing(q, polygon);
+        for(int h; h < count_pol_Canvas; h++)
+        {
+            //Get polygon from polygons for analysis
+            std::vector<QPoint> pol_analy = ui -> Canvas -> getPolygon(h);
+
+            //Analyze and store the result
+            res.push_back(Algorithms::positionPointPolygonRayCrossing(q, pol_analy));
+
+            //Stop when point found inside one polygon
+            if(res[h] == 1)
+                break;
+        }
 
     //Print results
-    if (res == 1)
-        ui->label->setText("Inside");
-    else
-        ui->label->setText("Outside");
+    //Task:Create special function
+
 }
 
 void Widget::on_importPolygonButton_clicked()
