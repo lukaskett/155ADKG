@@ -2,6 +2,8 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <string>
+#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -14,6 +16,7 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
+    //void ResultofAnalyze(int res, bool &write_result); // ADDED BY ME
 
 private slots:
     void on_clearButton_clicked();

@@ -7,6 +7,9 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <QPainterPath>
+#include <QBrush>
+#include <QPen>
 
 class Draw : public QWidget
 {
@@ -28,7 +31,7 @@ public:
     QPoint getPoint(){return q;}
     std::vector<QPoint> getPolygon(int index); //return polygon from vector of polygons based on the index
     int getNumberOfPolygons() {return polygons.size();} //how many polygons there are in canvas
-
+    void fillPolygon(std::vector<int> analyze_results_by_polygons); //highlight polygon containing point q ADDED BY ME
 signals:
 
 public slots:

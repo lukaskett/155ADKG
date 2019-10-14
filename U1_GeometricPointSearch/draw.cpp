@@ -29,7 +29,7 @@ void Draw::paintEvent(QPaintEvent *e)
     QPainter painter(this);
 
     //Set pen style for polygon boundary drawing
-    QPen pen_boun(Qt::black, 1,Qt::SolidLine);
+    QPen pen_boun(Qt::black, 1,Qt::SolidLine,Qt::RoundCap, Qt::RoundJoin); // added by me Qt::RoundCap, Qt::RoundJoin
     painter.setPen(pen_boun);
 
     //Draw polygons from file
@@ -50,6 +50,39 @@ void Draw::paintEvent(QPaintEvent *e)
         //Draw actual polygon
         painter.drawPolygon(p_draw);
     }
+
+    // Added by me
+
+    //Fill polygon by color
+
+    //set pen
+    QPen pen_fill(Qt::green, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+    painter.setPen(pen_fill);
+
+    //set fill color and style
+    QBrush brush;
+    brush.setColor(Qt::blue);
+    brush.setStyle(Qt::Dense4Pattern);
+    QPainterPath path;
+
+    QPolygon polyg;
+
+    for(unsigned i = 0; i < analyze_results_by_polygons.size(); i++)
+    {
+        if(analyze_results_by_polygons[i]) //if point is inside or on the boundary
+        {
+            std::vector<QPoint> pol_to_fill = polygons[i];
+            for(unsigned l = 0; l < pol_to_fill.size(); l++)
+            {
+                polyg << pol_to_fill[l];
+            }
+            path.addPolygon(polyg);
+            painter.drawPolygon(polyg);
+            painter.fillPath(path, brush);
+            polyg.clear();
+        }
+    }
+
 
     //Set point size (radius)
     int r_q = 10;
@@ -126,4 +159,12 @@ void Draw::importPolygon(std::string path)
 std::vector<QPoint> Draw::getPolygon(int index)
 {
     return polygons[index];
+}
+
+// Fill polygon - analyze results
+void Draw::fillPolygon(std::vector<int> analyze_results_by_polygons)
+{
+    //fill polygons containing point q with colour
+    this->analyze_results_by_polygons = analyze_results_by_polygons;
+    repaint();
 }
