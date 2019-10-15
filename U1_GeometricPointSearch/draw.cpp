@@ -101,6 +101,9 @@ void Draw::clearCanvas()
       q.setX(-100);
       q.setY(-100);
 
+      //Remove polygon fill
+      analyze_results_by_polygons.clear();
+
       repaint();
 }
 
