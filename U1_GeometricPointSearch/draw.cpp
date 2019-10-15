@@ -51,8 +51,6 @@ void Draw::paintEvent(QPaintEvent *e)
         painter.drawPolygon(p_draw);
     }
 
-    // Added by me
-
     //Fill polygon by color
 
     //set pen

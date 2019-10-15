@@ -25,8 +25,6 @@ int Algorithms::positionPointPolygonWinding(QPoint &q, std::vector<QPoint> &pol)
     //Browse all points of polygon
     for (int i = 0; i < n; i++){
 
-        //qDebug()<<pol.size(); // vypísanie vrcholov polygonu
-
         //Measure angle
         double omega = getAngle2Vectors(pol[i], q, pol[(i+1)%n], q);
 
