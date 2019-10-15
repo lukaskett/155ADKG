@@ -16,7 +16,7 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
-    void showResultOfAnalysis(int res, bool &show_result); // ADDED BY MARTIN
+    void showResultOfAnalysis(int res, bool &show_result);
 
 private slots:
     void on_clearButton_clicked();

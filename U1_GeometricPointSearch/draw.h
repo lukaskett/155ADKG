@@ -31,7 +31,7 @@ public:
     QPoint getPoint(){return q;}
     std::vector<QPoint> getPolygon(int index); //return polygon from vector of polygons based on the index
     int getNumberOfPolygons() {return polygons.size();} //how many polygons there are in canvas
-    void fillPolygon(std::vector<int> analyze_results_by_polygons); //highlight polygon containing point q ADDED BY ME
+    void fillPolygon(std::vector<int> analyze_results_by_polygons); //highlight polygon containing point q
 signals:
 
 public slots:

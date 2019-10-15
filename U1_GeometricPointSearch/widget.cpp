@@ -43,7 +43,7 @@ void Widget::on_analyzeButton_clicked()
     std::vector<int> res;
 
     //flag for showing analysis result (inside/outside/on the boundary)
-    //true - show result in label_displayResult; false - already displayed, ADDED BY MARTIN
+    //true - show result in label_displayResult; false - already displayed
     bool show_result = true;
 
     //Winding Number algorithm
@@ -67,7 +67,7 @@ void Widget::on_analyzeButton_clicked()
             }
         }
 
-        //Show lightpolygons which have q inside/on the boundary ADDED BY MARTIN
+        //Show lightpolygons which have q inside/on the boundary
         ui->Canvas->fillPolygon(res);
     }
 
@@ -91,7 +91,7 @@ void Widget::on_analyzeButton_clicked()
                 break;
             }
         }
-        //Show lightpolygons which have q inside/on the boundary ADDED BY MARTIN
+        //Show lightpolygons which have q inside/on the boundary
         ui->Canvas->fillPolygon(res);
     }
 
@@ -111,7 +111,6 @@ void Widget::on_importPolygonButton_clicked()
     ui->Canvas->importPolygon(source_file_std);
 }
 
-// ADDED BY MARTIN
   void Widget::showResultOfAnalysis(int res, bool &show_result)
 {
     //send to output wheather point is in/out/on the boundari(es)
