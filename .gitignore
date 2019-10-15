@@ -1,6 +1,8 @@
 ﻿#ignore user´s files
 *.pro.user
 *.pro.user.*
+U1_GeometricPointSearch/*.pro.user.*
+U1_GeometricPointSearch/*.pro.user
 
 #build files
 build*
