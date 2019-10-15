@@ -2,6 +2,7 @@
 #include "ui_widget.h"
 #include "algorithms.h"
 #include <QFileDialog>
+#include <QMessageBox>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -21,11 +22,6 @@ void Widget::on_clearButton_clicked()
     ui->label_displayResult->clear();
 }
 
-void Widget::on_drawModeButton_clicked()
-{
-    ui->Canvas->setDrawMode();
-}
-
 void Widget::on_analyzeButton_clicked()
 {
     //Analyze point and polygon position
@@ -36,8 +32,11 @@ void Widget::on_analyzeButton_clicked()
     //Get number of polygons in Canvas
     int count_pol_Canvas = ui->Canvas->getNumberOfPolygons();
 
-    //OLD:Get one polygon for analysis
-    std::vector<QPoint> polygon = ui->Canvas->getPolygon(0); //Add loop through all polygons, forced the first one
+    //In case of no polygon
+    if(count_pol_Canvas == 0 )
+    {
+         QMessageBox::warning(this, "Empty polygon network", "You have to import polygons first");
+    }
 
     //Store analysis results for each polygon
     std::vector<int> res;

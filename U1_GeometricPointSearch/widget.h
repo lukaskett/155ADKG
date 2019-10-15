@@ -21,8 +21,6 @@ public:
 private slots:
     void on_clearButton_clicked();
 
-    void on_drawModeButton_clicked();
-
     void on_analyzeButton_clicked();
 
     void on_importPolygonButton_clicked();
