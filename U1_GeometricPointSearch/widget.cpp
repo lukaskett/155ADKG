@@ -15,11 +15,10 @@ Widget::~Widget()
     delete ui;
 }
 
-
 void Widget::on_clearButton_clicked()
 {
     ui->Canvas->clearCanvas();
-    ui->label->clear();
+    ui->label_displayResult->clear();
 }
 
 void Widget::on_drawModeButton_clicked()
@@ -43,11 +42,13 @@ void Widget::on_analyzeButton_clicked()
     //Store analysis results for each polygon
     std::vector<int> res;
 
-    //flag for setting output (if point is inside/outside/on boundary), on false, output will not be changed ADDED BY ME
-    //bool write_result = true;
+    //flag for showing analysis result (inside/outside/on the boundary)
+    //true - show result in label_displayResult; false - already displayed, ADDED BY MARTIN
+    bool show_result = true;
 
     //Winding Number algorithm
     if (ui->comboBox->currentIndex() == 0)
+    {
         for(int h = 0; h < count_pol_Canvas; h++)
         {
             //Get polygon from polygons for analysis
@@ -56,18 +57,23 @@ void Widget::on_analyzeButton_clicked()
             //Analyze and store the result
             res.push_back(Algorithms::positionPointPolygonWinding(q, pol_analy));
 
+            //Display result in label
+            showResultOfAnalysis(res[h], show_result);
+
             //Stop when point found inside one polygon
             if(res[h] == 1)
             {
-            break;
+                break;
             }
-
-            //Show lightpolygons which have q inside/on the boundary ADDED BY ME
-            ui->Canvas->fillPolygon(res);
         }
+
+        //Show lightpolygons which have q inside/on the boundary ADDED BY MARTIN
+        ui->Canvas->fillPolygon(res);
+    }
 
     // Ray Crossing algorithm
     else
+    {
         for(int h = 0 ; h < count_pol_Canvas; h++)
         {
             //Get polygon from polygons for analysis
@@ -76,18 +82,21 @@ void Widget::on_analyzeButton_clicked()
             //Analyze and store the result
             res.push_back(Algorithms::positionPointPolygonRayCrossing(q, pol_analy));
 
+            //Display result in label
+            showResultOfAnalysis(res[h], show_result);
+
             //Stop when point found inside one polygon
             if(res[h] == 1)
-               { break;
+            {
+                break;
             }
         }
+        //Show lightpolygons which have q inside/on the boundary ADDED BY MARTIN
+        ui->Canvas->fillPolygon(res);
+    }
 
-    //Show lightpolygons which have q inside/on the boundary ADDED BY ME
-    ui->Canvas->fillPolygon(res);
-
-    //Print results
-    //Task:Create special function
-
+    //Clear for next analysis
+    res.clear();
 }
 
 void Widget::on_importPolygonButton_clicked()
@@ -102,26 +111,25 @@ void Widget::on_importPolygonButton_clicked()
     ui->Canvas->importPolygon(source_file_std);
 }
 
-// ADDED BY ME
-/*
-  void Widget::ResultofAnalyze(int res, bool &write_result)
+// ADDED BY MARTIN
+  void Widget::showResultOfAnalysis(int res, bool &show_result)
 {
     //send to output wheather point is in/out/on the boundari(es)
 
-    //check for write_result - if true, we want to write, if false, we do not (because we know already)
-    if(res == 1 && write_result)
+    //SHOW or not - check show_result - if true, show result, if false, don´t show (already displayed)
+    if(res == 1 && show_result)
     {
-        ui->label->setText("Point is in polygon.");
-        write_result = false;
+        ui->label_displayResult->setText("Point INSIDE polygon.");
+        show_result = false;
     }
-    else if(res == 0 && write_result)
+    else if(res == 0 && show_result)
     {
-        ui->label->setText("Point is out polygon.");
+        ui->label_displayResult->setText("Point OUTSIDE polygon network.");
     }
-    else if(res == -1 && write_result)
+    else if(res == -1 && show_result)
     {
-        ui->label->setText("Point is on boundary.");
-        write_result = false;
+        ui->label_displayResult->setText("Point placed ON THE BOUNDARY.");
+        show_result = false;
     }
 }
-*/
+
