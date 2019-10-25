@@ -1,5 +1,6 @@
 #include "draw.h"
 #include <QMessageBox>
+#include <algorithms.h>
 
 Draw::Draw(QWidget *parent) : QWidget(parent)
 {
@@ -32,8 +33,20 @@ void Draw::paintEvent(QPaintEvent *e)
     QPen pen_boun(Qt::black, 1,Qt::SolidLine,Qt::RoundCap, Qt::RoundJoin); // added by me Qt::RoundCap, Qt::RoundJoin
     painter.setPen(pen_boun);
 
+    //Draw generated polygon
+    polygons.push_back(generated_points);
+    /*QPolygon gen_draw;
+    for(unsigned int i = 0; i < generated_points.size();i++)
+    {
+        gen_draw.append(generated_points[i]);
+    }
+
+    painter.drawPolygon(gen_draw);
+    gen_draw.clear();*/
+
+
     //Draw polygons from file
-    for(int i = 0; i < polygons.size();i++)
+    for(unsigned int i = 0; i < polygons.size();i++)
     {
         //Create polygon
         QPolygon p_draw;
@@ -42,7 +55,7 @@ void Draw::paintEvent(QPaintEvent *e)
         std::vector<QPoint> actual_pol = polygons[i];
 
         //Add points to the polygon
-        for(int j = 0; j < actual_pol.size(); j++)
+        for(unsigned int j = 0; j < actual_pol.size(); j++)
         {
             p_draw.append(actual_pol[j]);
         }
@@ -82,11 +95,20 @@ void Draw::paintEvent(QPaintEvent *e)
     }
 
 
-    //Set point size (radius)
-    int r_q = 10;
+    //Set point size (radius)    
+    int r_q = 10;//Point Q
+    int r_p = 6; //Generated points
+
+    //Set painter for point drawing
+    painter.setPen(pen_boun);
+
+    //Draw generated points
+    for(unsigned int i = 0; i < generated_points.size(); i++)
+    {
+        painter.drawEllipse(generated_points[i].x() - r_p/2,generated_points[i].y() - r_p/2, r_p, r_p);
+    }
 
     //Draw point Q
-    painter.setPen(pen_boun);
     painter.drawEllipse(q.x() - r_q/2,q.y() - r_q/2, r_q, r_q);
 
 }
@@ -94,6 +116,7 @@ void Draw::paintEvent(QPaintEvent *e)
 void Draw::clearCanvas()
 {
       polygons.clear();
+      generated_points.clear();
 
       //Hide point Q
       q.setX(-100);
@@ -157,7 +180,7 @@ void Draw::importPolygon(std::string path)
 
 }
 
-std::vector<QPoint> Draw::getPolygon(int index)
+std::vector<QPoint> Draw::getPolygon(unsigned int index)
 {
     return polygons[index];
 }
@@ -167,5 +190,21 @@ void Draw::fillPolygon(std::vector<int> analyze_results_by_polygons)
 {
     //fill polygons containing point q with colour
     this->analyze_results_by_polygons = analyze_results_by_polygons;
+    repaint();
+}
+
+void Draw::generatePoints(int pol_count)
+{
+    //generate points
+    std::vector<QPoint> gen_points = Algorithms::polGen(pol_count);
+
+    //Graham Scan sort points
+    std::vector<QPoint> GraSca_points = Algorithms::GrahamScan(gen_points);
+
+    //Add generated points to generated_points
+    for (unsigned int i = 0;i < GraSca_points.size(); i++) {
+        generated_points.push_back(GraSca_points[i]);
+    }
+
     repaint();
 }

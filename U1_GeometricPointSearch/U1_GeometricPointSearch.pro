@@ -19,11 +19,15 @@ SOURCES += \
     algorithms.cpp \
     draw.cpp \
     main.cpp \
+    sortbyomega.cpp \
+    sortbyy.cpp \
     widget.cpp
 
 HEADERS += \
     algorithms.h \
     draw.h \
+    sortbyomega.h \
+    sortbyy.h \
     widget.h
 
 FORMS += \

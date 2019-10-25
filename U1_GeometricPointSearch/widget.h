@@ -25,6 +25,8 @@ private slots:
 
     void on_importPolygonButton_clicked();
 
+    void on_generatePolygonsButton_clicked();
+
 private:
     Ui::Widget *ui;
 };

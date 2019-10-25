@@ -3,6 +3,7 @@
 #include "algorithms.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QString>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -20,6 +21,7 @@ void Widget::on_clearButton_clicked()
 {
     ui->Canvas->clearCanvas();
     ui->label_displayResult->clear();
+    ui -> lineEdit_polygonCount -> clear();
 }
 
 void Widget::on_analyzeButton_clicked()
@@ -30,7 +32,7 @@ void Widget::on_analyzeButton_clicked()
     QPoint q = ui->Canvas->getPoint();
 
     //Get number of polygons in Canvas
-    int count_pol_Canvas = ui->Canvas->getNumberOfPolygons();
+    unsigned int count_pol_Canvas = ui->Canvas->getNumberOfPolygons();
 
     //In case of no polygon
     if(count_pol_Canvas == 0 )
@@ -48,7 +50,7 @@ void Widget::on_analyzeButton_clicked()
     //Winding Number algorithm
     if (ui->comboBox->currentIndex() == 0)
     {
-        for(int h = 0; h < count_pol_Canvas; h++)
+        for(unsigned int h = 0; h < count_pol_Canvas; h++)
         {
             //Get polygon from polygons for analysis
             std::vector<QPoint> pol_analy = ui -> Canvas -> getPolygon(h);
@@ -73,7 +75,7 @@ void Widget::on_analyzeButton_clicked()
     // Ray Crossing algorithm
     else
     {
-        for(int h = 0 ; h < count_pol_Canvas; h++)
+        for(unsigned int h = 0 ; h < count_pol_Canvas; h++)
         {
             //Get polygon from polygons for analysis
             std::vector<QPoint> pol_analy = ui -> Canvas -> getPolygon(h);
@@ -100,6 +102,8 @@ void Widget::on_analyzeButton_clicked()
 
 void Widget::on_importPolygonButton_clicked()
 {
+    ui->Canvas->clearCanvas();
+
     //Select text file with polygons coordinates
     QString source_file = QFileDialog::getOpenFileName(this, "Select text file with the polygons", "C://", "Text file (*.txt)");
 
@@ -131,3 +135,29 @@ void Widget::on_importPolygonButton_clicked()
     }
 }
 
+
+void Widget::on_generatePolygonsButton_clicked()
+{
+    ui->Canvas->clearCanvas();
+
+    //Get number of generated polygons
+    int pol_count = ui -> lineEdit_polygonCount -> text().toInt();
+
+    //Test
+    //1)Value not inserted
+    if(pol_count == 0)
+    {
+        QMessageBox::warning(this, "How many points in the polygon do you want?", "Insert number of points in the polygon");
+    }
+
+    //2)Inserted value lower than 3, polygon not defined
+    else if(pol_count < 3 && pol_count > 0)
+    {
+        QMessageBox::warning(this, "Polygon not defined", "Insert number bigger than 2");
+    }
+
+    //Generate points, there must be 3 or more points generated
+    else
+        ui -> Canvas -> generatePoints(pol_count);
+    repaint();
+}

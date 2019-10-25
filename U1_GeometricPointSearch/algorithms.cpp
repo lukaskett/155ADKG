@@ -2,9 +2,14 @@
 #include <cmath>
 #include <QtMath>
 #include <QDebug>
+#include <random>
+#include <sortbyy.h>
+#include <sortbyomega.h>
+#include <QMessageBox>
 
 Algorithms::Algorithms()
 {
+
 }
 
 int Algorithms::positionPointPolygonWinding(QPoint &q, std::vector<QPoint> &pol)
@@ -15,15 +20,15 @@ int Algorithms::positionPointPolygonWinding(QPoint &q, std::vector<QPoint> &pol)
     // Tolerance
     double eps = 1.0e-6;
 
-    double xir = pol[0].x();
-    double yir = pol[0].y();
+    //double xir = pol[0].x();
+    //double yir = pol[0].y();
 
 
     // The size of polygon
-    int n = pol.size();
+    unsigned int n = pol.size();
 
     //Browse all points of polygon
-    for (int i = 0; i < n; i++){
+    for (unsigned int i = 0; i < n; i++){
 
         //Measure angle
         double omega = getAngle2Vectors(pol[i], q, pol[(i+1)%n], q);
@@ -70,13 +75,13 @@ int Algorithms::positionPointPolygonRayCrossing(QPoint &q, std::vector<QPoint> &
     int k = 0;
 
     // Size of polygon
-    int n = pol.size();
+    unsigned int n = pol.size();
 
     //Reduce first point
     double xir = pol[0].x() - q.x();
     double yir = pol[0].y() - q.y();
 
-    for (int i = 1; i < n+1 ; i++)
+    for (unsigned int i = 1; i < n+1 ; i++)
     {
         //Reduce coordinates
         double xiir = pol[i%n].x() - q.x();
@@ -94,7 +99,7 @@ int Algorithms::positionPointPolygonRayCrossing(QPoint &q, std::vector<QPoint> &
 
         }
         //Point in the upper half plane
-        if ((yir > 0) && (yiir <= 0) || (yiir > 0) && (yir <= 0) )
+        if (((yir > 0) && (yiir <= 0)) || ((yiir > 0) && (yir <= 0)))
         {
 
             // Compute intersection
@@ -158,7 +163,90 @@ double Algorithms::getAngle2Vectors(QPoint &p1, QPoint &p2, QPoint &p3, QPoint &
     return angle;
 }
 
+std::vector<QPoint>Algorithms::polGen(int pol_count)
+{
+    //Vector with generated points
+    std::vector<QPoint> body;
 
+    //Can not generate polygon for 2 points and less
+    if(pol_count > 2)
+    {
 
+    //Generate random points, number of points as argument
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 eng(rd()); // seed the generator
+    std::uniform_int_distribution<> distr_x(100, 700); // define the x range
+    std::uniform_int_distribution<> distr_y(50, 650); // define the y range
+
+    //Generate new point
+    QPoint point_gen;
+
+    for(int n = 0; n < pol_count; n++)
+    {
+
+        //Generate values
+        int x = distr_x(eng);
+        int y = distr_y(eng);
+
+        //Assign values to the coordinates
+        point_gen.setX(x);
+        point_gen.setY(y);
+
+        //Add generated point to vector
+        body.push_back(point_gen);
+    }
+    return body;
+    }        
+}
+
+std::vector<QPoint> Algorithms::GrahamScan(std::vector<QPoint> gen_points_part)
+{
+    //Store sorted points as they create non-convex polygon
+    std::vector<QPoint> gen_points_sorted;
+
+    //Sort points by y
+    std::sort(gen_points_part.begin(),gen_points_part.end(), SortByY());
+
+    //Pivot with the lowest y-coordinate
+    QPoint pivot = gen_points_part[0];
+
+    //Point on the left from point q
+    QPoint r(pivot.x()-1, pivot.y());
+
+    //Add th first point of polygon
+    gen_points_sorted.push_back(pivot);
+
+    // Feature count
+    unsigned int n = gen_points_part.size();
+
+    // Vecctor of structure objects
+    std::vector<SortByOmega::OmegaStruct> points_structure;
+
+    //Define struct
+    SortByOmega::OmegaStruct PointOmega;
+
+    //Calculate angles for all points and save them into the structure
+    for (unsigned int i = 0; i < n; i++)
+    {
+        //Calculate omega angle
+        double om_point = getAngle2Vectors(pivot, r, pivot, gen_points_part[i]);
+
+        //Save values
+        PointOmega.point = gen_points_part[i];
+        PointOmega.omega = om_point;
+        points_structure.push_back(PointOmega);
+    }
+    //Sort points by omega value
+    std::sort(points_structure.begin(), points_structure.end(), SortByOmega());
+
+    //Separate sorted points back to vector of points without omega angle
+    for (unsigned int i = 0; i < points_structure.size(); i++)
+    {
+        gen_points_sorted.push_back(points_structure[i].point);
+    }
+
+    //Return sorted points
+    return gen_points_sorted;
+}
 
 
