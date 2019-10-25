@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2019.10.23)  25 OCT 2019 22:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7200 64-bit) (preloaded format=pdflatex 2019.10.23)  25 OCT 2019 23:24
 entering extended mode
 **./U1_tz.tex
 (U1_tz.tex
@@ -388,6 +388,12 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 
+LaTeX Warning: Citation `introWherewolf' on page 3 undefined on input line 88.
+
+
+LaTeX Warning: Citation `introWherewolf' on page 3 undefined on input line 88.
+
+
 Overfull \hbox (17.45966pt too wide) in paragraph at lines 94--95
 []\OT1/cmr/m/n/12 Osetrenie sin-gu-la-rity sa vy-kona za-ve-denm miest-neho
  suradnicoveho systemu. 
@@ -408,7 +414,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 126--127
 
  []
 
-<./img/windin_alg.png, id=185, 332.74312pt x 124.21407pt>
+<./img/windin_alg.png, id=182, 332.74312pt x 124.21407pt>
 File: ./img/windin_alg.png Graphic file (type png)
 <use ./img/windin_alg.png>
 Package pdftex.def Info: ./img/windin_alg.png  used on input line 136.
@@ -419,13 +425,19 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 
+LaTeX Warning: Citation `geomVyhl' on page 5 undefined on input line 137.
+
+
+LaTeX Warning: Citation `geomVyhl' on page 5 undefined on input line 137.
+
+
 Overfull \hbox (7.9154pt too wide) in paragraph at lines 141--143
 \OT1/cmr/m/n/12 K sin-gularnym prpadom d^ojde pri Win-ding Al-go-ritmu ak je
  po-loha urcovaneho
  []
 
 [5 <./img/windin_alg.png>]
-<./img/txt_subor.png, id=202, 411.03563pt x 135.50626pt>
+<./img/txt_subor.png, id=196, 411.03563pt x 135.50626pt>
 File: ./img/txt_subor.png Graphic file (type png)
 <use ./img/txt_subor.png>
 Package pdftex.def Info: ./img/txt_subor.png  used on input line 171.
@@ -437,7 +449,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [6 <./img/txt_subor.png>]
-<./img/import.png, id=213, 618.51076pt x 455.90324pt>
+<./img/import.png, id=207, 618.51076pt x 455.90324pt>
 File: ./img/import.png Graphic file (type png)
 <use ./img/import.png>
 Package pdftex.def Info: ./img/import.png  used on input line 182.
@@ -448,7 +460,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 183.
 See the caption package documentation for explanation.
 
-<./img/import2.png, id=214, 617.30624pt x 454.69875pt>
+<./img/import2.png, id=208, 617.30624pt x 454.69875pt>
 File: ./img/import2.png Graphic file (type png)
 <use ./img/import2.png>
 Package pdftex.def Info: ./img/import2.png  used on input line 187.
@@ -458,7 +470,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 188.
 See the caption package documentation for explanation.
 
-<./img/import3.png, id=215, 617.30624pt x 453.49425pt>
+<./img/import3.png, id=209, 617.30624pt x 453.49425pt>
 File: ./img/import3.png Graphic file (type png)
 <use ./img/import3.png>
 Package pdftex.def Info: ./img/import3.png  used on input line 192.
@@ -474,7 +486,7 @@ Overfull \hbox (0.22234pt too wide) in paragraph at lines 196--197
 adame po-lohu bodu
  []
 
-<./img/warning.png, id=222, 616.704pt x 454.69875pt>
+<./img/warning.png, id=216, 616.704pt x 454.69875pt>
 File: ./img/warning.png Graphic file (type png)
 <use ./img/warning.png>
 Package pdftex.def Info: ./img/warning.png  used on input line 201.
@@ -485,7 +497,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [8 <./img/import3.png> <./img/warning.png>]
-<./img/bod_v_polygone.png, id=229, 616.704pt x 453.49425pt>
+<./img/bod_v_polygone.png, id=223, 616.704pt x 453.49425pt>
 File: ./img/bod_v_polygone.png Graphic file (type png)
 <use ./img/bod_v_polygone.png>
 Package pdftex.def Info: ./img/bod_v_polygone.png  used on input line 210.
@@ -496,7 +508,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 211.
 See the caption package documentation for explanation.
 
-<./img/na_hrane.png, id=230, 617.9085pt x 454.0965pt>
+<./img/na_hrane.png, id=224, 617.9085pt x 454.0965pt>
 File: ./img/na_hrane.png Graphic file (type png)
 <use ./img/na_hrane.png>
 Package pdftex.def Info: ./img/na_hrane.png  used on input line 220.
@@ -507,7 +519,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 See the caption package documentation for explanation.
 
 [9 <./img/bod_v_polygone.png> <./img/na_hrane.png>]
-<./img/mimo.png, id=236, 617.30624pt x 455.90324pt>
+<./img/mimo.png, id=230, 617.30624pt x 455.90324pt>
 File: ./img/mimo.png Graphic file (type png)
 <use ./img/mimo.png>
 Package pdftex.def Info: ./img/mimo.png  used on input line 225.
@@ -551,6 +563,13 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 385.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 385.
 Package rerunfilecheck Info: File `U1_tz.out' has not changed.
 (rerunfilecheck)             Checksum: 7C01A17DBC0A3452E79F870A85A4B61A;3630.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 385.
  ) 
 Here is how much of TeX's memory you used:
@@ -576,9 +595,9 @@ s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Martin/AppData
 /Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/M
 artin/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.p
 fb>
-Output written on U1_tz.pdf (16 pages, 449540 bytes).
+Output written on U1_tz.pdf (16 pages, 449295 bytes).
 PDF statistics:
- 326 PDF objects out of 1000 (max. 8388607)
+ 322 PDF objects out of 1000 (max. 8388607)
  82 named destinations out of 1000 (max. 500000)
  264 words of extra memory for PDF output out of 10000 (max. 10000000)
 
