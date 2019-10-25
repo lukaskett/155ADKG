@@ -1,0 +1,22 @@
+\begin{thebibliography}{1}
+
+\bibitem{cpp}
+Cplusplus. cplusplus.
+
+\bibitem{QtDdocs}
+Qt documentation archives. qt documentation archives.
+
+\bibitem{geomVyhl}
+Tomáš Bayer.
+\newblock Geometrické vyhledání.
+
+\bibitem{bayer2008algoritmy}
+Tom{\'a}{\v{s}} Bayer.
+\newblock {\em Algoritmy v digit{\'a}ln{\'\i} kartografii}.
+\newblock Karolinum, 2008.
+
+\bibitem{introWherewolf}
+Introducing Wherewolf.
+\newblock A serverless boundary service from wnyc.
+
+\end{thebibliography}

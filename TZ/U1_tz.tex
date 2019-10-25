@@ -54,9 +54,10 @@ Nájdený polygón obsahujúci zadaný bod q graficky zvýraznite vhodným spôs
 V rámci úlohy sú vypracované tieto bonusové úlohy
 
 \begin{itemize}
-\item Ošetrenie singulárneho prípadu pri Winding Number Algorithm.
-\item Ošetrenie singulárneho prípadu pri oboch algoritmoch.
-\item Zvýraznenie všetkých polygónov pre oba uvedené singulárne prípady.
+\item Ošetrenie singulárneho prípadu pri Winding Number Algorithm. \textit{+2b}
+\item Ošetrenie singulárneho prípadu pri oboch algoritmoch. \textit{+2b}
+\item Zvýraznenie všetkých polygónov pre oba uvedené singulárne prípady. \textit{+2b}
+\item Algoritmus pre automatické generovanie nekonvexných polygónov. \textit{+5b}
 \end{itemize}
 %------------------------------------------------------------------------
 
@@ -273,13 +274,13 @@ Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algori
 \end{itemize}
 \item[] \underline{polGen}
 \begin{itemize}
-\item generuje náhodně polygon s daným počtem bodů, zatím pouze jeden
-\item body polygonu jsem generovány v rozsahu 100 až 700 pro x-ovou souřadnici a 50 až 650 pro y-ovou souřadnici
-\item vstupem je uživatelem zadaný počet bodů přes widget lineEdit
+\item náhodne generuje polygón s daným počtom bodov. V šúčstnom stave len jeden polygón.
+\item Body polygónu se generované v rozsahu 100 - 700 pre x-ovú súradnicu, 50 - 650 pre y-onovú súradnicu.
+\item Vstupom je zadaný počet bodov od užívateľa prostredníctvom widget lineEdit.
 \end{itemize}
 \item[] \underline{GrahamScan}
 \begin{itemize}
-\item opravuje pořadí vstupních bodů podle velikosti úhlu omega tak, aby bylo možné sestavit nekonvexní polygon s využitím algoritmu Graham Scan pro tvorbu nekonvexní obálky.
+\item opravuje poradie vstupných bodov podľa veľkosti uhlu omega, tak aby bolo možné zostaviť nekonvený polygón s využitím Graham Scan algoritmu pre tvorbu nekonvexnej obálky.
 \end{itemize}
 \end{enumerate}
 
@@ -331,7 +332,7 @@ Trieda Draw slúži ku grafickému vykresleniu bodu q a polygónovej mapy.
 \end{itemize}
 \item[] \underline{void generatePoints}
 \begin{itemize}
-\item přistupuje k členské proměnné generated\_points a vkládá do ní vygenerované a Graham Scan algoritmem zpracované (seřazené) body.
+\item pristupuje k členskej premennej generated\_points a vkládá do nej vygenerované a Graham Scan algoritmom zpracované (zoradené) body.
 \end{itemize}
 \end{enumerate}
 
@@ -360,11 +361,11 @@ Tieda Widget obashuje metódy ktoré sú odkazom na sloty umožňujúce vykonáv
 
 \subsection{Trieda SortByY}
 \begin{itemize}
-\item Třídí body ve vektoru podle velikosti y-ové souřadnice každého z bodů. 
+\item Triedi body vo vektore podľa veľkosti y-onovej súradnice každého bohu. 
 \end{itemize}
 \subsection{Trieda SortByOmega}
 \begin{itemize}
-\item Třídí body ve vektoru podle velikosti úhlu omega. Tedy od rovnoběžky daným bodem, nejčastastěji pivotem s minimální nebo maximální jednou ze souřadnic. V našem případě od bodu s nejmenší y-ovou souřadnicí.
+\item Triedi body vo vektore podľa veľkosti uhlu omega. Uhol omega je uhol od rovnobežky daným bodom, najčaštejšie pivotom s minimálnou alebo maximálnou súradnicou. V našom prípade sa jedná o bod s najmenšou y-onovou súradnicou.
 \end{itemize}
 %-------------------------------------------------------------------------
 
@@ -373,7 +374,7 @@ V priebehu vypracovania úlohy sme narazili na množstvo problémov, ktoré sme 
 
 Veľké problémy nám spôsobilo správne kódovanie textového súboru. Obsah súboru nebolo možné dlho načítať, s riešením sme strávili niekoľko hodín. Avšak podarilo sa nám tento problém vyriešiť, vykonali sme zmenu kódovania na UTF-8 s BOM (byte order mark).
 
-Výsledkom je funkčná aplikácia, ktorá umožňuje analyzovať polohu bodu voči polygónu z polygónovej mapy. V prípade, vylepšenia aplikácie by bolo zaujímavé implementovať možnosť nahrania *.shp súboru. V takej situácii by bolo potrebné vyriešiť vhodný vstupný formát súboru *.shp. Ďalším možným vylepšením je implementácia algoritmu pre automatické generovanie nekonvexných polygónov. Túto bonusovú úlohu sme z časových dôvodov do našej aplikácie nezakomponovali. Alespoň jsem přidali možnost generování jednoho polygonu. Generování funguje pro 16 bodů. u 17. nastává nevyřešený problém, který znehodnocuje další generování.
+Výsledkom je funkčná aplikácia, ktorá umožňuje analyzovať polohu bodu voči polygónu z polygónovej mapy. V prípade, vylepšenia aplikácie by bolo zaujímavé implementovať možnosť nahrania *.shp súboru. V takej situácii by bolo potrebné vyriešiť vhodný vstupný formát súboru *.shp. Ďalším možným vylepšením je implementácia algoritmu pre automatické generovanie nekonvexných polygónov. Túto bonusovú úlohu sme z časových dôvodov do našej aplikácie nezakomponovali. Pokúsili sme sa pridať možnosť generovania jedného polygónu. Generovanie je funkčné pre 16 bodov. Pri 17tom bode nastáva nevyriešený problém, znehodnocujúci ďalšie generovanie.
 %-------------------------------------------------------------------------
 \nocite{*}
 %\printbibliography
