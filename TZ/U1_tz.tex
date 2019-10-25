@@ -178,17 +178,17 @@ Súradnice bodu q sa do aplikácie zadávajú kliknutím myšou.
 Načítanie polygónovej mapy sa uskutoční pomocou tlačidla Import polygon. Po zadaní *.txt súboru sa objaví dialógové okno, ktoré oznamuje počet nahratých polygónov. Po stlačení tlačidla „OK“ sa polygóny vykreslia.
 
 \begin{center}
-   \includegraphics[width=10cm]{./img/import.png}
+   \includegraphics[width=9cm]{./img/import.png}
    \captionof{figure}{Uvodné okno}
 \end{center}
 
 \begin{center}
-   \includegraphics[width=10cm]{./img/import2.png}
+   \includegraphics[width=9cm]{./img/import2.png}
    \captionof{figure}{Informace o počtě načítaných polygónov}
 \end{center}
 
 \begin{center}
-   \includegraphics[width=10cm]{./img/import3.png}
+   \includegraphics[width=9cm]{./img/import3.png}
    \captionof{figure}{Zobrazenie polygónovej mapy}
 \end{center}
 
@@ -197,7 +197,7 @@ Následne kliknutím myšou do vykreslovacieho plátna zadáme polohu bodu q. N�
 V prípade, že dôjde k neúspešnému nahratiu polygónovej mapy zobrazí sa varovné okno s varovnou hláškou.
 
 \begin{center}
-   \includegraphics[width=10cm]{./img/warning.png}
+   \includegraphics[width=9cm]{./img/warning.png}
    \captionof{figure}{Neúspešné načítanie polygónovej mapy - varovné okno}
 \end{center}
 %-------------------------------------------------------------------------
@@ -206,22 +206,22 @@ V prípade, že dôjde k neúspešnému nahratiu polygónovej mapy zobrazí sa v
 V grafickom rozhraní aplikácie sa po vykonaní analýzy zobrazí výsledok analýzy. Pokiaľ bod leží v polygóne, vysvieti a vyšráfuje sa polygón obsahujúci bod q. Pokiaľ bod leží v spoločnom vrchole viacerých polygónov vysvietia a vyšráfujú sa všetky polygóny pre ktoré je daný vrchol spoločný. Pokiaľ bod leží mimo polygónu v grafickom rozhraní aplikácie nenastane žiadna zmena. O polohe bodu takisto invormuje hláška vypísaná v label pod tlačidlom Analyze.
 
 \begin{center}
-   \includegraphics[width=10cm]{./img/bod_v_polygone.png}
+   \includegraphics[width=9cm]{./img/bod_v_polygone.png}
    \captionof{figure}{Bod q vnútri polygónu}
 \end{center}
 
-\begin{center}
-   \includegraphics[width=10cm]{./img/bod_na_vrchole.png}
-   \captionof{figure}{Bod q v spoločnom vrchole viacerých polygónov}
-\end{center}
+%\begin{center}
+%  \includegraphics[width=10cm]{./img/bod_na_vrchole.png}
+%   \captionof{figure}{Bod q v spoločnom vrchole viacerých polygónov}
+%\end{center}
 
 \begin{center}
-   \includegraphics[width=10cm]{./img/na_hrane.png}
+   \includegraphics[width=9cm]{./img/na_hrane.png}
    \captionof{figure}{Bod q na hrane}
 \end{center}
 
 \begin{center}
-   \includegraphics[width=10cm]{./img/mimo.png}
+   \includegraphics[width=9cm]{./img/mimo.png}
    \captionof{figure}{Bod q mimo polygónu}
 \end{center}
 %-------------------------------------------------------------------------
@@ -271,6 +271,16 @@ Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algori
 \item[] 0 – bod sa nachádza vpravo od priamky
 \item[] 1 – bod sa nachádza vľavo od priamky
 \end{itemize}
+\item[] \underline{polGen}
+\begin{itemize}
+\item generuje náhodně polygon s daným počtem bodů, zatím pouze jeden
+\item body polygonu jsem generovány v rozsahu 100 až 700 pro x-ovou souřadnici a 50 až 650 pro y-ovou souřadnici
+\item vstupem je uživatelem zadaný počet bodů přes widget lineEdit
+\end{itemize}
+\item[] \underline{GrahamScan}
+\begin{itemize}
+\item opravuje pořadí vstupních bodů podle velikosti úhlu omega tak, aby bylo možné sestavit nekonvexní polygon s využitím algoritmu Graham Scan pro tvorbu nekonvexní obálky.
+\end{itemize}
 \end{enumerate}
 
 \subsection{Trieda Draw}
@@ -290,6 +300,10 @@ Trieda Draw slúži ku grafickému vykresleniu bodu q a polygónovej mapy.
 \item[] \underline{std$::$vector$<$int$>$ analyze\_results\_by\_polygons}
 \begin{itemize}
 \item vektor v ktorom sú uložené výsledky analýzy
+\end{itemize}
+\item[] \underline{std$::$vector$<$QPoint$>$ generated\_points}
+\begin{itemize}
+\item vektor uloženými vygenerovanými body pro tvorbu generovaného polygonu
 \end{itemize}
 \end{enumerate}
 
@@ -315,6 +329,10 @@ Trieda Draw slúži ku grafickému vykresleniu bodu q a polygónovej mapy.
 \begin{itemize}
 \item slúži k určeniu počtu polygónov v Canvase. Návratový typ je integer.
 \end{itemize}
+\item[] \underline{void generatePoints}
+\begin{itemize}
+\item přistupuje k členské proměnné generated\_points a vkládá do ní vygenerované a Graham Scan algoritmem zpracované (seřazené) body.
+\end{itemize}
 \end{enumerate}
 
 \subsection{Trieda Widget}
@@ -337,10 +355,17 @@ Tieda Widget obashuje metódy ktoré sú odkazom na sloty umožňujúce vykonáv
 \item[] \underline{showResultOfAnalysis}
 \begin{itemize}
 \item pomocou tejto metódy vypisujeme výsledkok analýzy na label v grafickom okne. Vstupom je výsledok analýzy pre jeden polygón a premenná show result, ktorá je typu bool.
-
 \end{itemize}
 \end{enumerate}
 
+\subsection{Trieda SortByY}
+\begin{itemize}
+\item Třídí body ve vektoru podle velikosti y-ové souřadnice každého z bodů. 
+\end{itemize}
+\subsection{Trieda SortByOmega}
+\begin{itemize}
+\item Třídí body ve vektoru podle velikosti úhlu omega. Tedy od rovnoběžky daným bodem, nejčastastěji pivotem s minimální nebo maximální jednou ze souřadnic. V našem případě od bodu s nejmenší y-ovou souřadnicí.
+\end{itemize}
 %-------------------------------------------------------------------------
 
 \section{Záver}
@@ -348,7 +373,7 @@ V priebehu vypracovania úlohy sme narazili na množstvo problémov, ktoré sme 
 
 Veľké problémy nám spôsobilo správne kódovanie textového súboru. Obsah súboru nebolo možné dlho načítať, s riešením sme strávili niekoľko hodín. Avšak podarilo sa nám tento problém vyriešiť, vykonali sme zmenu kódovania na UTF-8 s BOM (byte order mark).
 
-Výsledkom je funkčná aplikácia, ktorá umožňuje analyzovať polohu bodu voči polygónu z polygónovej mapy. V prípade, vylepšenia aplikácie by bolo zaujímavé implementovať možnosť nahrania *.shp súboru. V takej situácii by bolo potrebné vyriešiť vhodný vstupný formát súboru *.shp. Ďalším možným vylepšením je implementácia algoritmu pre automatické generovanie nekonvexných polygónov. Túto bonusovú úlohu sme z časových dôvodov do našej aplikácie nezakomponovali.
+Výsledkom je funkčná aplikácia, ktorá umožňuje analyzovať polohu bodu voči polygónu z polygónovej mapy. V prípade, vylepšenia aplikácie by bolo zaujímavé implementovať možnosť nahrania *.shp súboru. V takej situácii by bolo potrebné vyriešiť vhodný vstupný formát súboru *.shp. Ďalším možným vylepšením je implementácia algoritmu pre automatické generovanie nekonvexných polygónov. Túto bonusovú úlohu sme z časových dôvodov do našej aplikácie nezakomponovali. Alespoň jsem přidali možnost generování jednoho polygonu. Generování funguje pro 16 bodů. u 17. nastává nevyřešený problém, který znehodnocuje další generování.
 %-------------------------------------------------------------------------
 \nocite{*}
 %\printbibliography
