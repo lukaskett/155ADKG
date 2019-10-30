@@ -8,3 +8,12 @@ U1_GeometricPointSearch/*.pro.user
 build*
 
 U1_GeometricPointSearch/U1_GeometricPointSearch.pro.user
+
+#LaTeX files
+*.toc
+*.out
+*.log
+*.syntex.gz
+*.blb
+*.bbl
+*.aux
