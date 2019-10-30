@@ -106,7 +106,7 @@ Riešenie sa v takomto prípade týka len takých hrán polygónu, ktorých jede
 \item Redukcia súradníc X a Y na bod q $\to$ x', y'.
 \item Určenie veľkosti polygónu int n =pol.size()
 \item Cyklus for pre všetky body polygónu
-\item Podmínka v cyklu pro započítání průsečíků
+\item Podmienka v cykle pre započítanie priesečníkov
 \item[] $if(y_i' >0) \&\& (y_{i-1}' \leq 0) \|\| (y_{i-1}' > 0) \&\& (y_i' \leq 0)$
 
 \begin{itemize}
@@ -205,13 +205,13 @@ V prípade, že dôjde k neúspešnému nahratiu polygónovej mapy zobrazí sa v
 \end{center}
 
 \subsection{Generování bodů}
-Aplikace umožňuje generování nekonvexního polygonu. Vstupem pro generování je požadovaný počet bodů v generovaném polygonu.
+Aplikácia umožňuje generovanie nekonvexného polygónu. Vstupom pre toto generovanie je požadovaný počet bodov v generovanom polygóne.
 
-Generování je prováděno pomocí $std::random\_device$. Byl použit generátor $std::mt19937$(A Mersenne Twister pseudo-random generator of 32-bit numbers). Pro souřadnici x byly hodnoty generovány z rozsahu 100 až 700 a pro souřadnici y v rozsahu 50 až 650 pomocí $std::uniform\_int\_distribution<>$.
+Generovanie je prevádzané pomocou $std::random\_device$. Použili sme generátor $std::mt19937$(A Mersenne Twister pseudo-random generator of 32-bit numbers). Pre súradnicu x boli hodnoty generované z rozsahu 100 až 700 a pre súradnicu y v  rozsahu 50 až 650 pomocou $std::uniform\_int\_distribution<>$.
 
 \begin{center}
    \includegraphics[width=10cm]{./img/generate.png}
-   \captionof{figure}{Ukázka vygenerovaného polygonu s 16 body}
+   \captionof{figure}{Ukážka vygenerovaného polygonu s 16 bodmi}
 \end{center}
 %-------------------------------------------------------------------------
 
