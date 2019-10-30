@@ -106,11 +106,12 @@ Riešenie sa v takomto prípade týka len takých hrán polygónu, ktorých jede
 \item Redukcia súradníc X a Y na bod q $\to$ x', y'.
 \item Určenie veľkosti polygónu int n =pol.size()
 \item Cyklus for pre všetky body polygónu
-\item $if(y_i' >0) \&\& (y_{i-1}' \leq 0) \|\| (y_{i-1}' > 0) \&\& (y_i' \leq 0)$
+\item Podmínka v cyklu pro započítání průsečíků
+\item[] $if(y_i' >0) \&\& (y_{i-1}' \leq 0) \|\| (y_{i-1}' > 0) \&\& (y_i' \leq 0)$
 
 \begin{itemize}
-\item $x_m'=(x_i'y_{i-1}'-x_{i-1}'y_i')/(y_i'-y_{i-1}')$
-\item $if(x_m'>0), k = k+1$
+\item[] $x_m'=(x_i'y_{i-1}'-x_{i-1}'y_i')/(y_i'-y_{i-1}')$
+\item[] $if(x_m'>0), k = k+1$
 \end{itemize}
 
 \item if(k \% 2) $\neq 0$ $potom$ $q \in P$.
@@ -174,6 +175,7 @@ Polygónovú mapu do našej aplikácie importujeme pomocou textového súboru *.
 
 \subsection{Bod q}
 Súradnice bodu q sa do aplikácie zadávajú kliknutím myšou.
+%------------------------------------------------------------------------
 
 \section{Ukážka vytvorenej aplikácie}
 Načítanie polygónovej mapy sa uskutoční pomocou tlačidla Import polygon. Po zadaní *.txt súboru sa objaví dialógové okno, ktoré oznamuje počet nahratých polygónov. Po stlačení tlačidla „OK“ sa polygóny vykreslia.
@@ -200,6 +202,16 @@ V prípade, že dôjde k neúspešnému nahratiu polygónovej mapy zobrazí sa v
 \begin{center}
    \includegraphics[width=9cm]{./img/warning.png}
    \captionof{figure}{Neúspešné načítanie polygónovej mapy - varovné okno}
+\end{center}
+
+\subsection{Generování bodů}
+Aplikace umožňuje generování nekonvexního polygonu. Vstupem pro generování je požadovaný počet bodů v generovaném polygonu.
+
+Generování je prováděno pomocí $std::random\_device$. Byl použit generátor $std::mt19937$(A Mersenne Twister pseudo-random generator of 32-bit numbers). Pro souřadnici x byly hodnoty generovány z rozsahu 100 až 700 a pro souřadnici y v rozsahu 50 až 650 pomocí $std::uniform\_int\_distribution<>$.
+
+\begin{center}
+   \includegraphics[width=10cm]{./img/generate.png}
+   \captionof{figure}{Ukázka vygenerovaného polygonu s 16 body}
 \end{center}
 %-------------------------------------------------------------------------
 
@@ -375,11 +387,14 @@ V priebehu vypracovania úlohy sme narazili na množstvo problémov, ktoré sme 
 Veľké problémy nám spôsobilo správne kódovanie textového súboru. Obsah súboru nebolo možné dlho načítať, s riešením sme strávili niekoľko hodín. Avšak podarilo sa nám tento problém vyriešiť, vykonali sme zmenu kódovania na UTF-8 s BOM (byte order mark).
 
 Výsledkom je funkčná aplikácia, ktorá umožňuje analyzovať polohu bodu voči polygónu z polygónovej mapy. V prípade, vylepšenia aplikácie by bolo zaujímavé implementovať možnosť nahrania *.shp súboru. V takej situácii by bolo potrebné vyriešiť vhodný vstupný formát súboru *.shp. Ďalším možným vylepšením je implementácia algoritmu pre automatické generovanie nekonvexných polygónov. Túto bonusovú úlohu sme z časových dôvodov do našej aplikácie nezakomponovali. Pokúsili sme sa pridať možnosť generovania jedného polygónu. Generovanie je funkčné pre 16 bodov. Pri 17tom bode nastáva nevyriešený problém, znehodnocujúci ďalšie generovanie.
+
+Bohužiaľ po implementování generovania nekonvexného polygónu nastal problém pri analýze pomocou Ray Crossing algoritmu. Túto chybu se nám bohužiaľ aj napriek veľkej snahe a maximálnemu nasadeniu nepodarilo doposiaľ odtraniť a zostáva jedným z cieľov vylepšenia do budúcna.
+
 %-------------------------------------------------------------------------
 \nocite{*}
 %\printbibliography
-\bibliography{literatura}{}
 \bibliographystyle{plain}
+\bibliography{literatura}{}
 %-------------------------------------------------------------------------
     
 \end{document}             % Konec dokumentu.
