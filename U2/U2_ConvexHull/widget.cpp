@@ -1,6 +1,7 @@
 #include "widget.h"
 #include "ui_widget.h"
 #include "algorithms.h"
+#include <QMessageBox>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -47,4 +48,24 @@ void Widget::on_pushButton_clearPoints_clicked()
 void Widget::on_pushButton_clearCH_clicked()
 {
     ui -> Canvas -> clearCH();
+}
+
+void Widget::on_pushButton_generatePoints_clicked()
+{
+    //Get window size
+    int width = ui -> Canvas -> size().width();
+    int height = ui -> Canvas -> size().height();
+
+    //Get method and point count for point generation
+    int method = ui -> comboBox_generateMethod -> currentIndex();
+    int count_points = ui -> comboBox_countPoints -> currentText().toInt();
+
+    //Generate points
+    ui -> Canvas -> generatePoints(method, count_points, width, height);
+    repaint();
+
+    std::vector<QPoint> points;
+    points = ui->Canvas -> getPoints();
+    int count = points.size();
+    QMessageBox::information(this, "Test generate", QString("Point count: %1, height: %2").arg(count).arg(height));
 }

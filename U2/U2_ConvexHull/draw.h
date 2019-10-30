@@ -20,6 +20,7 @@ public:
     void clearPoints(){points.clear(); repaint();}
     std::vector<QPoint>getPoints(){return points;}
     void setCH(QPolygon &hull){ch = hull;}
+    void generatePoints(int method, int count_points, int width, int height);
 
 signals:
 

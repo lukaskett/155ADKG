@@ -22,6 +22,8 @@ private slots:
 
     void on_pushButton_clearCH_clicked();
 
+    void on_pushButton_generatePoints_clicked();
+
 private:
     Ui::Widget *ui;
 };

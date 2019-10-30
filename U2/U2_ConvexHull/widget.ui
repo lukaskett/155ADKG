@@ -54,7 +54,7 @@
        </item>
        <item>
         <property name="text">
-         <string>near circle(the worst case)</string>
+         <string>circle</string>
         </property>
        </item>
       </widget>
