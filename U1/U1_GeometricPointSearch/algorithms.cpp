@@ -231,18 +231,28 @@ std::vector<QPoint> Algorithms::GrahamScan(std::vector<QPoint> gen_points_part)
         //Calculate omega angle
         double om_point = getAngle2Vectors(pivot, r, pivot, gen_points_part[i]);
 
+        //Calculate distance
+        double dx = gen_points_part[i].x() - pivot.x();
+        double dy = gen_points_part[i].y() - pivot.y();;
+        double dist_q = sqrt(dx * dx + dy * dy);
+
         //Save values
         PointOmega.point = gen_points_part[i];
         PointOmega.omega = om_point;
+        PointOmega.distance = dist_q;
         points_structure.push_back(PointOmega);
     }
+
+    //Number of features
+    int m = points_structure.size();
+
     //Sort points by omega value
     std::sort(points_structure.begin(), points_structure.end(), SortByOmega());
 
     //Separate sorted points back to vector of points without omega angle
-    for (unsigned int i = 0; i < points_structure.size(); i++)
-    {
-        gen_points_sorted.push_back(points_structure[i].point);
+    for (unsigned int i = 0; i < m; i++)
+    {        
+            gen_points_sorted.push_back(points_structure[i].point);
     }
 
     //Return sorted points
