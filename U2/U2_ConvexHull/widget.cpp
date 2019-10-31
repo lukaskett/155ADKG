@@ -2,6 +2,7 @@
 #include "ui_widget.h"
 #include "algorithms.h"
 #include <QMessageBox>
+#include <chrono>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -22,6 +23,10 @@ void Widget::on_pushButton_createCH_clicked()
     std::vector<QPoint> points = ui -> Canvas -> getPoints();
     QPolygon ch;
 
+    //Measure time - start timer
+    //https://stackoverflow.com/questions/2808398/easily-measure-elapsed-time
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
     if(points.size() >0 )
     {
         if(ui -> comboBox_chMethod->currentIndex() == 0)
@@ -34,6 +39,14 @@ void Widget::on_pushButton_createCH_clicked()
             ch = Algorithms::sweepLine(points);
     }
 
+    //Stop Timer
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+
+    //Calculate elapsed time - microseconds precision -> miliseconds
+    double time_clock = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() / 1000;
+   QString time_elapsed = QString::number(time_clock);
+   ui -> label_timeElapsed -> setText(time_elapsed);
+
     //Draw
     ui -> Canvas -> setCH(ch);
     repaint();
@@ -43,15 +56,20 @@ void Widget::on_pushButton_createCH_clicked()
 void Widget::on_pushButton_clearPoints_clicked()
 {
     ui -> Canvas ->clearPoints();
+    ui -> label_timeElapsed -> clear();
 }
 
 void Widget::on_pushButton_clearCH_clicked()
 {
     ui -> Canvas -> clearCH();
+    ui -> label_timeElapsed -> clear();
 }
 
 void Widget::on_pushButton_generatePoints_clicked()
 {
+    //Clear time elapsed label
+    ui -> label_timeElapsed -> clear();
+
     //Get window size
     int width = ui -> Canvas -> size().width();
     int height = ui -> Canvas -> size().height();
