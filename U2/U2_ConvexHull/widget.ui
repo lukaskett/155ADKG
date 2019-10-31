@@ -25,9 +25,30 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
+      <widget class="Line" name="line_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Generate points</string>
        </property>
@@ -127,6 +148,13 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_generatePoints">
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Generate points</string>
        </property>
@@ -146,7 +174,21 @@
       </spacer>
      </item>
      <item>
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Create convex hull</string>
        </property>
@@ -184,7 +226,21 @@
       </widget>
      </item>
      <item>
+      <widget class="QCheckBox" name="checkBox_repeat10">
+       <property name="text">
+        <string>repeat 10x</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_createCH">
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Create convex hull</string>
        </property>
@@ -206,7 +262,7 @@
      <item>
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>Time elapsed(s):</string>
+        <string>Time elapsed(ms):</string>
        </property>
       </widget>
      </item>
@@ -231,6 +287,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_clearCH">
        <property name="text">
         <string>Clear convex hull</string>
@@ -241,6 +304,13 @@
       <widget class="QPushButton" name="pushButton_clearPoints">
        <property name="text">
         <string>Clear points</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
