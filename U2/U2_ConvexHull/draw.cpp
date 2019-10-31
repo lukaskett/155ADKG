@@ -29,7 +29,13 @@ void Draw::paintEvent(QPaintEvent *event)
 
     //Draw points
     int r = 4;
-    for(unsigned int i = 0; i < points.size(); i++)
+    unsigned int size = points.size();
+
+    //Draw only 5000 points and less
+    if(size > 5000)
+        size = 5000;
+
+    for(unsigned int i = 0; i < size; i++)
     {
         qp.drawEllipse(points[i].x() - r/2,points[i].y() - r/2, r, r);
 
@@ -63,9 +69,9 @@ void Draw::generatePoints(int method, int count_points, int width, int height)
     //Raster distribution
     if(method == 0)
     {
-        int density = 2;
-        int step_w = density * 10;
-        int step_h = density * 15;
+        double step = sqrt(count_points);
+        int step_w = width / step;
+        int step_h = height / step;
 
         for(int i = boundary_gap; i < (height - boundary_gap); i = i + step_h)
         {
@@ -73,6 +79,12 @@ void Draw::generatePoints(int method, int count_points, int width, int height)
             {
                 points.push_back(QPoint(j,i));
             }
+        }
+
+        //Get exact amount of points
+        while(points.size() > count_points)
+        {
+            points.pop_back();
         }
     }
 
