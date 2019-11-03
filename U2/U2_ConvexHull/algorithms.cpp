@@ -112,6 +112,14 @@ QPolygon Algorithms::jarvisScan(std::vector<QPoint> &points)
 
     }while(!(pj == q));
 
+    //Delete duplicit points
+    for (int h = 0; h < ch.size() - 1; h++) {
+        if ((ch[h].x() == ch[h+1].x()) && (ch[h].y() == ch[h+1].y())) {
+            ch.remove(h);
+            h--;
+        }
+    }
+
     return ch;
 
 }
@@ -165,6 +173,14 @@ QPolygon Algorithms::qHull(std::vector<QPoint> &points)
 
     //4)Call resursive function
     qh(0, 1, lpoints, ch);
+
+    //Delete duplicit points
+    for (int h = 0; h < ch.size() - 1; h++) {
+        if ((ch[h].x() == ch[h+1].x()) && (ch[h].y() == ch[h+1].y())) {
+            ch.remove(h);
+            h--;
+        }
+    }
 
     return ch;
 
@@ -281,6 +297,14 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
 
         //Find its successor
         index = n[index];
+    }
+
+    //Delete duplicit points
+    for (int h = 0; h < ch.size() - 1; h++) {
+        if ((ch[h].x() == ch[h+1].x()) && (ch[h].y() == ch[h+1].y())) {
+            ch.remove(h);
+            h--;
+        }
     }
 
     return ch;
