@@ -41,7 +41,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="label_generate_points">
        <property name="font">
         <font>
          <pointsize>9</pointsize>
@@ -55,7 +55,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="label_select_method_qp">
        <property name="text">
         <string>Select method:</string>
        </property>
@@ -81,7 +81,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="label_select_count">
        <property name="text">
         <string>Select count:</string>
        </property>
@@ -181,7 +181,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="label_create_convex_hull">
        <property name="font">
         <font>
          <pointsize>9</pointsize>
@@ -195,7 +195,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="label_select_method_ch">
        <property name="text">
         <string>Select method:</string>
        </property>
@@ -226,9 +226,23 @@
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_repeat10">
+      <widget class="QPushButton" name="pushButton_solveU2">
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>repeat 10x</string>
+        <string>Solve U2</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -247,20 +261,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="label_text_elapsed_time">
        <property name="text">
         <string>Time elapsed(ms):</string>
        </property>
@@ -274,7 +275,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer_2">
+      <spacer name="verticalSpacer_3">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -287,6 +288,9 @@
       </spacer>
      </item>
      <item>
+      <widget class="QTableWidget" name="tableWidget"/>
+     </item>
+     <item>
       <widget class="Line" name="line_2">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -295,6 +299,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_clearCH">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Clear convex hull</string>
        </property>
@@ -302,6 +312,12 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_clearPoints">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Clear points</string>
        </property>
