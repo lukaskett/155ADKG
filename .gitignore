@@ -14,6 +14,7 @@ U1_GeometricPointSearch/U1_GeometricPointSearch.pro.user
 *.out
 *.log
 *.syntex.gz
+*.gz
 *.blb
 *.bbl
 *.aux
