@@ -286,12 +286,91 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
     return ch;
 }
 
-QPolygon Algorithms::grahamScan(std::vector<QPoint> &points)
-{
-    //Convex hull by Graham Scan method
+bool Algorithms::Angle(QPoint &p1, QPoint &p2){
+    //Function which find bigger angle
+    double epsilon = 1e-6;
+    double angle1 = getAngle2Vectors(pivot,kolinear_X_point,pivot,p1);
+    double angle2 = getAngle2Vectors(pivot,kolinear_X_point,pivot,p2);
 
+    if(fabs(angle1-angle2) > epsilon){
+        return angle1>angle2;
+    }
+    else {
+     //Simillar angle
+        bool a = Distance(p1,p2);
+        return a;
+    }
+}
+bool Algorithms::Distance(QPoint &p1, QPoint &p2){
+    //Function which find bigger distance
+    double dx1 = p1.x()-pivot.x();
+    double dy1 = p1.y()-pivot.y();
+    double dx2 = p2.x()-pivot.x();
+    double dy2 = p2.y()-pivot.y();
+    double distance1 = sqrt((dx1*dx1)+(dy1*dy1));
+    double distance2 = sqrt((dx2*dx2)+(dy2*dy2));
+    return distance1<distance2;
 }
 
+QPoint Algorithms::pivot;
+QPoint Algorithms::kolinear_X_point;
+QPolygon Algorithms::grahamScan(std::vector<QPoint> &points) //inspirated on https://www.geeksforgeeks.org
+{
+    //Convex hull by Graham Scan method
+    QPolygon ch;
+    QPolygon ch_GS;
+
+    //Find pivot q
+    std::sort(points.begin(),points.end(),SortByY());
+
+    //Create CH
+    ch.push_back(points[0]);
+    ch_GS.push_back(points[0]);
+
+    pivot = points[0];
+    //Kolinear point with X creating
+    kolinear_X_point.setX(pivot.x()-100);
+    kolinear_X_point.setY(pivot.y());
+
+    //Sorting points by angle
+    std::sort(points.begin(), points.end(), Angle);
+
+    //If we have points on the same line
+    for(unsigned int i=0; i<=points.size()-1; i++){
+        while(getPointLinePosition(points[i],points[0],points[i+1])==-1){
+            i++;
+        }
+    ch.push_back(points[i]);
+    }
+    ch_GS.push_back(ch[1]);
+
+    //Points of CH
+
+    for(unsigned int i = 2; i <= ch.size()-1; i++){ //ch.size()-1
+        QPoint top1 = ch_GS[ch_GS.size()-1];
+        ch_GS.pop_back();
+
+        QPoint top2 = ch_GS[ch_GS.size()-1];
+        ch_GS.push_back(top1);
+
+        while(getPointLinePosition(ch[i],top2, ch_GS[ch_GS.size()-1])!=1){
+            ch_GS.pop_back();
+            top1 = ch_GS[ch_GS.size()-1];
+
+            ch_GS.pop_back();
+            top2 = ch_GS[ch_GS.size()-1];
+            ch_GS.push_back(top1);
+        }
+        ch_GS.push_back(ch[i]);
+    }
+for(unsigned int i=0; i< ch_GS.size()-2; i++){
+    if(getPointLineDistance(ch_GS[i], ch_GS[i+1],ch_GS[i+2])==-1){
+        ch_GS.erase(ch_GS.begin()+(i+1));
+        i = i-1;
+    }
+}
+return ch_GS;
+}
 
 
 
