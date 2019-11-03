@@ -64,12 +64,14 @@ V rámci úlohy sú vypracované tieto bonusové úlohy
 \section{Popis a rozbor problému}
 Konvexná obálka je skupina bodov, ktorých spojením vznikne ohraničenie pre všetky ostatné body množiny. Pre konvexnú obálku platí : 
 
+\begin{itemize}
 \item žiadny bod vstupnej množiny \textit{P} neleží mimo ohraničenia konvexnej obálky.
 \item všetky spojnice bodovvstupnej množiny \textit{P} ležia vnútri konvexnej obálky alebo tvoria jej ohraničenie.
 \item všetky vnútorné uhly medzi susednými segmentami konvexnej pbálky sú menšie ako 180 stupňov.
+\end{itemize}
 
 \begin{center}
-   \includegraphics[width=10cm]{./img/ch_obrazok1.png}
+   \includegraphics[width=6cm]{./img/ch_obrazok1.png}
    \captionof{figure}{Princím konvexnej obálky}
 \end{center}
 
@@ -79,8 +81,8 @@ Konvexnú obálku je možné zostrojiť viacerými metódami. V rámci našej pr
 
 \section {Popis použitých algoritmov}
 \subsection {Jarvis Scan}
-Tento algoritmus predstavuje jeden z najpoužívanejích postupov pre tvorbu konvexnej obálky. V algoritme sa zavádza kritérium maximálneho uhlu (\omega_max). Pri tomto kritériu posudzujeme uhol medzi poslednou stranou konvexnej obálky a úsečkou posledný bod obálky - aktuálny bod. Kritérium hladá taký aktuálny bod, pre ktorý je uhol (\omega) maximálny. 
-Postup je nasledovný. V prvom kroku vyberieme pivot q so súradnicou $y_{min}$, tento bod je automaticky súčasťou konvexnej obálky. Zavádzame kritérium maximálneho uhlu (\omega_max). Keď nájdeme bod odpovedajúci kritériu, prídáme takýto bod do konvexnej obálky. Algoritmus končí v momente keď sa dostaneme opäť k pivotu q. 
+Tento algoritmus predstavuje jeden z najpoužívanejích postupov pre tvorbu konvexnej obálky. V algoritme sa zavádza kritérium maximálneho uhlu ($\omega_{max}$). Pri tomto kritériu posudzujeme uhol medzi poslednou stranou konvexnej obálky a úsečkou posledný bod obálky - aktuálny bod. Kritérium hladá taký aktuálny bod, pre ktorý je uhol ($\omega$) maximálny. 
+Postup je nasledovný. V prvom kroku vyberieme pivot q so súradnicou $y_{min}$, tento bod je automaticky súčasťou konvexnej obálky. Zavádzame kritérium maximálneho uhlu ($\omega_{max}$). Keď nájdeme bod odpovedajúci kritériu, prídáme takýto bod do konvexnej obálky. Algoritmus končí v momente keď sa dostaneme opäť k pivotu q. 
 
 \subsubsection {Implementácia metódy}
 \begin{enumerate}
@@ -88,7 +90,7 @@ Postup je nasledovný. V prvom kroku vyberieme pivot q so súradnicou $y_{min}$,
 \item Do konvexnej obálky pridaj $q$
 \item Inicializuj  $p_{j-1} \in X, p_j = q, p_{j+1} = p_{j-1}$
 \item Opakuj pokial $p_{j+1} != q$
-\item \hspace {1.5cm} Nájdenie bodu pre ktorý je uhol omega maximálny $p_{j+1} = argmax_{pi \in P} \measuredangle(p_{j-1}, p_j, p_i)$
+\item \hspace {1.5cm} Nájdenie bodu pre ktorý je uhol omega maximálny $p_{j+1} = argmax_{pi \in P} \angle(p_{j-1}, p_j, p_i)$
 \item \hspace {1.5cm} Pridaj nájdený bod  $p_{j+1}$ do konvexnej obálky
 \item \hspace {1.5cm} Inicializuj $p_{j-1} = p_j , p_j = p_{j+1}$ 
 \end{enumerate}
@@ -105,9 +107,11 @@ Problematickou situáciou sú vyskytujúce sa kolineárne body. V takomto prípa
 Tento algoritmus uplatňuje pri konštrukcii konvexnej obálky princím rozdeľuj a panuj. Jedná sa rekurzívny algoritmus. Skladá sa z lokálnej a globálnej procedúry. Konvexná obálke je skonštruovaná z dvoch častí - upper hull a lower hull. Deliacou priamkou je spojnica dvoch bodov s extrémnymi súradnicami x (minimum, maximum). S oboma časťami obálky sa počas výpočtu pracuje samostatne. Algoritmus hľadá bod s extrémnymi súradnicami v ose y, samostatne pre hornú a dolnú časť. Výsledná konvexná obálka je pri zachovaní CCW orientácie zložená z dvoch častí automaticky, bez nutnosti spájania.
 
 \subsubsection{Implementácia metódy}
-\begin{enumerate}
 
+\begin{enumerate}
+\item Tady něco bude
 \end{enumerate}
+
 \subsubsection{Problematické situácie}
 
 \subsection {Sweep Line}
@@ -136,19 +140,18 @@ Jedná sa o metódu zametacej priamky. Tento algoritmus pracuje na princípe pre
 \subsubsection{Problematické situácie}
 
 \subsection {Graham scan}
-Grahamov prehľadávací algoritmus využíva kritérium pravotočivosti, pri ktorom posudzuje uhol  (\omega_i). Množina bodov je zoradená podľa súradnice y. Bod s najmenšou y súradnicou je zvolený za pivota. Z pivota vedieme rovnobežku s osou X. Následne určíme uhol od osi X k ostatným bodom množiny. Tieto uhly je potrebné zotiediť podľa veľkosti. Následne vyberieme bod  (\p_i) pre ktorý je uhol  (\omega_i) maximálny. Pri pridávani bodu do konvexnej obálky musí byť splnená podmienka ľavotočivosti.
+Grahamov prehľadávací algoritmus využíva kritérium pravotočivosti, pri ktorom posudzuje uhol  ($\omega_i$). Množina bodov je zoradená podľa súradnice y. Bod s najmenšou y súradnicou je zvolený za pivota. Z pivota vedieme rovnobežku s osou X. Následne určíme uhol od osi X k ostatným bodom množiny. Tieto uhly je potrebné zotiediť podľa veľkosti. Následne vyberieme bod  ($p_i$) pre ktorý je uhol  ($\omega_i$) maximálny. Pri pridávani bodu do konvexnej obálky musí byť splnená podmienka ľavotočivosti.
 
 \subsubsection{Implementácia metódy}
 \begin{enumerate}
 	\item Zoradenie množiny bodov $P_s$ podľa súradnice y 
-	\item Nájdenie pivota q, $ q = min(y_i)$ , q \to Convex Hull
-	\item Zoraď body podľa veľkosti uhlu  (\omega_i) $ \measuredangle(p_kolinear by x, x, p_i)$
+	\item Nájdenie pivota q, $ q = min(y_i)$ , q $\to$ Convex Hull
+	\item Zoraď body podľa veľkosti uhlu  ($\omega_i$) $ \angle(p_{kolinear} by x, x, p_i)$
 	\item Vymaž bližší bod ku q $ if(\omega_i = \omega_j) $
-	\itme Opakuj pre vštky body j< n 
-	\item Pridaj bod $p_j$ pre ktorý je uhol omega maximálny a je splnená podmienka ľavotočivosti  \to Convex Hull
+	\item Opakuj pre všetky body j < n
+	\item Pridaj bod $p_j$ pre ktorý je uhol omega maximálny a je splnená podmienka ľavotočivosti  $\to$ Convex Hull
 	\item \hspace {1.5cm} j = j+1
-	\item Else pop S
-	
+	\item Else pop S	
 \end{enumerate}
 
 %------------------------------------------------------------------------
@@ -183,6 +186,7 @@ Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algori
 
 \subsubsection{Metódy}
 
+\begin{enumerate}
 \item[] \underline{getAngle2Vectors}
 \begin{itemize}
 \item je pomocnou metódou pre metódu positionPointPolygonWinding. Slúži k určeniu uhlu medzi dvoma priamkami. Jej návratovou hodnotou je double
