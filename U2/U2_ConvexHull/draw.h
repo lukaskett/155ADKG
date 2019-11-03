@@ -21,6 +21,7 @@ public:
     std::vector<QPoint>getPoints(){return points;}
     void setCH(QPolygon &hull){ch = hull;}
     void generatePoints(int method, int count_points, int width, int height);
+    std::vector<QPoint> generatePointsU2(int method, int count_points, int width, int height);
 
 signals:
 
