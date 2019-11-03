@@ -226,27 +226,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_solveU2">
-       <property name="font">
-        <font>
-         <pointsize>9</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Solve U2</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="pushButton_createCH">
        <property name="font">
         <font>
@@ -268,7 +247,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_timeElapsed">
+      <widget class="QLabel" name="label">
        <property name="text">
         <string/>
        </property>
@@ -289,6 +268,27 @@
      </item>
      <item>
       <widget class="QTableWidget" name="tableWidget"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_solveU2">
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Solve U2</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_timeElapsed">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="Line" name="line_2">
