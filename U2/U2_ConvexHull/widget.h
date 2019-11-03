@@ -24,7 +24,14 @@ private slots:
 
     void on_pushButton_generatePoints_clicked();
 
+    void on_pushButton_solveU2_clicked();
+
 private:
     Ui::Widget *ui;
+
+    enum Table
+    {
+      ALGORITHM, N_POINTS, METHOD, TIME
+    };
 };
 #endif // WIDGET_H
