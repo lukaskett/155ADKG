@@ -36,8 +36,11 @@ void Widget::on_pushButton_createCH_clicked()
         else if(ui -> comboBox_chMethod -> currentIndex() == 1)
             ch = Algorithms::qHull(points);
 
-        else
+        else if(ui -> comboBox_chMethod -> currentIndex() == 2)
             ch = Algorithms::sweepLine(points);
+
+        else
+            ch = Algorithms::grahamScan(points);
     }
 
     //Stop Timer
