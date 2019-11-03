@@ -340,8 +340,10 @@ QPolygon Algorithms::grahamScan(std::vector<QPoint> &points) //inspirated on htt
         while(getPointLinePosition(points[i],points[0],points[i+1])==-1){
             i++;
         }
-    ch.push_back(points[i]);
+
+        ch.push_back(points[i]);
     }
+
     ch_GS.push_back(ch[1]);
 
     //Points of CH
@@ -361,16 +363,19 @@ QPolygon Algorithms::grahamScan(std::vector<QPoint> &points) //inspirated on htt
             top2 = ch_GS[ch_GS.size()-1];
             ch_GS.push_back(top1);
         }
+
         ch_GS.push_back(ch[i]);
     }
-for(unsigned int i=0; i< ch_GS.size()-2; i++){
-    if(getPointLineDistance(ch_GS[i], ch_GS[i+1],ch_GS[i+2])==-1){
-        ch_GS.erase(ch_GS.begin()+(i+1));
-        i = i-1;
+
+    for(unsigned int i=0; i< ch_GS.size()-2; i++){
+        if(getPointLineDistance(ch_GS[i], ch_GS[i+1],ch_GS[i+2])==-1){
+            ch_GS.erase(ch_GS.begin()+(i+1));
+            i = i-1;
+        }
     }
+    return ch_GS;
 }
-return ch_GS;
-}
+
 
 
 
