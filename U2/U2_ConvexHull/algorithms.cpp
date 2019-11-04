@@ -290,7 +290,7 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
     for(int i = 2; i < m; i++)
     {
         //Point i lies in the upper half plane
-        //if(getPointLinePosition(points[i],points[p[i-1]], points[i-1])==1) // worgking too
+        //if(getPointLinePosition(points[i],points[p[i-1]], points[i-1]) == 1) // working too
         if(points[i].y() > points[i-1].y())
         {
             //Link i and its predecessor and successor
@@ -330,7 +330,7 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
     ch.push_back(points[0]);
 
     //Second point of CH
-    unsigned int index = n[0];
+    int index = n[0];
 
     //Repeat until the first point is found
     while(index != 0)
@@ -342,10 +342,10 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
         index = n[index];
     }
 
-    //Delete kolinear points (points on the same line)
+    //Delete collinear points (points on the same line)
     for (int h = 0; h < ch.size() - 2; h++) {
         if (getPointLinePosition(ch[h+2],ch[h], ch[h+1])==-1) {
-            ch.remove(h);
+            ch.remove(h+1);
             h--;
         }
     }
