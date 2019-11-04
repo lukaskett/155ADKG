@@ -11,9 +11,6 @@ private:
 
 public:
     Algorithms();
-    //static QPoint pivot;
-    //static QPoint kolinear_X_point;
-
     static int getPointLinePosition(QPoint &q,QPoint &p1,QPoint &p2);
     static double getAngle2Vectors(QPoint &p1,QPoint &p2,QPoint &p3,QPoint &p4);
     static QPolygon jarvisScan(std::vector<QPoint> &points);
