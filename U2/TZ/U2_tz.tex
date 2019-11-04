@@ -320,7 +320,7 @@ Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algori
 \end{enumerate}
 
 \subsection{Trieda Draw}
-Trieda Draw slúži ku grafickému vykresleniu bodu q a konvexnej obálky.
+Trieda Draw slúži ku grafickému vykresleniu množiny modov a konvexnej obálky nad touto množinou.
 
 \subsubsection{Členské premenné}
 \begin{enumerate}
@@ -339,15 +339,41 @@ Trieda Draw slúži ku grafickému vykresleniu bodu q a konvexnej obálky.
 \begin{enumerate}
 \item[] \underline{paintEvent}
 \begin{itemize}
-\item slúži k vykresleniu zisťovaného bodu, vykresleniu importu polygónovej mapy a k vyfarbeniu polygónov ktorým náleží určovaný bod q. Návratovým typom je void.
+\item slúži k vykresleniu naklikaných a vygenerovaných bodov, vykresleniu konvexnej obálky. Návratovým typom je void.
 \end{itemize}
 \item[] \underline{void mousePressEvent}
 \begin{itemize}
-\item slúži k vykresleniu bodu q stlačením tlačidla myši, v okamihu stlačenia tlačidla na myši sa uložia súradnice bodu q. Návratovým typom je void.
+\item slúži k vykresleniu bodu  stlačením tlačidla myši, v okamihu stlačenia tlačidla na myši sa uložia súradnice bodu do vektoru points. Návratovým typom je void.
 \end{itemize}
-\item[] \underline{void clearCanvas}
+\item[] \underline{void clearCH}
 \begin{itemize}
-\item slúži k vymazaniu obsahu vykreslovacieho plátna. Návratovým typom je void.
+\item slúži k vymazaniu konvexnej obálky. Návratovým typom je void.
+\end{itemize}
+\item[] \underline{void clearPoints}
+\begin{itemize}
+\item slúži k vymazaniu množiny bodov. Návratovým typom je void.
+\end{itemize}
+\item[] \underline {std::vector}$<${QPoint}$>${getPoints}
+\begin{itemize}
+\item vektor, ktorý slúži k vráteniu množiny bodov points.
+\end{itemize}
+\item[] \underline {setCH}
+\begin{itemize}
+\item slúži na prevedenie konvexnej obálky do vykresľovacieho okna.
+\end{itemize}
+\item[] \underline {generatePoints}
+\begin{itemize}
+\item text.
+\end{itemize}
+\item[] \underline {generatePoints}
+\begin{itemize}
+\item slúži ku generovaniu množiny bodov. Na vstupe je zadaná metóda, počet bodov, šírka a výška.
+\item na výstupe je vygenerovaná množina bodov podľa užívateľského zadania.
+\end{itemize}
+\item[] \underline {std::vector}$<${QPoint}$>${generatePointsU2}
+\begin{itemize}
+\item slúži ku generovaniu množiny bodov. Na vstupe je zadaná metóda, počet bodov, šírka a výška.
+\item na výstupe je vygenerovaná množina bodov podľa užívateľského zadania. Generovanie konvexnej obálky prebehne automaticky 10x pre všetky typy tvaru generovanej množiny bodov a počty generovaných bodov v intervale od 1 000 do 1 000 000.
 \end{itemize}
 \end{enumerate}
 
