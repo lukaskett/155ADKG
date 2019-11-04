@@ -259,17 +259,26 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
     //Incremental method, Sweep Line
     QPolygon ch;
 
-    //Number of points
-    int m = points.size();
+    //Sort points by X
+    std::sort(points.begin(), points.end(), SortByX());
 
+    //Delete duplicit points after sorting data
+    std::vector<QPoint> noDuplicitPoints;
+    for(unsigned int i =0; i<points.size() - 1; i++){
+        if((points[i].x()!=points[i+1].x()) || (points[i].y()!=points[i+1].y())  ){
+            noDuplicitPoints.push_back(points[i]);
+        }
+    }
+    noDuplicitPoints.push_back(points[points.size() - 1]);
+    points = noDuplicitPoints;
+
+    //Number of points, need to be after delete duplicity
+    int m = points.size();
     //List of predecessors(predchudci)
     std::vector<int> p(m);
 
     //List of successors(naslednici)
     std::vector<int> n(m);
-
-    //Sort points by X
-    std::sort(points.begin(), points.end(), SortByX());
 
     //Create initial aproximation(dvojuhelnik)
     n[0] = 1;
@@ -281,6 +290,7 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
     for(int i = 2; i < m; i++)
     {
         //Point i lies in the upper half plane
+        //if(getPointLinePosition(points[i],points[p[i-1]], points[i-1])==1) // worgking too
         if(points[i].y() > points[i-1].y())
         {
             //Link i and its predecessor and successor
@@ -320,7 +330,7 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
     ch.push_back(points[0]);
 
     //Second point of CH
-    int index = n[0];
+    unsigned int index = n[0];
 
     //Repeat until the first point is found
     while(index != 0)
@@ -332,9 +342,9 @@ QPolygon Algorithms::sweepLine(std::vector<QPoint> &points)
         index = n[index];
     }
 
-    //Delete duplicit points
-    for (int h = 0; h < ch.size() - 1; h++) {
-        if ((ch[h].x() == ch[h+1].x()) && (ch[h].y() == ch[h+1].y())) {
+    //Delete kolinear points (points on the same line)
+    for (int h = 0; h < ch.size() - 2; h++) {
+        if (getPointLinePosition(ch[h+2],ch[h], ch[h+1])==-1) {
             ch.remove(h);
             h--;
         }
@@ -428,6 +438,13 @@ QPolygon Algorithms::grahamScan(std::vector<QPoint> &points) //inspirated on htt
         if(getPointLineDistance(ch_GS[i], ch_GS[i+1],ch_GS[i+2])==-1){
             ch_GS.erase(ch_GS.begin()+(i+1));
             i = i-1;
+        }
+    }
+    //Delete duplicit points
+    for (int h = 0; h < ch_GS.size() - 1; h++) {
+        if ((ch_GS[h].x() == ch_GS[h+1].x()) && (ch_GS[h].y() == ch_GS[h+1].y())) {
+            ch_GS.remove(h);
+            h--;
         }
     }
     return ch_GS;
