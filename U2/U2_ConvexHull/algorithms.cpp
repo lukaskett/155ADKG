@@ -124,7 +124,7 @@ QPolygon Algorithms::jarvisScan(std::vector<QPoint> &points)
             QPoint pomax = points[om_max_indexes[i]];
             double dist = sqrt((pj.x() - pomax.x()) * (pj.x() - pomax.x()) + (pj.y() - pomax.y()) * (pj.y() - pomax.y()));
 
-            //Actualize maximum
+            //Actualize maximum distance
             if(dist > dist_max)
             {
                 dist_max = dist;
@@ -141,7 +141,11 @@ QPolygon Algorithms::jarvisScan(std::vector<QPoint> &points)
 
         //Change index
         pjj = pj;
-        pj = points[ind_max];
+        if(om_max_indexes.empty())
+            pj = points[ind_max];
+        else
+            pj = points[ind_dist_max];
+
 
     }while(!(pj == q));
 
@@ -153,6 +157,8 @@ QPolygon Algorithms::jarvisScan(std::vector<QPoint> &points)
         }
     }
 
+    //Remove the last point which is duplicit and i dont know why
+    ch.pop_back();
     return ch;
 
 }
