@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <chrono>
 #include <fstream>
+#include <sstream>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -111,13 +112,33 @@ void Widget::on_pushButton_solveU2_clicked()
     int width = 1000;
     int height = 1000;
 
+    //Concatenate text file name
+    //https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++
+
     //Selected algorithm
     std::string algorithm = ui -> comboBox_chMethod -> currentText().toStdString();
 
+    //File extension
+    std::string text_file = ".txt";
+
+    //Remove space
+    std::vector<std::string> splitted_algorithm;
+    std::istringstream iss(algorithm);
+    for(std::string s; iss >> algorithm; )
+        splitted_algorithm.push_back(algorithm);
+
+    //Process
+    std::stringstream ss_algorithm;
+    ss_algorithm << splitted_algorithm[0] << splitted_algorithm[1] << text_file;
+
+    //Result with spaces
+    std::string file_name = ss_algorithm.str();
+
     //Save to file
     std::ofstream myfile;
-    myfile.open ("ConvexHull.txt", std::ios_base::app);
+    myfile.open (file_name, std::ios_base::app);
     myfile << "Count points, generating method, algorithm, repetition, elapsed time[miliseconds]"<< "\n";
+    std::string algorithm_selected = ui -> comboBox_chMethod -> currentText().toStdString();
 
     for(unsigned int c = 0; c < count_points.size(); c++)
     {
@@ -152,7 +173,7 @@ void Widget::on_pushButton_solveU2_clicked()
                 //Calculate elapsed time - microseconds precision -> miliseconds
                 double time_clock = (std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) / 1000;
 
-                myfile << count_points[c] << "," << methods[m] << "," << algorithm << "," << r << ","<< time_clock << "\n";
+                myfile << count_points[c] << "," << methods[m] << "," << algorithm_selected << "," << r << ","<< time_clock << "\n";
 
             }
             //Clear convex hull for the next round
