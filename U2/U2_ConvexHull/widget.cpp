@@ -52,6 +52,9 @@ void Widget::on_pushButton_createCH_clicked()
     QString time_elapsed = QString::number(time_clock);
     ui -> label_timeElapsed -> setText(time_elapsed);
 
+    //int count = ch.size();
+    //QMessageBox::information(this, "Test generate", QString("Convex hull has: %1 points.").arg(count));
+
     //Draw
     ui -> Canvas -> setCH(ch);
     repaint();
@@ -127,11 +130,11 @@ void Widget::on_pushButton_solveU2_clicked()
     for(std::string s; iss >> algorithm; )
         splitted_algorithm.push_back(algorithm);
 
-    //Process
+    //Process - concatenate strings
     std::stringstream ss_algorithm;
     ss_algorithm << splitted_algorithm[0] << splitted_algorithm[1] << text_file;
 
-    //Result with spaces
+    //Final file name - without spaces
     std::string file_name = ss_algorithm.str();
 
     //Save to file
