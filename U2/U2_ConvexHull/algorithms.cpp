@@ -89,6 +89,7 @@ QPolygon Algorithms::jarvisScan(std::vector<QPoint> &points)
         //Find max angle and point index
         double om_max = 0;
         int ind_max = -1;
+        std::vector<int> om_max_indexes;
 
         //Find point od CH
         for(int h = 0; h < points.size(); h++)
@@ -100,11 +101,43 @@ QPolygon Algorithms::jarvisScan(std::vector<QPoint> &points)
             {
                 om_max = omega;
                 ind_max = h;
+
+                //Delete indexes when omega maximum updated
+                om_max_indexes.clear();
+            }
+
+            //Store indexes of points with the same max omega angle
+            else if(omega == om_max)
+            {
+                om_max_indexes.push_back(ind_max);
+                om_max_indexes.push_back(h);
             }
         }
 
+        //Sort based on distance
+        double dist_max = 0;
+        int ind_dist_max = -1;
+
+        for(unsigned i = 0; i < om_max_indexes.size(); i++)
+        {
+            //Get point with the same value of omega as omega max
+            QPoint pomax = points[om_max_indexes[i]];
+            double dist = sqrt((pj.x() - pomax.x()) * (pj.x() - pomax.x()) + (pj.y() - pomax.y()) * (pj.y() - pomax.y()));
+
+            //Actualize maximum
+            if(dist > dist_max)
+            {
+                dist_max = dist;
+                ind_dist_max = om_max_indexes[i];
+            }
+
+        }
+
         //Add point to the convex hull
-        ch.push_back(points[ind_max]);
+        if(om_max_indexes.empty())
+            ch.push_back(points[ind_max]);
+        else
+            ch.push_back(points[ind_dist_max]);
 
         //Change index
         pjj = pj;
