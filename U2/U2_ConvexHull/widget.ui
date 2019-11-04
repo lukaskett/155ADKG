@@ -197,7 +197,7 @@
      <item>
       <widget class="QLabel" name="label_select_method_ch">
        <property name="text">
-        <string>Select method:</string>
+        <string>Select algorithm:</string>
        </property>
       </widget>
      </item>
@@ -247,7 +247,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="label_timeElapsed">
        <property name="text">
         <string/>
        </property>
@@ -267,7 +267,32 @@
       </spacer>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget"/>
+      <widget class="Line" name="line_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Solve task 2</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>First select algorithm, then click</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_solveU2">
@@ -284,11 +309,31 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_timeElapsed">
+      <widget class="QLabel" name="label">
        <property name="text">
         <string/>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_7">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
       <widget class="Line" name="line_2">

@@ -48,39 +48,8 @@ void Widget::on_pushButton_createCH_clicked()
 
     //Calculate elapsed time - microseconds precision -> miliseconds
     double time_clock = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() / 1000;
-   QString time_elapsed = QString::number(time_clock);
-   ui -> label_timeElapsed -> setText(time_elapsed);
-
-   //Save results to the table
-
-   //Get values
-   int v_algorithm = ui -> comboBox_chMethod -> currentIndex();
-   int v_method = ui -> comboBox_generateMethod -> currentIndex();
-   int v_count_points = ui -> comboBox_countPoints -> currentText().toInt();
-
-   //Prepare table
-   ui -> tableWidget -> setColumnCount(4);
-   //Set column size
-   ui -> tableWidget -> setColumnWidth(0, 5);
-   ui -> tableWidget -> setColumnWidth(1, 10);
-   ui -> tableWidget -> setColumnWidth(2, 10);
-   ui -> tableWidget -> setColumnWidth(3, 10);
-
-   //Set table header
-   QStringList horzHeaders;
-   horzHeaders << "Algorithm" << "Number of points" << "Generating method" << "Time";
-   ui ->tableWidget ->setHorizontalHeaderLabels(horzHeaders);
-
-   //Set row
-   int row = ui -> tableWidget->rowCount();
-   ui -> tableWidget -> insertRow(ui -> tableWidget->rowCount());
-   ui -> tableWidget -> setRowHeight(row, 5);
-
-   //Insert values
-   ui -> tableWidget -> setItem(row, ALGORITHM, new QTableWidgetItem(QString::number(v_algorithm)));
-   ui -> tableWidget -> setItem(row, N_POINTS, new QTableWidgetItem(QString::number(v_count_points)));
-   ui -> tableWidget -> setItem(row, METHOD, new QTableWidgetItem(QString::number(v_method)));
-   ui -> tableWidget -> setItem(row, TIME, new QTableWidgetItem(time_elapsed));
+    QString time_elapsed = QString::number(time_clock);
+    ui -> label_timeElapsed -> setText(time_elapsed);
 
     //Draw
     ui -> Canvas -> setCH(ch);
@@ -122,6 +91,13 @@ void Widget::on_pushButton_generatePoints_clicked()
 
 void Widget::on_pushButton_solveU2_clicked()
 {
+    //Inform that it may last long time to solve U2
+    QString cb = ui -> comboBox_chMethod -> currentText();
+    QMessageBox::information(this,
+                             "Important! It may last hours to solve",
+                             QString("Selected algorithm: %1, normally it takes under 5 minutes, but for Jarvis Scan it is aprox. 3 hours").arg(cb)
+                             );
+
     //Convex hull
     QPolygon ch;
 
@@ -129,34 +105,32 @@ void Widget::on_pushButton_solveU2_clicked()
     std::vector<int> count_points{1000, 5000, 10000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000};
 
     //Generating methods
-    std::vector<int> methods{0, 1, 2};
+    std::vector<std::string> methods{"raster", "random", "circle"};
 
     //Generating window size
     int width = 1000;
     int height = 1000;
 
+    //Selected algorithm
+    std::string algorithm = ui -> comboBox_chMethod -> currentText().toStdString();
+
     //Save to file
     std::ofstream myfile;
     myfile.open ("ConvexHull.txt", std::ios_base::app);
-    myfile << "Generating method: 0 - raster, 1 - random, 3 - circle "<< "\n";
-    myfile << "Algorithm: 0 - Javis Scan, 1 - Quick Hull, 2 - Sweep Line, 3 - Graham Scan"<< "\n";
     myfile << "Count points, generating method, algorithm, repetition, elapsed time[miliseconds]"<< "\n";
 
     for(unsigned int c = 0; c < count_points.size(); c++)
     {
         //For generating methods - raster - 0, random - 1, circle - 2
-        for( int m = 0; m < 3; m++)
+        for( int m = 0; m < methods.size(); m++)
         {
             std::vector<QPoint> gen_points = ui -> Canvas -> Draw::generatePointsU2(m, count_points[c], width, height);
-
-            //Algorithms: Jarvis Scan - 0, Quick Hull - 1, Sweep Line - 2, Graham Scan - 3
 
             //Repeat rep times
             unsigned int rep = 10;
 
             for (unsigned int r = 1; r < rep + 1; r++)
             {
-                int a = ui -> comboBox_chMethod -> currentIndex();
                 //Start timer
                 std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
@@ -178,7 +152,7 @@ void Widget::on_pushButton_solveU2_clicked()
                 //Calculate elapsed time - microseconds precision -> miliseconds
                 double time_clock = (std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) / 1000;
 
-                myfile << count_points[c] << "," << m << "," << a << "," << r << ","<< time_clock << "\n";
+                myfile << count_points[c] << "," << methods[m] << "," << algorithm << "," << r << ","<< time_clock << "\n";
 
             }
             //Clear convex hull for the next round

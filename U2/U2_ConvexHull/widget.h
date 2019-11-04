@@ -29,9 +29,5 @@ private slots:
 private:
     Ui::Widget *ui;
 
-    enum Table
-    {
-      ALGORITHM, N_POINTS, METHOD, TIME
-    };
 };
 #endif // WIDGET_H
