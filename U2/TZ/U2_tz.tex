@@ -9,6 +9,8 @@
 %\addbibresource{literatura.bib}
 \usepackage{cite}
 \usepackage{caption}
+%\usepackage{float} %upevneni tabulky
+%\restylefloat{table}
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
@@ -165,8 +167,10 @@ Problematická situácia pri algoritme Graham Scan nastáva, ak sa vo vstupnej m
 %------------------------------------------------------------------------
 \section{Vstupné dáta - generovanie bodov}
 Vstupnými dátami je množina bodov. Táto množina môže byť ručne naklikaná v Canvase alebo automaticky generovaná.
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX TEXT GENEROVANIE BODOV XXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Generování je možné provést do rastru, náhodného uspořádání nebo kruhového tvaru pro různá možství bodů. Oblast genrování je určena z aktuální velikosti okna plikace. Od každé hrany okna je pevně nastavený odstup. Samotné náhodné generování je realizované pomocí $std:: random\_device$ s pouižitím generátoru $std::mt19937$.
+
+Rastr je generován s pevným krokem pro šířku i délku okna, který se počítá na základě požadovaného počtu bodů. Náhodné generování se provádí pomocí $std::uniform\_int\_distibution$, která generuje celá čísla v určitém rozsahu. Pro možnost circle -- kruhového generování bodů jsou body generovány polárními souřadnicemi s použitím stejného náhodného generátoru jako v předchozím případě.
 
 \subsection{Množina bodov vytvorená ručne}
 Táto množina vznikne ručným naklikaním bodov priamo v Canvase.
@@ -240,7 +244,7 @@ Po automatickom vygenerovaní bodov, prípadne ručnom naklikaní v Canvase , vo
 %-------------------------------------------------------------------------
 \clearpage 
 \section{Grafy - doby behu algoritmov}
-Súčasťou úlohy je porovnanie doby behu jednotlivých algoritmov pre testované množiny bodov generované v tvare kruhu, rastru a náhodne. Prezentácia výsledkov je pomocou grafov vytvorených v programe R Studio. Testovanie bolo vykonané 10x pre každý počet počet bodov z intervalu a tvar generovanej množiny bodov. Vykonali sme ho v režime Relase.
+Súčasťou úlohy je porovnanie doby behu jednotlivých algoritmov pre testované množiny bodov generované v tvare kruhu, rastru a náhodne. Prezentácia výsledkov je pomocou grafov vytvorených v programe R Studio. Testovanie bolo vykonané 10x pre každý počet bodov z intervalu a tvar generovanej množiny bodov. Vykonali sme ho v režime Relase.
 
 \begin{center}
    \includegraphics[width=10cm]{./img/plot_circle_generating.png}
@@ -277,7 +281,182 @@ Súčasťou úlohy je porovnanie doby behu jednotlivých algoritmov pre testovan
    \captionof{figure}{Doba behu algoritmu Graham Scan pre množiny bodov vo všetkých generovaných tvaroch.}
 \end{center}
 
-Tabuľky s presnou dobou behu jednotlivých algoritmov pre množiny bodov sú uvedené v prílohe technickej správy.
+\section{Tabulky pro jednotlivé metody}
+Tabuľky s presnou dobou behu jednotlivých algoritmov pre množiny bodov. Tabulky jsou rozdělené po jednotlivých algoritmech a každá obsahuje průměrný čas generování konvexní obálky v jednotkách milisekund určený z deseti pokusů a rozptyl. Rozptyl byl určen jako prostý rozdíl nejdelšího a nejkratšího času výpočtu obálky z deseti pokusů.
+
+\begin{table}[h!]
+\centering
+\caption{Jarvis Scan data z výpočtu}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{4}{|c|}{\textbf{Jarvis Scan}}                       \\ \hline
+points  & method & avg elapsed time {[}ms{]} & variance {[}ms{]} \\ \hline
+1000    & raster & 0.1                       & 1                 \\ \hline
+5000    & raster & 4                         & 0                 \\ \hline
+10000   & raster & 7                         & 0                 \\ \hline
+25000   & raster & 21.1                      & 1                 \\ \hline
+50000   & raster & 43.9                      & 3                 \\ \hline
+75000   & raster & 67.6                      & 6                 \\ \hline
+100000  & raster & 89.2                      & 3                 \\ \hline
+250000  & raster & 196.3                     & 3                 \\ \hline
+500000  & raster & 469.5                     & 6                 \\ \hline
+750000  & raster & 722.4                     & 4                 \\ \hline
+1000000 & raster & 882                       & 55                \\ \hline
+1000    & random & 1.3                       & 1                 \\ \hline
+5000    & random & 10.4                      & 1                 \\ \hline
+10000   & random & 20.6                      & 2                 \\ \hline
+25000   & random & 50.8                      & 31                \\ \hline
+50000   & random & 89.9                      & 10                \\ \hline
+75000   & random & 116.8                     & 14                \\ \hline
+100000  & random & 163.7                     & 26                \\ \hline
+250000  & random & 313.5                     & 42                \\ \hline
+500000  & random & 641.3                     & 78                \\ \hline
+750000  & random & 981.1                     & 108               \\ \hline
+1000000 & random & 1138.4                    & 199               \\ \hline
+1000    & circle & 5.5                       & 1                 \\ \hline
+5000    & circle & 49.9                      & 5                 \\ \hline
+10000   & circle & 112.2                     & 20                \\ \hline
+25000   & circle & 370.3                     & 56                \\ \hline
+50000   & circle & 821.7                     & 88                \\ \hline
+75000   & circle & 1195.5                    & 32                \\ \hline
+100000  & circle & 1647.4                    & 14                \\ \hline
+250000  & circle & 4167.5                    & 86                \\ \hline
+500000  & circle & 8373.2                    & 452               \\ \hline
+750000  & circle & 12913.8                   & 833               \\ \hline
+1000000 & circle & 17651.2                   & 1077              \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Quick Hull data z výpočtu}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{4}{|c|}{\textbf{Quick Hull}}                        \\ \hline
+points  & method & avg elapsed time {[}ms{]} & variance {[}ms{]} \\ \hline
+1000    & raster & 0                         & 0                 \\ \hline
+5000    & raster & 3                         & 0                 \\ \hline
+10000   & raster & 5.2                       & 2                 \\ \hline
+25000   & raster & 15.3                      & 4                 \\ \hline
+50000   & raster & 31.3                      & 7                 \\ \hline
+75000   & raster & 53.8                      & 25                \\ \hline
+100000  & raster & 65.8                      & 15                \\ \hline
+250000  & raster & 163                       & 43                \\ \hline
+500000  & raster & 381.6                     & 199               \\ \hline
+750000  & raster & 647.3                     & 138               \\ \hline
+1000000 & raster & 787.4                     & 323               \\ \hline
+1000    & random & 0.2                       & 1                 \\ \hline
+5000    & random & 4.3                       & 1                 \\ \hline
+10000   & random & 8.9                       & 2                 \\ \hline
+25000   & random & 19.6                      & 5                 \\ \hline
+50000   & random & 46                        & 19                \\ \hline
+75000   & random & 62.4                      & 14                \\ \hline
+100000  & random & 83.5                      & 16                \\ \hline
+250000  & random & 196.5                     & 45                \\ \hline
+500000  & random & 410.2                     & 101               \\ \hline
+750000  & random & 691.6                     & 202               \\ \hline
+1000000 & random & 838.5                     & 252               \\ \hline
+1000    & circle & 1.3                       & 1                 \\ \hline
+5000    & circle & 15.1                      & 1                 \\ \hline
+10000   & circle & 37.4                      & 3                 \\ \hline
+25000   & circle & 111.4                     & 21                \\ \hline
+50000   & circle & 249.2                     & 60                \\ \hline
+75000   & circle & 380.6                     & 59                \\ \hline
+100000  & circle & 501.8                     & 85                \\ \hline
+250000  & circle & 1242.6                    & 61                \\ \hline
+500000  & circle & 3192.4                    & 2496              \\ \hline
+750000  & circle & 4293.5                    & 462               \\ \hline
+1000000 & circle & 5331.2                    & 618               \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h!]
+\centering
+\caption{Sweep Line data z výpočtu}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{4}{|c|}{\textbf{Sweep Line}}                        \\ \hline
+points  & method & avg elapsed time {[}ms{]} & variance {[}ms{]} \\ \hline
+1000    & raster & 0                         & 0                 \\ \hline
+5000    & raster & 2.8                       & 1                 \\ \hline
+10000   & raster & 5.1                       & 1                 \\ \hline
+25000   & raster & 13.4                      & 4                 \\ \hline
+50000   & raster & 30.7                      & 8                 \\ \hline
+75000   & raster & 48.6                      & 17                \\ \hline
+100000  & raster & 60.3                      & 17                \\ \hline
+250000  & raster & 163.1                     & 41                \\ \hline
+500000  & raster & 332.3                     & 87                \\ \hline
+750000  & raster & 547.1                     & 201               \\ \hline
+1000000 & raster & 739.9                     & 243               \\ \hline
+1000    & random & 0                         & 0                 \\ \hline
+5000    & random & 2.1                       & 1                 \\ \hline
+10000   & random & 4.7                       & 2                 \\ \hline
+25000   & random & 12.7                      & 4                 \\ \hline
+50000   & random & 28                        & 11                \\ \hline
+75000   & random & 41.4                      & 19                \\ \hline
+100000  & random & 63.3                      & 18                \\ \hline
+250000  & random & 148.7                     & 59                \\ \hline
+500000  & random & 290.7                     & 172               \\ \hline
+750000  & random & 398.7                     & 248               \\ \hline
+1000000 & random & 501.1                     & 414               \\ \hline
+1000    & circle & 0                         & 0                 \\ \hline
+5000    & circle & 1.8                       & 1                 \\ \hline
+10000   & circle & 3.8                       & 3                 \\ \hline
+25000   & circle & 9.1                       & 7                 \\ \hline
+50000   & circle & 15.9                      & 18                \\ \hline
+75000   & circle & 18.1                      & 30                \\ \hline
+100000  & circle & 24.3                      & 63                \\ \hline
+250000  & circle & 30.3                      & 131               \\ \hline
+500000  & circle & 44.8                      & 274               \\ \hline
+750000  & circle & 63.9                      & 445               \\ \hline
+1000000 & circle & 83.6                      & 649               \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Graham Scan data z výpočtu}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{4}{|c|}{\textbf{Graham Scan}}                                \\ \hline
+points  & method & avg elapsed time {[}ms{]} & variance {[}ms{]} \\ \hline
+1000    & raster & 4.4                       & 2                 \\ \hline
+5000    & raster & 21.2                      & 1                 \\ \hline
+10000   & raster & 45.5                      & 2                 \\ \hline
+25000   & raster & 128.9                     & 5                 \\ \hline
+50000   & raster & 275.3                     & 47                \\ \hline
+75000   & raster & 431.3                     & 16                \\ \hline
+100000  & raster & 623.9                     & 108               \\ \hline
+250000  & raster & 1575.6                    & 104               \\ \hline
+500000  & raster & 3472.2                    & 238               \\ \hline
+750000  & raster & 5160.9                    & 166               \\ \hline
+1000000 & raster & 7088.7                    & 1641              \\ \hline
+1000    & random & 3.5                       & 1                 \\ \hline
+5000    & random & 22                        & 0                 \\ \hline
+10000   & random & 47.5                      & 1                 \\ \hline
+25000   & random & 132.2                     & 5                 \\ \hline
+50000   & random & 277.5                     & 11                \\ \hline
+75000   & random & 447.2                     & 83                \\ \hline
+100000  & random & 591.1                     & 83                \\ \hline
+250000  & random & 1602.9                    & 86                \\ \hline
+500000  & random & 3579.8                    & 1230              \\ \hline
+750000  & random & 5402.5                    & 2263              \\ \hline
+1000000 & random & 7262.5                    & 946               \\ \hline
+1000    & circle & 3                         & 0                 \\ \hline
+5000    & circle & 21.4                      & 1                 \\ \hline
+10000   & circle & 46.3                      & 1                 \\ \hline
+25000   & circle & 122.7                     & 1                 \\ \hline
+50000   & circle & 269.5                     & 38                \\ \hline
+75000   & circle & 397.4                     & 7                 \\ \hline
+100000  & circle & 551.6                     & 122               \\ \hline
+250000  & circle & 1374.7                    & 38                \\ \hline
+500000  & circle & 2958.7                    & 670               \\ \hline
+750000  & circle & 4889                      & 2046              \\ \hline
+1000000 & circle & 5823.7                    & 190               \\ \hline
+\end{tabular}
+\label{tab:GrahamScan}
+\end{table}
 
 %-------------------------------------------------------------------------
 \clearpage
@@ -453,6 +632,17 @@ Tieda Widget obashuje metódy ktoré sú odkazom na sloty umožňujúce vykonáv
 %-------------------------------------------------------------------------
 \clearpage
 \section{Záver}
+
+%-------------------------------------------------------------------------
+
+%Zobrazeni seznamu obrazku
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+
+%-------------------------------------------------------------------------
+
+\listoftables
 
 %-------------------------------------------------------------------------
 \nocite{*}
