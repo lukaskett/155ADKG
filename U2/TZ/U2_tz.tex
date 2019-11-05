@@ -537,8 +537,8 @@ Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algori
 \begin{itemize}
 \item Metódy slúžia k výpočtu konvexnej obálky podľa algoritmu Quick Hull. Je to pomocná metóda. Vstupným typom je void.
 \item na vstupe je index počiatočného a koncového bodu deliacej priamky start, end
-\item \hspace {1.5cm}  {std::vector}$<${QPoint}$>${points} vektor bodov okolo ktorých vytvárame konvexnú obálku
-\item \hspace {1.5cm} QPolygon  convexHull ktorý obsahuje body konvexnej obálky
+\item {std::vector}$<${QPoint}$>${points} vektor bodov okolo ktorých vytvárame konvexnú obálku
+\item QPolygon  convexHull ktorý obsahuje body konvexnej obálky
 \item na výstupe je polygón obsahujúci konvexnú obálku.
 \end{itemize}
 
@@ -585,10 +585,6 @@ Trieda Draw slúži ku grafickému vykresleniu množiny modov a konvexnej obálk
 \item[] \underline {setCH}
 \begin{itemize}
 \item slúži na prevedenie konvexnej obálky do vykresľovacieho okna.
-\end{itemize}
-\item[] \underline {generatePoints}
-\begin{itemize}
-\item text.
 \end{itemize}
 \item[] \underline {generatePoints}
 \begin{itemize}
@@ -643,6 +639,8 @@ Tieda Widget obashuje metódy ktoré sú odkazom na sloty umožňujúce vykonáv
 Výsledkom úlohy je funkčná aplikácia a grafická prezentácia doby trvania jednotlivých algoritmov pre rôzne množiny bodov. Po vypracovaní úlohy sme došli k nasledujúcemu záveru. Najvhodnejší algoritmus pre generovanie konvexných obálok je Sweep Line. Táto metóda dosiahla najlepšie výsledky vo všetkých testovacích prípadoch. Obzvlásť výrazný časový rozdie oproti ostatným algoritmoml bol pri zväčšujúcej sa množine bodov usporiadanej v kruhovom tvare. Algoritmy Graham Scan a Jarvis Scan sú o poznanie pomalšie, hlavne pri rastri a náhodne generovanej množine bodov. Algoritmus Quick Hull dosahuje pre rastrovú a náhodnú množinu bodov takmer totožnú rýchlosť ako algoritmus Sweep Line, pri kruhovom rozložení bodov je pomalší, obdobne rýchly ako Graham Scan.
 
 V úlohe sme sa neimplementovali generovanie množiny bodov v tvare  elipsy a star - shaped rozloženia. Bolo by zaujímavé porovnať doby behov algoritmov aj pre takéto rozloženia množín bodov.
+
+\newpage
 %-------------------------------------------------------------------------
 
 %Zobrazeni seznamu obrazku
