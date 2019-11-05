@@ -61,7 +61,9 @@ V rámci úlohy sú vypracované tieto bonusové úlohy
 \begin{itemize}
 \item Konštrukcia konvexnej obálky metódou Graham Scan.
 \item Ošetrenie singulárneho prípadu pro Jarvis Scan
+\item Konštrukcia striktne konvexných obálok
 \item Algoritmus pre automatické generovanie konvexných / nekonvexných množín
+
 \end{itemize}
 %------------------------------------------------------------------------
 \clearpage 
@@ -71,7 +73,7 @@ Konvexná obálka je skupina bodov, ktorých spojením vznikne ohraničenie pre 
 \begin{itemize}
 \item žiadny bod vstupnej množiny \textit{P} neleží mimo ohraničenia konvexnej obálky.
 \item všetky spojnice bodovvstupnej množiny \textit{P} ležia vnútri konvexnej obálky alebo tvoria jej ohraničenie.
-\item všetky vnútorné uhly medzi susednými segmentami konvexnej pbálky sú menšie ako 180 stupňov.
+\item všetky vnútorné uhly medzi susednými segmentami konvexnej obálky sú menšie ako 180 stupňov.
 \end{itemize}
 
 \begin{center}
@@ -163,14 +165,20 @@ Grahamov prehľadávací algoritmus využíva kritérium pravotočivosti, pri kt
 \end{enumerate}
 \subsubsection{Problematické situácie}
 Problematická situácia pri algoritme Graham Scan nastáva, ak sa vo vstupnej množine bodov nachádzajú body, ktoré zvierajú s osou X a pivotom rovnaký uhol ($\omega_i$) . Je potrebné určiť vzdialenosť takýchto bodov od pivotu a ponechať v množine bodov len bod s najväčšou vzdialenosťou od pivotu.
+
+
+
 \clearpage 
 %------------------------------------------------------------------------
+\section{Strikne konvexné obálky}
+Striktne konvexná obálka musí spĺňať podmienku : neobsahovať 3 nasledujúce body na jednej priamke. Pre ošetrenie tohto prípadu sme implementovali funkciu, ktorá takéto body odstránila, taktiež sme vymazali duplicitné body. 
+
 \section{Vstupné dáta - generovanie bodov}
 Vstupnými dátami je množina bodov. Táto množina môže byť ručne naklikaná v Canvase alebo automaticky generovaná.
 
-Generování je možné provést do rastru, náhodného uspořádání nebo kruhového tvaru pro různá možství bodů. Oblast genrování je určena z aktuální velikosti okna plikace. Od každé hrany okna je pevně nastavený odstup. Samotné náhodné generování je realizované pomocí $std:: random\_device$ s pouižitím generátoru $std::mt19937$.
+Generovanie je možné previeť do rastru, kruhového tvaru alebo náhodného usporiadania množiny bodov. Oblasť generovania je určená z aktuálnej veľkosti okna aplikácie. Od každej hrany okna je pevne nastavený odstup. Samotné náhodné generovanie je realizované pomocou $std:: random\_device$ s pouižitím generátoru $std::mt19937$.
 
-Rastr je generován s pevným krokem pro šířku i délku okna, který se počítá na základě požadovaného počtu bodů. Náhodné generování se provádí pomocí $std::uniform\_int\_distibution$, která generuje celá čísla v určitém rozsahu. Pro možnost circle -- kruhového generování bodů jsou body generovány polárními souřadnicemi s použitím stejného náhodného generátoru jako v předchozím případě.
+Raster je generovaný s pevným krokom pre šírku a dĺžku okna, ktorý sa počíta na základe požadovaného počtu bodov. Náhodné generovanie sa prevádza pomocou príkazu $std::uniform\_int\_distibution$, ktorý generuje celé čísla v určitom rozsahu. Pre možnosť circle -- kruhového generovania bodov sú body generované polárnymi súradnicami s použitím rovnakého náhodného generátoru ako v predchádzajúcom prípade.
 
 \subsection{Množina bodov vytvorená ručne}
 Táto množina vznikne ručným naklikaním bodov priamo v Canvase.
@@ -282,7 +290,7 @@ Súčasťou úlohy je porovnanie doby behu jednotlivých algoritmov pre testovan
 \end{center}
 
 \section{Tabulky pro jednotlivé metody}
-Tabuľky s presnou dobou behu jednotlivých algoritmov pre množiny bodov. Tabulky jsou rozdělené po jednotlivých algoritmech a každá obsahuje průměrný čas generování konvexní obálky v jednotkách milisekund určený z deseti pokusů a rozptyl. Rozptyl byl určen jako prostý rozdíl nejdelšího a nejkratšího času výpočtu obálky z deseti pokusů.
+Tabuľky s presnou dobou behu jednotlivých algoritmov pre množiny bodov. Tabuľky sú rozdelené po jednotlivých algoritmoch a každá obsahuje priemerný čas generovania konvexnej obálky v jednotkách milisekúnd určený z desiatich pokusov a rozptyl. Rozptyl bol určený ako prostý rozdiel najdlhšieho a najkratšieho času výpočtu obálky z desiatich pokusov.
 
 \begin{table}[h!]
 \centering
@@ -632,7 +640,9 @@ Tieda Widget obashuje metódy ktoré sú odkazom na sloty umožňujúce vykonáv
 %-------------------------------------------------------------------------
 \clearpage
 \section{Záver}
+Výsledkom úlohy je funkčná aplikácia a grafická prezentácia doby trvania jednotlivých algoritmov pre rôzne množiny bodov. Po vypracovaní úlohy sme došli k nasledujúcemu záveru. Najvhodnejší algoritmus pre generovanie konvexných obálok je Sweep Line. Táto metóda dosiahla najlepšie výsledky vo všetkých testovacích prípadoch. Obzvlásť výrazný časový rozdie oproti ostatným algoritmoml bol pri zväčšujúcej sa množine bodov usporiadanej v kruhovom tvare. Algoritmy Graham Scan a Jarvis Scan sú o poznanie pomalšie, hlavne pri rastri a náhodne generovanej množine bodov. Algoritmus Quick Hull dosahuje pre rastrovú a náhodnú množinu bodov takmer totožnú rýchlosť ako algoritmus Sweep Line, pri kruhovom rozložení bodov je pomalší, obdobne rýchly ako Graham Scan.
 
+V úlohe sme sa neimplementovali generovanie množiny bodov v tvare  elipsy a star - shaped rozloženia. Bolo by zaujímavé porovnať doby behov algoritmov aj pre takéto rozloženia množín bodov.
 %-------------------------------------------------------------------------
 
 %Zobrazeni seznamu obrazku
