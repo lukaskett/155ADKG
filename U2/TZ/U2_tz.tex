@@ -163,8 +163,10 @@ Grahamov prehľadávací algoritmus využíva kritérium pravotočivosti, pri kt
 Problematická situácia pri algoritme Graham Scan nastáva, ak sa vo vstupnej množine bodov nachádzajú body, ktoré zvierajú s osou X a pivotom rovnaký uhol ($\omega_i$) . Je potrebné určiť vzdialenosť takýchto bodov od pivotu a ponechať v množine bodov len bod s najväčšou vzdialenosťou od pivotu.
 \clearpage 
 %------------------------------------------------------------------------
-\section{Vstupné dáta}
+\section{Vstupné dáta - generovanie bodov}
 Vstupnými dátami je množina bodov. Táto množina môže byť ručne naklikaná v Canvase alebo automaticky generovaná.
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX TEXT GENEROVANIE BODOV XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 \subsection{Množina bodov vytvorená ručne}
 Táto množina vznikne ručným naklikaním bodov priamo v Canvase.
@@ -237,9 +239,45 @@ Po automatickom vygenerovaní bodov, prípadne ručnom naklikaní v Canvase , vo
 
 %-------------------------------------------------------------------------
 \clearpage 
-\section{Grafy a tabuľky}
+\section{Grafy - doby behu algoritmov}
+Súčasťou úlohy je porovnanie doby behu jednotlivých algoritmov pre testované množiny bodov generované v tvare kruhu, rastru a náhodne. Prezentácia výsledkov je pomocou grafov vytvorených v programe R Studio. Testovanie bolo vykonané 10x pre každý počet počet bodov z intervalu a tvar generovanej množiny bodov. Vykonali sme ho v režime Relase.
 
+\begin{center}
+   \includegraphics[width=10cm]{./img/plot_circle_generating.png}
+   \captionof{figure}{Doba behu jednotlivých algoritmov pre množinu bodov v tvare kruhu.}
+\end{center}
 
+\begin{center}
+   \includegraphics[width=10cm]{./img/plot_raster_generating.png}
+   \captionof{figure}{Doba behu jednotlivých algoritmov pre množinu bodov v tvare rastru.}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=10cm]{./img/plot_random_generating.png}
+   \captionof{figure}{Doba behu jednotlivých algoritmov pre množinu bodov v náhodnom tvare.}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=10cm]{./img/plot_jarvis_scan.png}
+   \captionof{figure}{Doba behu algoritmu Jarvis Scan pre množiny bodov vo všetkých generovaných tvaroch.}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=10cm]{./img/plot_quick_hull.png}
+   \captionof{figure}{Doba behu algoritmu Quick Hull pre množiny bodov vo všetkých generovaných tvaroch.}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=10cm]{./img/plot_sweep_line.png}
+   \captionof{figure}{Doba behu algoritmu Sweep Linel pre množiny bodov vo všetkých generovaných tvaroch.}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=10cm]{./img/plot_graham_scan.png}
+   \captionof{figure}{Doba behu algoritmu Graham Scan pre množiny bodov vo všetkých generovaných tvaroch.}
+\end{center}
+
+Tabuľky s presnou dobou behu jednotlivých algoritmov pre množiny bodov sú uvedené v prílohe technickej správy.
 
 %-------------------------------------------------------------------------
 \clearpage
