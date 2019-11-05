@@ -92,7 +92,7 @@ Postup je nasledovný. V prvom kroku vyberieme pivot q so súradnicou $y_{min}$,
 \item Do konvexnej obálky pridaj $q$
 \item Inicializuj  $p_{j-1} \in X, p_j = q, p_{j+1} = p_{j-1}$
 \item Opakuj pokial $p_{j+1} != q$
-\item \hspace {1.5cm} Nájdenie bodu pre ktorý je uhol omega maximálny $p_{j+1} = argmax_{pi \in P} \angle(p_{j-1}, p_j, p_i)$
+\item \hspace {1.5cm} Nájdenie bodu pre ktorý je uhol omega maximálny $p_{j+1} = argmax \ p_i \in P \angle(p_{j-1}, p_j, p_i)$
 \item \hspace {1.5cm} Pridaj nájdený bod  $p_{j+1}$ do konvexnej obálky
 \item \hspace {1.5cm} Inicializuj $p_{j-1} = p_j , p_j = p_{j+1}$ 
 \end{enumerate}
@@ -152,7 +152,7 @@ Grahamov prehľadávací algoritmus využíva kritérium pravotočivosti, pri kt
 \begin{enumerate}
 	\item Zoradenie množiny bodov $P_s$ podľa súradnice y 
 	\item Nájdenie pivota q, $ q = min(y_i)$ , q $\to$ Convex Hull
-	\item Zoraď body podľa veľkosti uhlu  ($\omega_i$) $ \angle(p_{kolinear} by x, x, p_i)$
+	\item Zoraď body podľa veľkosti uhlu  ($\omega_i$) $ \angle(p_{kolinearbyx}, x, p_i)$
 	\item Vymaž bližší bod ku q $ if(\omega_i = \omega_j) $
 	\item Opakuj pre všetky body j \textless  n
 	\item Pridaj bod $p_j$ pre ktorý je uhol omega maximálny a je splnená podmienka ľavotočivosti  $\to$ Convex Hull
