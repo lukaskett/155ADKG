@@ -98,8 +98,8 @@ void Widget::on_pushButton_solveU2_clicked()
     //Inform that it may last long time to solve U2
     QString cb = ui -> comboBox_chMethod -> currentText();
     QMessageBox::information(this,
-                             "Important! It may last hours to solve",
-                             QString("Selected algorithm: %1, normally it takes under 5 minutes, but for Jarvis Scan it is aprox. 3 hours").arg(cb)
+                             "Important! It may last to solve",
+                             QString("Selected algorithm: %1, normally it takes around 10 minutes for Jarvis Scan and 5 minutes for other algorithms.").arg(cb)
                              );
 
     //Convex hull
