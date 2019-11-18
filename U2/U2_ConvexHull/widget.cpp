@@ -98,8 +98,8 @@ void Widget::on_pushButton_generatePoints_clicked()
     repaint();
 
     std::vector<QPoint> points = ui -> Canvas -> getPoints();
-    int count = points.size();
-    QMessageBox::information(this, "Test generate", QString("Point count: %1").arg(count));
+    //int count = points.size();
+    //QMessageBox::information(this, "Test generate", QString("Point count: %1").arg(count));
 }
 
 void Widget::on_pushButton_solveU2_clicked()
