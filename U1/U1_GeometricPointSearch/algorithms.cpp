@@ -213,7 +213,7 @@ std::vector<QPoint> Algorithms::GrahamScan(std::vector<QPoint> gen_points_part)
     //Point on the left from point q
     QPoint r(pivot.x()-1, pivot.y());
 
-    //Add th first point of polygon
+    //Add the first point of polygon
     gen_points_sorted.push_back(pivot);
 
     // Feature count
@@ -225,7 +225,7 @@ std::vector<QPoint> Algorithms::GrahamScan(std::vector<QPoint> gen_points_part)
     //Define struct
     SortByOmega::OmegaStruct PointOmega;
 
-    //Calculate angles for all points and save them into the structure
+    //Calculate angles and distance for all points and save them into the structure
     for (unsigned int i = 0; i < n; i++)
     {
         //Calculate omega angle
