@@ -133,39 +133,26 @@ std::vector<QPoint> Draw::generatePointsU2(int method, int count_points, int wid
     std::vector<QPoint> gen_points;
 
     //Distance from the boundary of the window - experimental value
-    int boundary_gap = 4;
-
-    //Add four corner points QPoint(x,y)
-    //left-upper
-    //points.push_back(QPoint(boundary_gap, boundary_gap));
-    //left-lower
-    //points.push_back(QPoint(boundary_gap, height - boundary_gap));
-    //right-lower
-    //points.push_back(QPoint(width - boundary_gap,height - boundary_gap));
-    //right-upper
-    //points.push_back(QPoint(width - boundary_gap, boundary_gap));
-
+    int b_gap = 4;
 
     //Raster distribution
     if(method == 0)
     {
-        double step = sqrt(count_points);
-        int step_w = width / step;
-        int step_h = height / step;
+        //Calculate counts on row and column
+        int count_on_row = sqrt(count_points / (width / height));
+        int count_on_column = count_points / count_on_row;
 
-        for(int i = boundary_gap; i < (height - boundary_gap); i = i + step_h)
+        //Generate points row by row
+        for(int i = 0; i < count_on_row; i++)
         {
-            for(int j = boundary_gap; j < (width - boundary_gap); j = j + step_w)
+            for(int j = 0; j < count_on_column; j++)
             {
-                gen_points.push_back(QPoint(j,i));
+                double x = width / 2 - (width - 2 * b_gap) / 2 + j * (width - 2 * b_gap) / count_on_row;
+                double y = height / 2 - (height - 2 * b_gap) / 2 + i * (height - 2 * b_gap) / count_on_column;
+                points.push_back(QPoint(x, y));
             }
         }
 
-        //Get exact amount of points
-        while(gen_points.size() > count_points)
-        {
-            gen_points.pop_back();
-        }
     }
 
     //Random distribution
@@ -174,8 +161,8 @@ std::vector<QPoint> Draw::generatePointsU2(int method, int count_points, int wid
     {
         std::random_device rd; // obtain a random number from hardware
         std::mt19937 eng(rd()); // seed the generator
-        std::uniform_int_distribution<> distr_x(boundary_gap, width - boundary_gap); // define the x range
-        std::uniform_int_distribution<> distr_y(boundary_gap, height - boundary_gap); // define the y range
+        std::uniform_int_distribution<> distr_x(b_gap, width - b_gap); // define the x range
+        std::uniform_int_distribution<> distr_y(b_gap, height - b_gap); // define the y range
 
         for(int n = 0; n < count_points; n++)
         {
