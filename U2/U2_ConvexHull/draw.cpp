@@ -32,10 +32,6 @@ void Draw::paintEvent(QPaintEvent *event)
     int r = 4;
     unsigned int size = points.size();
 
-    //Draw only 5000 points and less
-    if(size > 5000)
-        size = 5000;
-
     for(unsigned int i = 0; i < size; i++)
     {
         qp.drawEllipse(points[i].x() - r/2,points[i].y() - r/2, r, r);
