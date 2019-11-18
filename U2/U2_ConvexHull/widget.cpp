@@ -82,6 +82,9 @@ void Widget::on_pushButton_generatePoints_clicked()
     ui -> label_timeElapsed -> clear();
     ui -> label_numberOfPointsCH -> clear();
 
+    //Clear points
+    ui -> Canvas ->clearPoints();
+
     //Get window size
     int width = ui -> Canvas -> size().width();
     int height = ui -> Canvas -> size().height();
