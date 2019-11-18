@@ -51,6 +51,7 @@ void Widget::on_pushButton_createCH_clicked()
     double time_clock = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() / 1000;
     QString time_elapsed = QString::number(time_clock);
     ui -> label_timeElapsed -> setText(time_elapsed);
+    ui -> label_numberOfPointsCH -> setText(QString::number(ch.size()));
 
     //int count = ch.size();
     //QMessageBox::information(this, "Test generate", QString("Convex hull has: %1 points.").arg(count));
@@ -65,18 +66,21 @@ void Widget::on_pushButton_clearPoints_clicked()
 {
     ui -> Canvas ->clearPoints();
     ui -> label_timeElapsed -> clear();
+    ui -> label_numberOfPointsCH -> clear();
 }
 
 void Widget::on_pushButton_clearCH_clicked()
 {
     ui -> Canvas -> clearCH();
     ui -> label_timeElapsed -> clear();
+    ui -> label_numberOfPointsCH -> clear();
 }
 
 void Widget::on_pushButton_generatePoints_clicked()
 {
     //Clear time elapsed label
     ui -> label_timeElapsed -> clear();
+    ui -> label_numberOfPointsCH -> clear();
 
     //Get window size
     int width = ui -> Canvas -> size().width();
@@ -90,7 +94,9 @@ void Widget::on_pushButton_generatePoints_clicked()
     ui -> Canvas -> generatePoints(method, count_points, width, height);
     repaint();
 
-    //QMessageBox::information(this, "Test generate", QString("Point count: %1, height: %2").arg(count).arg(height));
+    std::vector<QPoint> points = ui -> Canvas -> getPoints();
+    int count = points.size();
+    QMessageBox::information(this, "Test generate", QString("Point count: %1").arg(count));
 }
 
 void Widget::on_pushButton_solveU2_clicked()

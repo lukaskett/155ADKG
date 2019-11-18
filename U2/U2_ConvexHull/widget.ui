@@ -254,6 +254,20 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Number of points in CH:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_numberOfPointsCH">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="verticalSpacer_3">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
