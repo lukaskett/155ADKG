@@ -216,17 +216,17 @@ std::vector<QPoint> Algorithms::GrahamScan(std::vector<QPoint> gen_points_part)
     //Add the first point of polygon
     gen_points_sorted.push_back(pivot);
 
-    // Feature count
+    //Feature count
     unsigned int n = gen_points_part.size();
 
-    // Vecctor of structure objects
+    //Vector of structure objects
     std::vector<SortByOmega::OmegaStruct> points_structure;
 
     //Define struct
     SortByOmega::OmegaStruct PointOmega;
 
     //Calculate angles and distance for all points and save them into the structure
-    for (unsigned int i = 0; i < n; i++)
+    for (unsigned int i = 1; i < n; i++)
     {
         //Calculate omega angle
         double om_point = getAngle2Vectors(pivot, r, pivot, gen_points_part[i]);

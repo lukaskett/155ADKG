@@ -17,7 +17,7 @@ public:
     bool operator ()(OmegaStruct &p1, OmegaStruct &p2)
     {
         //Is omega2 bigger than omega1
-        return (p1.omega < p2.omega) || (p1.omega == p2.omega) && (p1.distance < p2.distance);
+        return (p1.omega < p2.omega) || ((p1.omega == p2.omega) && (p1.distance < p2.distance));
 
     }
 private:
