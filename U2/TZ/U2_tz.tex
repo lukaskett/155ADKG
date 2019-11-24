@@ -247,6 +247,18 @@ Množina vznikne automatickým vygenerovaním po zadaní požadovaného počtu g
    \captionof{figure}{Automaticky generovaných 1000 bodov v náhodnom tvare.}
 \end{center}
 
+\subsection{Způsob generování množiny bodů}
+Generování je rozdílné pro možné tvary generované množiny. Obecně se při každém generování počítá s aktuální velikostí okna aplikace, podle které se určuje velikost generované množiny. Je tím zaručeno, že vygenerovaná a následně zobrazená množina bodů bude zaplňovat celé okno aplikace. Zároveň generování bodů probíhá s pevným odstupem od hranice okna aplikace. Tím máme jistotu, že všechny generované body budou v okně celé a dobře viditelné. Hodnota odstupu od hrany je nastavena na 4.
+\begin{itemize}
+\item Raster
+\item[] Dochází ke generování pravidelné bodové sítě, která má obecně rozdílný krok ve vodorovném a vertikálním směru. Po vygenerování nedostáváme přesný počet požadovaných bodů. Odychylka je pohybuje do 100 bodů od požadovaného počtu. Při požadavku na kompletní řádky nejde přesného počtu jednoduchým výpočtem docílit. Přesným řešením jsme se nezabývali, poněvadž nám toto řešení přišlo jako dostačující.  Generování probíhá řádek po řádku.
+\item Random
+\item[] Generování probíhá pomocí  $std::random\_device$ s využitím generátoru $std::mt19937$(A Mersenne Twister pseudo-random generator of 32-bit numbers). Rozdělení souřadnice x a souřadnice y je určeno pomocí $std::uniform\_int\_distribution<>$ a je dáno aktuální šířkou/výškou okna dvakrát zmenšenou o odstuput od hranice(z levé a pravé, resp horní a dolní hrany, tj o 2 * 4 v obou směrech).
+\item Circle
+\item[] Pro body ve tvaru kružnice je generování podobné jako u Random, jen s tím rozdílem, že generujeme úhel a poloměr místo souřadnice x a y. Úhel je generován jako celé číslo v rozsahu 0 až 360. Poloměr jako celé číslo od poloviny aktuální výšky okna zmenšené o požadovanou šířku pruhu do poloviny aktuální výšky okna. Šířka pruhu je nastavena na 100. Vygenerované polární souřadnice jsou následně jednoduše přepočteny na kartézské x a y. Kromě $std::uniform\_int\_distribution<>$ bylo využito $std::chrono::system\_clock::now().time\_since\_epoch().count()$ pro inicializaci generátoru.
+\end{itemize}
+
+
 %------------------------------------------------------------------------
 \clearpage 
 \section{Ukážka vytvorenej aplikácie}
