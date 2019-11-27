@@ -155,6 +155,10 @@ void Widget::on_pushButton_clearSelected_clicked()
         ui -> Canvas -> clearContours();
     else if (select == 2)
         ui -> Canvas -> clearPoints();
+    else if (select == 3)
+        ui -> Canvas -> clearSlope();
+    else if (select == 4)
+        ui -> Canvas -> clearAspect();
 
     repaint();
 
@@ -165,6 +169,8 @@ void Widget::on_pushButton_clearAll_clicked()
     ui -> Canvas -> clearDT();
     ui -> Canvas -> clearContours();
     ui -> Canvas -> clearPoints();
+    ui -> Canvas -> clearSlope();
+    ui -> Canvas -> clearAspect();
 
     repaint();
 
