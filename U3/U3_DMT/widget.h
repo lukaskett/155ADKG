@@ -32,17 +32,13 @@ private slots:
 
     void on_pushButton_importMeasurement_clicked();
 
-    //void on_pushButton_analyzeSlope_clicked();
-
     void on_pushButton_generateShape_clicked();
 
     void on_pushButton_clearSelected_clicked();
 
     void on_pushButton_clearAll_clicked();
 
-   // void on_pushButton_analyzeAspect_clicked();
-
-    void on_Analyze_clicked();
+    void on_pushButton_analyze_clicked();
 
 private:
     Ui::Widget *ui;

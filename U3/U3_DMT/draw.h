@@ -43,7 +43,9 @@ public:
 
     void clearPoints(){points.clear();}
     void clearDT(){dt.clear();}
-    void clearContours(){contours.clear();}
+    void clearContours(){contours.clear(); mainContours.clear();}
+    void clearSlope(){slope = FALSE;}
+    void clearAspect(){aspect = FALSE;}
 
 
 
