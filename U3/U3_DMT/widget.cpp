@@ -135,7 +135,7 @@ void Widget::on_pushButton_generateShape_clicked()
     int height = ui -> Canvas -> size().height();
 
     //Get shape
-    int shape = ui -> comboBox -> currentIndex();
+    int shape = ui -> comboBox_shape -> currentIndex();
 
     //Generate shape
     std::vector<QPoint3D> shape_points = Algorithms::generateShapes(shape,width, height);
@@ -144,34 +144,6 @@ void Widget::on_pushButton_generateShape_clicked()
     repaint();
 
 }
-
-/*void Widget::on_pushButton_analyzeSlope_clicked()
-{
-     std::vector<Edge> dt;
-
-    if(ui -> Canvas -> getDtSize() == 0)
-    {
-        //Create triangulation
-        std::vector<QPoint3D> points = ui -> Canvas -> getPoints();
-        std::vector<Edge> dt = Algorithms::DT(points);
-        ui -> Canvas -> setDt(dt);
-    }
-
-    else
-    {
-        //Triangulation has been created
-        dt = ui -> Canvas -> getDt();
-    }
-
-    //Analyze DMT
-
-    std::vector<Triangle> dmt = Algorithms::analyzeDMT(dt);
-    ui -> Canvas -> setDMT(dmt);
-
-
-    repaint();
-
-}*/
 
 void Widget::on_pushButton_clearSelected_clicked()
 {
@@ -198,43 +170,25 @@ void Widget::on_pushButton_clearAll_clicked()
 
 }
 
-/*void Widget::on_pushButton_analyzeAspect_clicked()
+void Widget::on_pushButton_analyze_clicked()
 {
+    bool slope = FALSE;
     bool aspect = FALSE;
 
     //Analyze slope and aspect
-    std::vector<Edge> dt = ui ->Canvas->getDt();
+    std::vector<Edge> dt= ui -> Canvas -> getDt();
     std::vector<Triangle> dmt = Algorithms::analyzeDMT(dt);
-    ui->Canvas->setDMT(dmt);
-    if(aspect = FALSE){
+    ui -> Canvas -> setDMT(dmt);
+
+    if(ui -> comboBox_analyze -> currentIndex()==0){
+        slope = TRUE;
+        aspect = FALSE;
+    }
+    else if(ui -> comboBox_analyze -> currentIndex()==1){
+        slope = FALSE;
         aspect = TRUE;
-        }
-
-    ui->Canvas->setAspect(aspect);
+    }
+    ui -> Canvas -> setSlope(slope);
+    ui -> Canvas -> setAspect(aspect);
     repaint();
-
-}
-*/
-
-void Widget::on_Analyze_clicked()
-{
-   bool slope = FALSE;
-   bool aspect = FALSE;
-
-   //Analyze slope and aspect
-   std::vector<Edge> dt= ui->Canvas->getDt();
-   std::vector<Triangle> dmt = Algorithms::analyzeDMT(dt);
-   ui->Canvas->setDMT(dmt);
-
-   if(ui->comboBox_2->currentIndex()==0){
-       slope = TRUE;
-       aspect = FALSE;
-   }
-   else if(ui->comboBox_2->currentIndex()==1){
-       slope = FALSE;
-       aspect = TRUE;
-   }
-   ui->Canvas->setSlope(slope);
-   ui->Canvas->setAspect(aspect);
-   repaint();
 }

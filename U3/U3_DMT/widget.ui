@@ -64,7 +64,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="comboBox_shape">
        <item>
         <property name="text">
          <string>hill</string>
@@ -280,7 +280,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_2">
+      <widget class="QComboBox" name="comboBox_analyze">
        <item>
         <property name="text">
          <string>Slope</string>
@@ -294,7 +294,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="Analyze">
+      <widget class="QPushButton" name="pushButton_analyze">
        <property name="font">
         <font>
          <weight>75</weight>
