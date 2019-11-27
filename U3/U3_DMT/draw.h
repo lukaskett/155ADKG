@@ -9,15 +9,18 @@
 #include "qpoint3d.h"
 #include "edge.h"
 #include "triangle.h"
+#include "algorithms.h"
 
 class Draw : public QWidget
 {
     Q_OBJECT
-private: //co chci vykreslit musim mit zd
+private: //co chci vykreslit musim mit zde
     std::vector<QPoint3D> points;
     std::vector<Edge> dt;
     std::vector<Edge> contours;
+    std::vector<Edge> mainContours;
     std::vector<Triangle> dmt;
+    bool slope, aspect;
 
 public:
     explicit Draw(QWidget *parent = nullptr);
@@ -26,6 +29,10 @@ public:
     void setDt(std::vector<Edge> &dt_) {dt = dt_;}
     void setDMT(std::vector<Triangle> &dmt_){dmt = dmt_;}
     void setContours(std::vector<Edge> &contours_) {contours = contours_;}
+    void setMainContours(std::vector<Edge> &mainContours_) {mainContours = mainContours_;}
+    void setSlope(bool slope_){slope = slope_;}
+    void setAspect(bool aspect_){aspect = aspect_;}
+
 
     int getDtSize(){return dt.size();}
     std::vector<Edge>& getDt(){return dt;} //nekopirujeme, vracime jen adresu, kdyby mela DT hodne bodu
@@ -37,6 +44,8 @@ public:
     void clearPoints(){points.clear();}
     void clearDT(){dt.clear();}
     void clearContours(){contours.clear();}
+
+
 
 signals:
 

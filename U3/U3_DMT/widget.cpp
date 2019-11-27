@@ -3,13 +3,17 @@
 
 #include "algorithms.h"
 #include "triangle.h"
+#include "edge.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QtGui>
+#include <vector>
+#include <fstream>
 
-Widget::Widget(QWidget *parent)
-    : QWidget(parent)
-    , ui(new Ui::Widget)
+Widget::Widget(QWidget *parent):
+     QWidget(parent),
+     ui(new Ui::Widget)
 {
     ui->setupUi(this);
     z_min = 0;
@@ -60,8 +64,11 @@ void Widget::on_pushButton_createContours_clicked()
         dt = ui->Canvas->getDt();
 
     //Create contour lines
+
      std::vector<Edge> contours = Algorithms::createContourLines(dt, z_min, z_max, dz);
+     std::vector<Edge> mainContours = Algorithms::createContourLines(dt, z_min, z_max, 5*dz);
      ui -> Canvas -> setContours(contours);
+     ui -> Canvas -> setMainContours(mainContours);
 
     repaint();
 }
@@ -138,7 +145,7 @@ void Widget::on_pushButton_generateShape_clicked()
 
 }
 
-void Widget::on_pushButton_analyzeSlope_clicked()
+/*void Widget::on_pushButton_analyzeSlope_clicked()
 {
      std::vector<Edge> dt;
 
@@ -157,12 +164,14 @@ void Widget::on_pushButton_analyzeSlope_clicked()
     }
 
     //Analyze DMT
+
     std::vector<Triangle> dmt = Algorithms::analyzeDMT(dt);
     ui -> Canvas -> setDMT(dmt);
 
+
     repaint();
 
-}
+}*/
 
 void Widget::on_pushButton_clearSelected_clicked()
 {
@@ -187,4 +196,45 @@ void Widget::on_pushButton_clearAll_clicked()
 
     repaint();
 
+}
+
+/*void Widget::on_pushButton_analyzeAspect_clicked()
+{
+    bool aspect = FALSE;
+
+    //Analyze slope and aspect
+    std::vector<Edge> dt = ui ->Canvas->getDt();
+    std::vector<Triangle> dmt = Algorithms::analyzeDMT(dt);
+    ui->Canvas->setDMT(dmt);
+    if(aspect = FALSE){
+        aspect = TRUE;
+        }
+
+    ui->Canvas->setAspect(aspect);
+    repaint();
+
+}
+*/
+
+void Widget::on_Analyze_clicked()
+{
+   bool slope = FALSE;
+   bool aspect = FALSE;
+
+   //Analyze slope and aspect
+   std::vector<Edge> dt= ui->Canvas->getDt();
+   std::vector<Triangle> dmt = Algorithms::analyzeDMT(dt);
+   ui->Canvas->setDMT(dmt);
+
+   if(ui->comboBox_2->currentIndex()==0){
+       slope = TRUE;
+       aspect = FALSE;
+   }
+   else if(ui->comboBox_2->currentIndex()==1){
+       slope = FALSE;
+       aspect = TRUE;
+   }
+   ui->Canvas->setSlope(slope);
+   ui->Canvas->setAspect(aspect);
+   repaint();
 }

@@ -2,6 +2,8 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include "qpoint3d.h"
+#include "algorithms.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -30,13 +32,17 @@ private slots:
 
     void on_pushButton_importMeasurement_clicked();
 
-    void on_pushButton_analyzeSlope_clicked();
+    //void on_pushButton_analyzeSlope_clicked();
 
     void on_pushButton_generateShape_clicked();
 
     void on_pushButton_clearSelected_clicked();
 
     void on_pushButton_clearAll_clicked();
+
+   // void on_pushButton_analyzeAspect_clicked();
+
+    void on_Analyze_clicked();
 
 private:
     Ui::Widget *ui;

@@ -280,20 +280,21 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_analyzeSlope">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Analyze slope</string>
-       </property>
+      <widget class="QComboBox" name="comboBox_2">
+       <item>
+        <property name="text">
+         <string>Slope</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Aspect</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_analyzeAspect">
+      <widget class="QPushButton" name="Analyze">
        <property name="font">
         <font>
          <weight>75</weight>
@@ -301,7 +302,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Analyze aspect</string>
+        <string>Analyze</string>
        </property>
       </widget>
      </item>
@@ -405,7 +406,7 @@
   <customwidget>
    <class>Draw</class>
    <extends>QWidget</extends>
-   <header>draw.h</header>
+   <header location="global">draw.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
