@@ -173,15 +173,15 @@ std::vector<Edge> Algorithms::DT(std::vector<QPoint3D> &points)
         e1.changeOrientation();
 
         //Find optimal Delaunay point
-        i_o = getDelaunayPoint(qn, q, points); //body v primce by mohly nastat, predpokladame, ze jsme bod nasli
+        i_o = getDelaunayPoint(e1.getStart(), e1.getEnd(), points); //body v primce by mohly nastat, predpokladame, ze jsme bod nasli
     }
 
     //Third point of the triangle
     QPoint3D q3 = points[i_o];
 
     //Create initial triangle - represented by sequence of three edges
-    Edge e2(qn, q3);
-    Edge e3(q3, q);
+    Edge e2(e1.getEnd(), q3);
+    Edge e3(q3, e1.getStart());
 
     //Add edges to dt
     dt.push_back(e1);
