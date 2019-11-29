@@ -178,6 +178,10 @@ void Widget::on_pushButton_clearAll_clicked()
 
 void Widget::on_pushButton_analyze_clicked()
 {
+    //Set color scale
+    int colorScale = ui -> comboBox_colorScale -> currentIndex();
+    ui -> Canvas -> setColorScale(colorScale);
+
     bool slope = FALSE;
     bool aspect = FALSE;
 
@@ -186,15 +190,25 @@ void Widget::on_pushButton_analyze_clicked()
     std::vector<Triangle> dmt = Algorithms::analyzeDMT(dt);
     ui -> Canvas -> setDMT(dmt);
 
-    if(ui -> comboBox_analyze -> currentIndex()==0){
+    if(ui -> comboBox_analyze -> currentIndex() == 0){
         slope = TRUE;
         aspect = FALSE;
     }
-    else if(ui -> comboBox_analyze -> currentIndex()==1){
+    else if(ui -> comboBox_analyze -> currentIndex() == 1){
         slope = FALSE;
         aspect = TRUE;
     }
     ui -> Canvas -> setSlope(slope);
     ui -> Canvas -> setAspect(aspect);
     repaint();
+}
+
+void Widget::on_comboBox_analyze_currentTextChanged(const QString &arg1)
+{
+    if (arg1 == "Aspect") {
+            ui->comboBox_colorScale->clear();
+            ui->comboBox_colorScale->addItem("Yellow");
+            ui->comboBox_colorScale->addItem("Orange");
+            ui->comboBox_colorScale->addItem("Cyan");
+        }
 }

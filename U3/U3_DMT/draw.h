@@ -21,6 +21,7 @@ private: //co chci vykreslit musim mit zde
     std::vector<Edge> mainContours;
     std::vector<Triangle> dmt;
     bool slope, aspect;
+    int colorScale;
 
 public:
     explicit Draw(QWidget *parent = nullptr);
@@ -32,6 +33,7 @@ public:
     void setMainContours(std::vector<Edge> &mainContours_) {mainContours = mainContours_;}
     void setSlope(bool slope_){slope = slope_;}
     void setAspect(bool aspect_){aspect = aspect_;}
+    void setColorScale(int colorScale_){colorScale = colorScale_;}
 
 
     int getDtSize(){return dt.size();}
@@ -46,8 +48,6 @@ public:
     void clearContours(){contours.clear(); mainContours.clear();}
     void clearSlope(){slope = FALSE;}
     void clearAspect(){aspect = FALSE;}
-
-
 
 signals:
 

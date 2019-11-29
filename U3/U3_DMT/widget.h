@@ -40,6 +40,8 @@ private slots:
 
     void on_pushButton_analyze_clicked();
 
+    void on_comboBox_analyze_currentTextChanged(const QString &arg1);
+
 private:
     Ui::Widget *ui;
 };

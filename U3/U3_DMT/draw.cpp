@@ -69,8 +69,8 @@ void Draw::paintEvent(QPaintEvent *event)
         int slope = 150 - t.getSlope() * k;
 
         //Set color brush
-        QColor c(slope, slope, slope);
-        painter.setBrush(c);
+        std::vector<QColor> colorSlope = {QColor(slope, slope, slope)};
+        painter.setBrush(colorSlope[0]);
 
         //Create polygon
         QPolygonF triangle;
@@ -97,34 +97,37 @@ void Draw::paintEvent(QPaintEvent *event)
         //Get aspect, it is equal to the color - musime najit model kde na sebe barvy navazuji
         int aspect_type = t.getAspect();
 
+        //Color posibilitis
+        std::vector<QColor> cAspect = {Qt::red, QColor(255,170,0), Qt::yellow, Qt::green, QColor(0,255,250), QColor(95,220,255), Qt::blue, QColor(255,95,255)};
+
         //Interval of aspect values for giving color - coloras are like in the Argis Pro
         //Used RGB calculator https://www.colorspire.com/rgb-color-wheel/
         if((aspect_type > 0) && (aspect_type < 22.5)){
-            painter.setBrush(Qt::red);
+            painter.setBrush(cAspect[0]);
         }
         else if((aspect_type >= 22.5) && (aspect_type < 67.5)){
-            painter.setBrush(QColor(255,170,0));
+            painter.setBrush(cAspect[1]);
         }
         else if((aspect_type >= 67.5) && (aspect_type < 112.5)){
-            painter.setBrush(Qt::yellow);
+            painter.setBrush(cAspect[2]);
         }
         else if((aspect_type >= 112.5) && (aspect_type < 157.5)){
-            painter.setBrush(Qt::green);
+            painter.setBrush(cAspect[3]);
         }
         else if((aspect_type >= 157.5) && (aspect_type < 202.5)){
-            painter.setBrush(QColor(0,255,250));
+            painter.setBrush(cAspect[4]);
         }
         else if((aspect_type >= 202.5) && (aspect_type < 247.5)){
-            painter.setBrush(QColor(95,220,255));
+            painter.setBrush(cAspect[5]);
         }
         else if((aspect_type >= 247.5) && (aspect_type < 292.5)){
-            painter.setBrush(Qt::blue);
+            painter.setBrush(cAspect[6]);
         }
         else if((aspect_type >= 292.5) && (aspect_type < 337.5)){
-            painter.setBrush(QColor(255,95,255));
+            painter.setBrush(cAspect[7]);
         }
         else if((aspect_type >= 337.5) && (aspect_type < 360)){
-            painter.setBrush(Qt::red);
+            painter.setBrush(cAspect[0]);
         }
 
         //QColor c(aspect_type, aspect_type, aspect_type);
