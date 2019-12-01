@@ -63,28 +63,6 @@ void Draw::paintEvent(QPaintEvent *event)
         painter.drawLine(contours[i].getStart(), contours[i].getEnd());
     }
 
-   /* //Draw main contour lines
-    QPen q2;
-    q2.setWidth(2);
-    q2.setColor("brown");
-    painter.setPen(q2);
-    for (unsigned int i = 0; i < mainContours.size(); i++)
-    {
-       int h = metadata[i];
-       int hl = dz * 5;
-
-       //Určenie, že sa jedná o hlavné vrstevnice
-       if(!(h%(hl))){
-               double x = (mainContours[i].getStart().x() + mainContours[i].getEnd().x())/2;
-               double y = (mainContours[i].getStart().y() + mainContours[i].getEnd().y())/2;
-               painter.drawLine(mainContours[i].getStart(), mainContours[i].getEnd());
-               painter.drawText( x, y, QString::number(h));
-       }
-       else
-
-    }
-    */
-
     //Draw slope
 
     if(slope == TRUE)
