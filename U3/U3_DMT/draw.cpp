@@ -9,6 +9,12 @@ Draw::Draw(QWidget *parent) : QWidget(parent)
 
 }
 
+void Draw::setContours(std::vector<Edge> &contours_, std::vector<double> &metadata_, int dz_)
+{
+    contours = contours_;
+    metadata = metadata_;
+    dz = dz_;
+}
 void Draw::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
@@ -32,26 +38,52 @@ void Draw::paintEvent(QPaintEvent *event)
     }
 
     //Draw contour lines
-    QPen q;
-    q.setWidth(1);
-    q.setColor("brown");
-    painter.setPen(q);
-
     for (unsigned int i = 0; i < contours.size(); i++)
     {
+        int height = metadata[i]; //contour height
+        int mainContour = dz * 5; // main contour
+        //If contour is main contour
+        if(!(height%(mainContour))){
+                double x = (contours[i].getStart().x() + contours[i].getEnd().x())/2;
+                double y = (contours[i].getStart().y() + contours[i].getEnd().y())/2;
+                QPen q;
+                q.setWidth(2);
+                q.setColor("brown");
+                painter.setPen(q);
+                painter.drawLine(contours[i].getStart(), contours[i].getEnd());
+                painter.drawText( x, y, QString::number(height)); // not ideal way to success, in some type of terain do lot of dimension in small area
+        }
+        else //clasic contour
+        {
+            QPen q_;
+            q_.setWidth(1);
+            q_.setColor("brown");
+            painter.setPen(q_);
+        }
         painter.drawLine(contours[i].getStart(), contours[i].getEnd());
     }
 
-    //Draw main contour lines
+   /* //Draw main contour lines
     QPen q2;
     q2.setWidth(2);
     q2.setColor("brown");
     painter.setPen(q2);
     for (unsigned int i = 0; i < mainContours.size(); i++)
     {
-        painter.drawLine(mainContours[i].getStart(), mainContours[i].getEnd());
+       int h = metadata[i];
+       int hl = dz * 5;
+
+       //Určenie, že sa jedná o hlavné vrstevnice
+       if(!(h%(hl))){
+               double x = (mainContours[i].getStart().x() + mainContours[i].getEnd().x())/2;
+               double y = (mainContours[i].getStart().y() + mainContours[i].getEnd().y())/2;
+               painter.drawLine(mainContours[i].getStart(), mainContours[i].getEnd());
+               painter.drawText( x, y, QString::number(h));
+       }
+       else
 
     }
+    */
     //Draw slope
 
     if(slope == TRUE)
@@ -129,9 +161,6 @@ void Draw::paintEvent(QPaintEvent *event)
         else if((aspect_type >= 337.5) && (aspect_type < 360)){
             painter.setBrush(cAspect[0]);
         }
-
-        //QColor c(aspect_type, aspect_type, aspect_type);
-        //painter.setBrush(c);
 
         //Create polygon
         QPolygon triangle;

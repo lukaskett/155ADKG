@@ -266,7 +266,7 @@ QPoint3D Algorithms::getContourPoint(QPoint3D &p1,QPoint3D &p2, double z)
     return A;
 }
 
-std::vector<Edge> Algorithms::createContourLines(std::vector<Edge> &dt, double z_min, double z_max, double dz)
+std::vector<Edge> Algorithms::createContourLines(std::vector<Edge> &dt, double z_min, double z_max, double dz, std::vector<double> &metadata)
 {
     //Generate contour lines
 
@@ -322,6 +322,7 @@ std::vector<Edge> Algorithms::createContourLines(std::vector<Edge> &dt, double z
                 Edge e(a, b);
                 // Add fragment to the contours
                 contours.push_back(e);
+                metadata.push_back(z);
             }
 
             // 2)Edge e23 and edge e31 are intersected
@@ -335,6 +336,7 @@ std::vector<Edge> Algorithms::createContourLines(std::vector<Edge> &dt, double z
                 Edge e(a, b);
                 // Add fragment to the contours
                 contours.push_back(e);
+                metadata.push_back(z);
             }
 
             // 3)Edge e31 and edge e12 are intersected
@@ -347,7 +349,8 @@ std::vector<Edge> Algorithms::createContourLines(std::vector<Edge> &dt, double z
                 // Create fragment of contour line
                 Edge e(a, b);
                 // Add fragment to the contours
-                contours.push_back(e);
+                contours.push_back(e); //edge
+                metadata.push_back(z); //height
             }
 
         }

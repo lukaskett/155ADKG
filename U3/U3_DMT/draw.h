@@ -18,10 +18,11 @@ private: //co chci vykreslit musim mit zde
     std::vector<QPoint3D> points;
     std::vector<Edge> dt;
     std::vector<Edge> contours;
-    std::vector<Edge> mainContours;
+    std::vector<double> metadata;
     std::vector<Triangle> dmt;
     bool slope, aspect;
     int colorScale;
+    int dz;
 
 public:
     explicit Draw(QWidget *parent = nullptr);
@@ -29,8 +30,8 @@ public:
     void setPoints(std::vector<QPoint3D> &points_){points = points_;}
     void setDt(std::vector<Edge> &dt_) {dt = dt_;}
     void setDMT(std::vector<Triangle> &dmt_){dmt = dmt_;}
-    void setContours(std::vector<Edge> &contours_) {contours = contours_;}
-    void setMainContours(std::vector<Edge> &mainContours_) {mainContours = mainContours_;}
+    //void setContours(std::vector<Edge> &contours_) {contours = contours_;}
+    void setContours(std::vector<Edge> &contours_, std::vector<double> &metadata_, int dz_);
     void setSlope(bool slope_){slope = slope_;}
     void setAspect(bool aspect_){aspect = aspect_;}
     void setColorScale(int colorScale_){colorScale = colorScale_;}
@@ -45,7 +46,7 @@ public:
 
     void clearPoints(){points.clear();}
     void clearDT(){dt.clear();}
-    void clearContours(){contours.clear(); mainContours.clear();}
+    void clearContours(){contours.clear();}
     void clearSlope(){slope = FALSE;}
     void clearAspect(){aspect = FALSE;}
 
