@@ -84,6 +84,7 @@ void Draw::paintEvent(QPaintEvent *event)
 
     }
     */
+
     //Draw slope
 
     if(slope == TRUE)
@@ -101,8 +102,20 @@ void Draw::paintEvent(QPaintEvent *event)
         int slope = 150 - t.getSlope() * k;
 
         //Set color brush
-        std::vector<QColor> colorSlope = {QColor(slope, slope, slope)};
-        painter.setBrush(colorSlope[0]);
+        QColor colorSlope;
+        if(colorScale == 0)
+            //Gray
+            colorSlope = QColor(slope, slope, slope);
+
+        else if(colorScale == 1)
+            //Blue
+            colorSlope = QColor(0, 0, slope);
+
+        else
+            //Green
+            colorSlope = QColor(0, slope, 0);
+
+        painter.setBrush(colorSlope);
 
         //Create polygon
         QPolygonF triangle;
@@ -130,7 +143,22 @@ void Draw::paintEvent(QPaintEvent *event)
         int aspect_type = t.getAspect();
 
         //Color posibilitis
-        std::vector<QColor> cAspect = {Qt::red, QColor(255,170,0), Qt::yellow, Qt::green, QColor(0,255,250), QColor(95,220,255), Qt::blue, QColor(255,95,255)};
+        //page 337: https://pdfs.semanticscholar.org/d0f0/bf0713dddfd752e5a35df5ecc425f74f71bd.pdf
+        std::vector<QColor> cAspect;
+        if(colorScale == 0)
+            cAspect = {Qt::red, QColor(255,170,0), Qt::yellow, Qt::green, QColor(0,255,250), QColor(95,220,255), Qt::blue, QColor(255,95,255)};
+
+        else if(colorScale == 1)
+            //Maximum-slope classes(greather than 40 percent slope)
+            cAspect = {QColor(132, 214, 0), QColor(0, 171, 68), QColor(0, 104, 192), QColor(108, 0, 163), QColor(202, 0, 156), QColor(255, 85, 104), QColor(255, 171, 71), QColor(244, 250, 0)};
+
+        else if(colorScale == 2)
+            //Moderate slopes(20 to 40 percent slope)
+            cAspect = {QColor(141, 196, 88), QColor(91, 171, 113), QColor(80, 120, 182), QColor(119, 71, 157), QColor(192, 77, 156), QColor(231, 111, 122), QColor(226, 166, 108), QColor(214, 219, 94)};
+
+        else
+            //Low slopes(5 to 20 ercent slope)
+            cAspect = {QColor(152, 181, 129), QColor(114, 168, 144), QColor(124, 142, 173), QColor(140, 117, 160), QColor(180, 123, 161), QColor(203, 139, 143), QColor(197, 165, 138), QColor(189, 191, 137)};
 
         //Interval of aspect values for giving color - coloras are like in the Argis Pro
         //Used RGB calculator https://www.colorspire.com/rgb-color-wheel/

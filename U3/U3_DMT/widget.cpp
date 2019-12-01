@@ -51,13 +51,14 @@ void Widget::on_pushButton_createContours_clicked()
 {
     std::vector<Edge> dt;
 
-    if (ui->Canvas->getDtSize() == 0)
+    if (ui -> Canvas -> getDtSize() == 0)
     {
         //Construct DT
-        std::vector<QPoint3D> points=ui->Canvas->getPoints();
+        std::vector<QPoint3D> points = ui -> Canvas -> getPoints();
         dt = Algorithms::DT(points);
-        ui->Canvas->setDt(dt);
+        ui -> Canvas -> setDt(dt);
     }
+
     //Triangulation has been created
     else
         //Get triangulation
@@ -70,7 +71,7 @@ void Widget::on_pushButton_createContours_clicked()
      ui -> Canvas -> setContours(contours, dz);
      ui -> Canvas -> setMainContours(mainContours, metadata, dz);*/
 
-    int dz = ui->lineEdit_dz->text().toInt();
+    int dz = ui -> lineEdit_dz -> text().toInt();
     std::vector<double> metadata;
     std::vector<Edge> contours = Algorithms::createContourLines(dt, z_min, z_max, dz, metadata);
     ui -> Canvas -> setContours(contours, metadata,dz);
@@ -182,6 +183,22 @@ void Widget::on_pushButton_clearAll_clicked()
 
 void Widget::on_pushButton_analyze_clicked()
 {
+    //Check if dt exist
+    std::vector<Edge> dt;
+
+    if (ui->Canvas->getDtSize() == 0)
+    {
+        //Construct DT
+        std::vector<QPoint3D> points = ui -> Canvas -> getPoints();
+        dt = Algorithms::DT(points);
+        ui -> Canvas -> setDt(dt);
+    }
+
+    //Triangulation has been created
+    else
+        //Get triangulation
+        dt = ui->Canvas->getDt();
+
     //Set color scale
     int colorScale = ui -> comboBox_colorScale -> currentIndex();
     ui -> Canvas -> setColorScale(colorScale);
@@ -190,7 +207,6 @@ void Widget::on_pushButton_analyze_clicked()
     bool aspect = FALSE;
 
     //Analyze slope and aspect
-    std::vector<Edge> dt= ui -> Canvas -> getDt();
     std::vector<Triangle> dmt = Algorithms::analyzeDMT(dt);
     ui -> Canvas -> setDMT(dmt);
 
@@ -211,8 +227,9 @@ void Widget::on_comboBox_analyze_currentTextChanged(const QString &arg1)
 {
     if (arg1 == "Aspect") {
             ui->comboBox_colorScale->clear();
-            ui->comboBox_colorScale->addItem("Yellow");
-            ui->comboBox_colorScale->addItem("Orange");
-            ui->comboBox_colorScale->addItem("Cyan");
+            ui->comboBox_colorScale->addItem("Default");
+            ui->comboBox_colorScale->addItem("Maximum slope(>40)");
+            ui->comboBox_colorScale->addItem("Moderate slopes(20-40)");
+            ui->comboBox_colorScale->addItem("Low slopes(5-20)");
         }
 }

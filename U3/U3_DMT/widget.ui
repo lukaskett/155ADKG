@@ -304,12 +304,12 @@
       <widget class="QComboBox" name="comboBox_colorScale">
        <item>
         <property name="text">
-         <string>Blue</string>
+         <string>Gray</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Red</string>
+         <string>Blue</string>
         </property>
        </item>
        <item>
