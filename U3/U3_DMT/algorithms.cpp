@@ -465,7 +465,7 @@ std::vector<QPoint3D> Algorithms::importMeasurement(std::string path, int width,
          //Actualize MIN and MAX values
          if(x > max_x) max_x = x;
          if(y > max_y) max_y = y;
-         if(y > max_z) max_z = z;
+         if(z > max_z) max_z = z;
 
          if(x < min_x) min_x = x;
          if(y < min_y) min_y = y;
