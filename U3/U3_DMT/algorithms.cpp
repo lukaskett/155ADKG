@@ -535,7 +535,7 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
 
         //General parameters
         double density = 40;
-        int dz = 30;
+        int dz = 60;
 
         for (int st_z = start; st_z < height - 2 * start - (height / 4); st_z += dz)
         {
@@ -556,8 +556,8 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
             double start_valley = end_first;
             double end_valley = end_first + 2 * part;
 
-            int B = 2;
-            double v1_a = -M_PI/2/B;
+            int B = 1;
+            double v1_a = M_PI / 2 / B;
 
             double v1_step = M_PI / ((end_valley - start_valley) / density);
             int amplitude = height / 8;
@@ -565,7 +565,8 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
             {
                 double x = step;
                 double y = st_z;
-                double z = st_z - amplitude  + amplitude * cos(B * (-v1_a));
+                double z = st_z  - amplitude * cos(B * (v1_a));
+
                 QPoint3D point(x, y, z);
                 points.push_back(point);
                 v1_a += v1_step;
@@ -596,7 +597,7 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
 
             //General parameters
             double density = 40;
-            int dz = 30;
+            int dz = 60;
 
             for (int st_z = start; st_z < height - 2 * start - (height / 4); st_z += dz)
             {
