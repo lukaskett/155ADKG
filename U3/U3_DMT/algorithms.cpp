@@ -556,6 +556,68 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
             double start_valley = end_first;
             double end_valley = end_first + 2 * part;
 
+            int B = 2;
+            double v1_a = M_PI/2/B;
+
+            double v1_step = M_PI / ((end_valley - start_valley)/density);
+            int amplitude = height / 8;
+            for (double step = start_valley; step < end_valley; step += density)
+            {
+                double x = step;
+                double y = st_z;
+                double z = st_z - amplitude  + amplitude * sin(B * (v1_a));
+                QPoint3D point(x, y, z);
+                points.push_back(point);
+                v1_a += v1_step;
+            }
+
+            //3)Last part
+            double start_last = end_valley;
+            double end_last = end;
+            for (double step = start_last; step < end_last; step += density)
+            {
+                double x = step;
+                double y = st_z;
+                double z = st_z;
+                QPoint3D point(x, y, z);
+                points.push_back(point);
+            }
+
+        }
+
+    }
+
+    //Generate spur
+    else if(shape == 2)
+    {
+        //Devide into the parts
+        int start = 4;
+        double end = width - 2 * start;
+        double part = end / 4;
+
+        //General parameters
+        double density = 40;
+        int dz = 60;
+
+        for (int st_z = start; st_z < height - 2 * start - (height / 4); st_z += dz)
+        {
+            //1)First part
+            double start_first = 4;
+            double end_first = part;
+            for (double step = start_first; step < end_first; step += density)
+            {
+                double x = step;
+                double y = st_z;
+                double z = st_z;
+                QPoint3D point(x, y, z);
+                points.push_back(point);
+
+            }
+
+            //2)Middle part
+            double start_valley = end_first;
+            double end_valley = end_first + 2 * part;
+
             int B = 1;
             double v1_a = M_PI / 2 / B;
 
@@ -585,67 +647,7 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
             }
 
         }
-    }
 
-    //Generate spur
-    else if(shape == 2)
-    {
-            //Devide into the parts
-            int start = 4;
-            double end = width - 2 * start;
-            double part = end / 4;
-
-            //General parameters
-            double density = 40;
-            int dz = 60;
-
-            for (int st_z = start; st_z < height - 2 * start - (height / 4); st_z += dz)
-            {
-                //1)First part
-                double start_first = 4;
-                double end_first = part;
-                for (double step = start_first; step < end_first; step += density)
-                {
-                    double x = step;
-                    double y = st_z;
-                    double z = st_z;
-                    QPoint3D point(x, y, z);
-                    points.push_back(point);
-
-                }
-
-                //2)Middle part
-                double start_valley = end_first;
-                double end_valley = end_first + 2 * part;
-
-                int B = 2;
-                double v1_a = M_PI/2/B;
-
-                double v1_step = M_PI / ((end_valley - start_valley)/density);
-                int amplitude = height / 8;
-                for (double step = start_valley; step < end_valley; step += density)
-                {
-                    double x = step;
-                    double y = st_z;
-                    double z = st_z - amplitude  + amplitude * sin(B * (v1_a));
-                    QPoint3D point(x, y, z);
-                    points.push_back(point);
-                    v1_a += v1_step;
-                }
-
-                //3)Last part
-                double start_last = end_valley;
-                double end_last = end;
-                for (double step = start_last; step < end_last; step += density)
-                {
-                    double x = step;
-                    double y = st_z;
-                    double z = st_z;
-                    QPoint3D point(x, y, z);
-                    points.push_back(point);
-                }
-
-            }
       }
 
     //Generate platform
