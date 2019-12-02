@@ -65,12 +65,6 @@ void Widget::on_pushButton_createContours_clicked()
         dt = ui->Canvas->getDt();
 
     //Create contour lines
-
-     /*std::vector<Edge> contours = Algorithms::createContourLines(dt, z_min, z_max, dz, metadata);
-     std::vector<Edge> mainContours = Algorithms::createContourLines(dt, z_min, z_max, 5*dz, metadata);
-     ui -> Canvas -> setContours(contours, dz);
-     ui -> Canvas -> setMainContours(mainContours, metadata, dz);*/
-
     int dz = ui -> lineEdit_dz -> text().toInt();
     std::vector<double> metadata;
     std::vector<Edge> contours = Algorithms::createContourLines(dt, z_min, z_max, dz, metadata);
@@ -135,6 +129,9 @@ void Widget::on_pushButton_importMeasurement_clicked()
 
 void Widget::on_pushButton_generateShape_clicked()
 {
+    //Clean Canvas
+    ui -> Canvas -> clearAll();
+
     //Get window size
     int width = ui -> Canvas -> size().width();
     int height = ui -> Canvas -> size().height();
@@ -171,11 +168,7 @@ void Widget::on_pushButton_clearSelected_clicked()
 
 void Widget::on_pushButton_clearAll_clicked()
 {
-    ui -> Canvas -> clearDT();
-    ui -> Canvas -> clearContours();
-    ui -> Canvas -> clearPoints();
-    ui -> Canvas -> clearSlope();
-    ui -> Canvas -> clearAspect();
+    ui -> Canvas -> clearAll();
 
     repaint();
 

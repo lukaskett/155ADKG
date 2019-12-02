@@ -30,7 +30,6 @@ public:
     void setPoints(std::vector<QPoint3D> &points_){points = points_;}
     void setDt(std::vector<Edge> &dt_) {dt = dt_;}
     void setDMT(std::vector<Triangle> &dmt_){dmt = dmt_;}
-    //void setContours(std::vector<Edge> &contours_) {contours = contours_;}
     void setContours(std::vector<Edge> &contours_, std::vector<double> &metadata_, int dz_);
     void setSlope(bool slope_){slope = slope_;}
     void setAspect(bool aspect_){aspect = aspect_;}
@@ -49,6 +48,7 @@ public:
     void clearContours(){contours.clear();}
     void clearSlope(){slope = FALSE;}
     void clearAspect(){aspect = FALSE;}
+    void clearAll(){points.clear(); dt.clear(); contours.clear(); slope = FALSE; aspect = FALSE;}
 
 signals:
 

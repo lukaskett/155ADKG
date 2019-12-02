@@ -507,34 +507,22 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
         unsigned int major_diam = width * 0.4;
         unsigned int minor_diam = height * 0.25;
 
-        //Define bounding box
-        double k = 1.1;
-        points.push_back(QPoint3D(center.x() + k * major_diam, center.y() + k * minor_diam, 0));
-        points.push_back(QPoint3D(center.x() - k * major_diam, center.y() - k * minor_diam, 0));
-        points.push_back(QPoint3D(center.x() + k * major_diam, center.y() - k * minor_diam, 0));
-        points.push_back(QPoint3D(center.x() - k * major_diam, center.y() + k * minor_diam, 0));
-
         //Parameters
-        unsigned int slope = 30;
-        double density = 0.3;
-        double z_angle = 0;
-        double z_step = 90 / floor(2 * M_PI / density);
+        unsigned int slope = 0;
+        double density = 0.5;
 
-        for(unsigned int s = 0; s < major_diam; s += slope)
+        for(int h = 1; h < minor_diam; h += 50)
         {
             for (double u = 0; u < 2 * M_PI; u += density)
             {
-                double x = center.x() + (major_diam - s) * cos(u);
-                double y = center.y() + (minor_diam - s) * sin(u);
-                double z = sin(z_angle) * 10;
+                double x = center.x() + (major_diam - h) * cos(u);
+                double y = center.y() + (minor_diam - h) * sin(u);
+                double z = slope;
                 QPoint3D point(x, y, z);
                 points.push_back(point);
             }
-
-            //Increase angle for z-coord generating
-            z_angle += z_step;
+            slope += 50;
         }
-        //Return z_max value?
     }
 
     //Generate valley
@@ -546,8 +534,8 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
         double part = end / 4;
 
         //General parameters
-        double density = 10;
-        int dz = 30;
+        double density = 40;
+        int dz = 60;
 
         for (int st_z = start; st_z < height - 2 * start - (height / 4); st_z += dz)
         {
@@ -569,14 +557,15 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
             double end_valley = end_first + 2 * part;
 
             int B = 2;
-            double v1_a = -M_PI/2/B;
+            double v1_a = M_PI/2/B;
+
             double v1_step = M_PI / ((end_valley - start_valley)/density);
-            int amplitude = height / 4;
+            int amplitude = height / 8;
             for (double step = start_valley; step < end_valley; step += density)
             {
                 double x = step;
                 double y = st_z;
-                double z = st_z - amplitude/2  + amplitude/2 * sin(B * (-v1_a));
+                double z = st_z - amplitude  + amplitude * sin(B * (v1_a));
                 QPoint3D point(x, y, z);
                 points.push_back(point);
                 v1_a += v1_step;
@@ -595,13 +584,159 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
             }
 
         }
+
     }
 
     //Generate spur
-    //else if(shape == 2){}
+    else if(shape == 2)
+    {
+        //Devide into the parts
+        int start = 4;
+        double end = width - 2 * start;
+        double part = end / 4;
+
+        //General parameters
+        double density = 40;
+        int dz = 60;
+
+        for (int st_z = start; st_z < height - 2 * start - (height / 4); st_z += dz)
+        {
+            //1)First part
+            double start_first = 4;
+            double end_first = part;
+            for (double step = start_first; step < end_first; step += density)
+            {
+                double x = step;
+                double y = st_z;
+                double z = st_z;
+                QPoint3D point(x, y, z);
+                points.push_back(point);
+
+            }
+
+            //2)Middle part
+            double start_valley = end_first;
+            double end_valley = end_first + 2 * part;
+
+            int B = 1;
+            double v1_a = M_PI / 2 / B;
+
+            double v1_step = M_PI / ((end_valley - start_valley) / density);
+            int amplitude = height / 8;
+            for (double step = start_valley; step < end_valley; step += density)
+            {
+                double x = step;
+                double y = st_z;
+                double z = st_z  - amplitude * cos(B * (v1_a));
+
+                QPoint3D point(x, y, z);
+                points.push_back(point);
+                v1_a += v1_step;
+            }
+
+            //3)Last part
+            double start_last = end_valley;
+            double end_last = end;
+            for (double step = start_last; step < end_last; step += density)
+            {
+                double x = step;
+                double y = st_z;
+                double z = st_z;
+                QPoint3D point(x, y, z);
+                points.push_back(point);
+            }
+
+        }
+
+      }
 
     //Generate platform
-    //else{}
+    else
+    {
+        QPoint3D center(width / 2 + 100, height / 2, 0);
+
+        //Scale elipse accordint to the window size
+        unsigned int major_diam = 400; //width * 0.4;
+        unsigned int minor_diam = 250; //height * 0.2;
+
+        //Parameters
+        double density_e = 0.2;
+        int step = 20;
+        int dz = 5;
+        int z = 0;
+
+        //Half of the elipse
+        for(int s = 80; s < 140; s += step)
+        {
+            for (double u = M_PI / 2; u < 1.5 * M_PI; u += density_e)
+            {
+                double xe = center.x() + (major_diam - s) * cos(u);
+                double ye = center.y() + (minor_diam - s) * sin(u);
+                double ze = z;
+
+                QPoint3D elip(xe, ye, ze);
+                points.push_back(elip);
+            }
+            z += dz;
+        }
+
+
+        //Half of the circle
+        int r_max = 120;
+        double density_c = 0.6;
+        //Start from the end of the elipse and increase for dz
+        z = points.back().getZ();
+
+        for(int p = 60; p < r_max; p += step)
+        {
+            for (double u = M_PI / 2; u < 1.5 * M_PI; u += density_c)
+            {
+                double xc = center.x() + p * cos(u);
+                double yc = center.y() + p * sin(u);
+                double zc = z;
+                QPoint3D circ(xc, yc, zc);
+                points.push_back(circ);
+            }
+            z += dz;
+        }
+
+
+        //Lines left side
+        int up = 9;
+        int down = 3;
+        //Start from the lowest level
+        z = 0;
+
+        for(int k = -up; k < -down; k++)
+        {
+            for(int i = 1; i < 5; i++)
+            {
+                double xll = center.x() + i * 2 * step;
+                double yll = center.y() + 10 + k * step;
+                double zll = z;
+                QPoint3D linesLeft(xll, yll, zll);
+                points.push_back(linesLeft);
+            }
+            z += dz;
+        }
+
+        //Lines right side
+        //Start from the highest level
+        z = points.back().getZ();
+
+        for(int k = down; k < up; k++)
+        {
+            for(int i = 1; i < 5; i++)
+            {
+                double xlr = center.x() + i * 2 * step;
+                double ylr = center.y() + 10 + k * step;
+                double zlr = z;
+                QPoint3D linesRight(xlr, ylr, zlr);
+                points.push_back(linesRight);
+            }
+            z -= dz;
+        }
+    }
 
     return points;
 }
