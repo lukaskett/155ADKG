@@ -664,7 +664,7 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
         int z = 0;
 
         //Half of the elipse
-        for(int s = 0; s < 140; s += step)
+        for(int s = 80; s < 140; s += step)
         {
             for (double u = M_PI / 2; u < 1.5 * M_PI; u += density_e)
             {
@@ -682,10 +682,10 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
         //Half of the circle
         int r_max = 120;
         double density_c = 0.6;
-        //Start from the end of the elipse
-        z = points.back().getZ() + dz;
+        //Start from the end of the elipse and increase for dz
+        z = points.back().getZ();
 
-        for(int p = 50; p < r_max; p += step)
+        for(int p = 60; p < r_max; p += step)
         {
             for (double u = M_PI / 2; u < 1.5 * M_PI; u += density_c)
             {
@@ -699,32 +699,36 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
         }
 
 
-        //Lines left
+        //Lines left side
+        int up = 9;
+        int down = 3;
         //Start from the lowest level
         z = 0;
-        for(int i = 1; i < 5; i++)
+
+        for(int k = -up; k < -down; k++)
         {
-            for(int k = -13; k < -2; k++)
+            for(int i = 1; i < 5; i++)
             {
                 double xll = center.x() + i * 2 * step;
                 double yll = center.y() + 10 + k * step;
-                double zll = 0;
+                double zll = z;
                 QPoint3D linesLeft(xll, yll, zll);
                 points.push_back(linesLeft);
             }
             z += dz;
         }
 
-        //Lines right
-        //Start from the lowest level
+        //Lines right side
+        //Start from the highest level
         z = points.back().getZ();
-        for(int i = 1; i < 5; i++)
+
+        for(int k = down; k < up; k++)
         {
-            for(int k = 2; k < 13; k++)
+            for(int i = 1; i < 5; i++)
             {
                 double xlr = center.x() + i * 2 * step;
                 double ylr = center.y() + 10 + k * step;
-                double zlr = 0;
+                double zlr = z;
                 QPoint3D linesRight(xlr, ylr, zlr);
                 points.push_back(linesRight);
             }
