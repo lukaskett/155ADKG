@@ -129,6 +129,9 @@ void Widget::on_pushButton_importMeasurement_clicked()
 
 void Widget::on_pushButton_generateShape_clicked()
 {
+    //Clean Canvas
+    ui -> Canvas -> clearAll();
+
     //Get window size
     int width = ui -> Canvas -> size().width();
     int height = ui -> Canvas -> size().height();
@@ -165,11 +168,7 @@ void Widget::on_pushButton_clearSelected_clicked()
 
 void Widget::on_pushButton_clearAll_clicked()
 {
-    ui -> Canvas -> clearDT();
-    ui -> Canvas -> clearContours();
-    ui -> Canvas -> clearPoints();
-    ui -> Canvas -> clearSlope();
-    ui -> Canvas -> clearAspect();
+    ui -> Canvas -> clearAll();
 
     repaint();
 

@@ -48,6 +48,7 @@ public:
     void clearContours(){contours.clear();}
     void clearSlope(){slope = FALSE;}
     void clearAspect(){aspect = FALSE;}
+    void clearAll(){points.clear(); dt.clear(); contours.clear(); slope = FALSE; aspect = FALSE;}
 
 signals:
 
