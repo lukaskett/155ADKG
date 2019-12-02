@@ -231,5 +231,6 @@ void Widget::on_comboBox_analyze_currentTextChanged(const QString &arg1)
             ui->comboBox_colorScale->addItem("Maximum slope(>40)");
             ui->comboBox_colorScale->addItem("Moderate slopes(20-40)");
             ui->comboBox_colorScale->addItem("Low slopes(5-20)");
+            ui->comboBox_colorScale->addItem("Sun schema");
         }
 }

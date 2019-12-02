@@ -63,28 +63,6 @@ void Draw::paintEvent(QPaintEvent *event)
         painter.drawLine(contours[i].getStart(), contours[i].getEnd());
     }
 
-   /* //Draw main contour lines
-    QPen q2;
-    q2.setWidth(2);
-    q2.setColor("brown");
-    painter.setPen(q2);
-    for (unsigned int i = 0; i < mainContours.size(); i++)
-    {
-       int h = metadata[i];
-       int hl = dz * 5;
-
-       //Určenie, že sa jedná o hlavné vrstevnice
-       if(!(h%(hl))){
-               double x = (mainContours[i].getStart().x() + mainContours[i].getEnd().x())/2;
-               double y = (mainContours[i].getStart().y() + mainContours[i].getEnd().y())/2;
-               painter.drawLine(mainContours[i].getStart(), mainContours[i].getEnd());
-               painter.drawText( x, y, QString::number(h));
-       }
-       else
-
-    }
-    */
-
     //Draw slope
 
     if(slope == TRUE)
@@ -111,9 +89,12 @@ void Draw::paintEvent(QPaintEvent *event)
             //Blue
             colorSlope = QColor(0, 0, slope);
 
-        else
+        else if(colorScale == 2)
             //Green
             colorSlope = QColor(0, slope, 0);
+        else if(colorScale == 3)
+            //Red
+            colorSlope = QColor(slope, 0, 0);
 
         painter.setBrush(colorSlope);
 
@@ -156,9 +137,12 @@ void Draw::paintEvent(QPaintEvent *event)
             //Moderate slopes(20 to 40 percent slope)
             cAspect = {QColor(141, 196, 88), QColor(91, 171, 113), QColor(80, 120, 182), QColor(119, 71, 157), QColor(192, 77, 156), QColor(231, 111, 122), QColor(226, 166, 108), QColor(214, 219, 94)};
 
-        else
+        else if(colorScale == 3)
             //Low slopes(5 to 20 ercent slope)
             cAspect = {QColor(152, 181, 129), QColor(114, 168, 144), QColor(124, 142, 173), QColor(140, 117, 160), QColor(180, 123, 161), QColor(203, 139, 143), QColor(197, 165, 138), QColor(189, 191, 137)};
+        else if(colorScale == 4)
+            //Sun color schema of world orientations
+            cAspect = {Qt::white, QColor(230,230,15), Qt::yellow, QColor(220,150,115), Qt::red, QColor(230,180,80), QColor(255,170,0), QColor(230,220,200)};
 
         //Interval of aspect values for giving color - coloras are like in the Argis Pro
         //Used RGB calculator https://www.colorspire.com/rgb-color-wheel/

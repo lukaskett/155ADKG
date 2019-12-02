@@ -317,6 +317,11 @@
          <string>Green</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Red</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item>
