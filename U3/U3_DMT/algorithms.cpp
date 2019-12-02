@@ -649,7 +649,88 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
       }
 
     //Generate platform
-    //else{}
+    else
+    {
+        QPoint3D center(width / 2 + 100, height / 2, 0);
+
+        //Scale elipse accordint to the window size
+        unsigned int major_diam = 400; //width * 0.4;
+        unsigned int minor_diam = 250; //height * 0.2;
+
+        //Parameters
+        double density_e = 0.2;
+        int step = 20;
+        int dz = 5;
+        int z = 0;
+
+        //Half of the elipse
+        for(int s = 0; s < 140; s += step)
+        {
+            for (double u = M_PI / 2; u < 1.5 * M_PI; u += density_e)
+            {
+                double xe = center.x() + (major_diam - s) * cos(u);
+                double ye = center.y() + (minor_diam - s) * sin(u);
+                double ze = z;
+
+                QPoint3D elip(xe, ye, ze);
+                points.push_back(elip);
+            }
+            z += dz;
+        }
+
+
+        //Half of the circle
+        int r_max = 120;
+        double density_c = 0.6;
+        //Start from the end of the elipse
+        z = points.back().getZ() + dz;
+
+        for(int p = 50; p < r_max; p += step)
+        {
+            for (double u = M_PI / 2; u < 1.5 * M_PI; u += density_c)
+            {
+                double xc = center.x() + p * cos(u);
+                double yc = center.y() + p * sin(u);
+                double zc = z;
+                QPoint3D circ(xc, yc, zc);
+                points.push_back(circ);
+            }
+            z += dz;
+        }
+
+
+        //Lines left
+        //Start from the lowest level
+        z = 0;
+        for(int i = 1; i < 5; i++)
+        {
+            for(int k = -13; k < -2; k++)
+            {
+                double xll = center.x() + i * 2 * step;
+                double yll = center.y() + 10 + k * step;
+                double zll = 0;
+                QPoint3D linesLeft(xll, yll, zll);
+                points.push_back(linesLeft);
+            }
+            z += dz;
+        }
+
+        //Lines right
+        //Start from the lowest level
+        z = points.back().getZ();
+        for(int i = 1; i < 5; i++)
+        {
+            for(int k = 2; k < 13; k++)
+            {
+                double xlr = center.x() + i * 2 * step;
+                double ylr = center.y() + 10 + k * step;
+                double zlr = 0;
+                QPoint3D linesRight(xlr, ylr, zlr);
+                points.push_back(linesRight);
+            }
+            z -= dz;
+        }
+    }
 
     return points;
 }
