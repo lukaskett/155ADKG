@@ -508,33 +508,29 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
         unsigned int minor_diam = height * 0.25;
 
         //Define bounding box
-        double k = 1.1;
+        /*double k = 1.1;
         points.push_back(QPoint3D(center.x() + k * major_diam, center.y() + k * minor_diam, 0));
         points.push_back(QPoint3D(center.x() - k * major_diam, center.y() - k * minor_diam, 0));
         points.push_back(QPoint3D(center.x() + k * major_diam, center.y() - k * minor_diam, 0));
         points.push_back(QPoint3D(center.x() - k * major_diam, center.y() + k * minor_diam, 0));
+        */
 
         //Parameters
-        unsigned int slope = 30;
-        double density = 0.3;
-        double z_angle = 0;
-        double z_step = 90 / floor(2 * M_PI / density);
+        unsigned int slope = 0;
+        double density = 0.5;
 
-        for(unsigned int s = 0; s < major_diam; s += slope)
+        for(int h = 1; h < minor_diam; h += 50)
         {
             for (double u = 0; u < 2 * M_PI; u += density)
             {
-                double x = center.x() + (major_diam - s) * cos(u);
-                double y = center.y() + (minor_diam - s) * sin(u);
-                double z = sin(z_angle) * 10;
+                double x = center.x() + (major_diam - h) * cos(u);
+                double y = center.y() + (minor_diam - h) * sin(u);
+                double z = slope;
                 QPoint3D point(x, y, z);
                 points.push_back(point);
             }
-
-            //Increase angle for z-coord generating
-            z_angle += z_step;
+            slope += 50;
         }
-        //Return z_max value?
     }
 
     //Generate valley
