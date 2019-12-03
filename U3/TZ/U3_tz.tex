@@ -198,6 +198,69 @@ Vstupnými dátami pre tvorbu DMT sú body so súradnicami Y, X, Z. Tieto body j
 %-------------------------------------------------------------------------
 \clearpage 
 \section{Výstup aplikácie}
+\begin{center}
+   \includegraphics[width=14cm]{./img/ukazka_aplikacie.png}
+   \captionof{figure}{Ukážka grafického okna aplikácie}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/kupa.png}
+   \captionof{figure}{Vygenerované body pre kopu}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/valley.png}
+   \captionof{figure}{Vygenerované body pre údolie}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/valley_DT_vrstevnice.png}
+   \captionof{figure}{Generácia Delaunay triangulácie a vrstevníc so zvýraznením a popisom hlavných vrstevníc pre údolie}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/meranie_Marianska_DT.png}
+   \captionof{figure}{Delaunay triangulácia pre reálne dáta z merania v teréne}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/generovanie_vrstevnic.png}
+   \captionof{figure}{Generácia vrstevníc so zvýraznením a popisom hlavných vrstevníc}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/slope_stupnice.png}
+   \captionof{figure}{Analýza sklonu - výber farebnej stupnice }
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/slope_1_random_points.png}
+   \captionof{figure}{Analýza sklonu }
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/aspect_stupnice.png}
+   \captionof{figure}{Analýza expozície - výber farebnej stupnice }
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/aspect_1_random_points.png}
+   \captionof{figure}{Analýza sklonu }
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/select_polygon_to_DT.png}
+   \captionof{figure}{Možnosť výberu len oblasti vnútri polygónu ku tvorbe Delaunay triangulácie}
+\end{center}
+
+\begin{center}
+   \includegraphics[width=14cm]{./img/select_polygon_to_DT_slope.png}
+   \captionof{figure}{Analýza sklonu v oblasti vybratej polygónom}
+\end{center}
+
+%-------------------------------------------------------------------------
+\clearpage 
+\section{Zhodnotenie aplikácie}
 
 
 %-------------------------------------------------------------------------
@@ -210,12 +273,22 @@ Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algori
 \begin{enumerate}
 \item[] \underline{getPointLinePosition}
 \begin{itemize}
-\item je pomocnou metódou pre metódu positionPointPolygonWinding. Slúži na určenie polohy bodu voči priamke. Jej návratovou hodnotou je integer.
+\item Slúži na určenie polohy bodu voči priamke. Jej návratovou hodnotou je integer.
 \item na vstupe má : súradnice určovaného bodu q , súradnice bodov priamky $p_1$ $p_2$
 \item na výstupe hodnoty :
 \item[] -1 – bod sa nachádza na priamke
 \item[] 0 – bod sa nachádza vpravo od priamky
 \item[] 1 – bod sa nachádza vľavo od priamky
+\end{itemize}
+
+\item[] \underline{getPointLinePosition}
+\begin{itemize}
+\item Slúži k určeniu polohy bodu prostredníctvom Winding Number algoritmu. Jej návratový typ je integer
+\item na vstupe má : súradnice určovaného bodu q , vektor bodov polygónu pol
+\item na výstupe hodnoty :
+\item[] -1 – bod sa nachádza na hranici alebo vo vrchole polygónu
+\item[] 0 – bod sa nachádza mimo polygón
+\item[] 1 – bod sa nachádza vnútri polygónu
 \end{itemize}
 
 \item[] \underline{getCircleRadius}
@@ -379,7 +452,11 @@ Trieda Draw slúži ku grafickému vykresleniu všetkých premenných.
 \end{itemize}
 \item[] \underline{void clearPolygon}
 \begin{itemize}
-\item slúži k vymazaniu bodů polygonu. Návratovým typom je void.
+\item slúži k vymazaniu polygónu, ktorý obmedzuje územie pre DT. Návratovým typom je void.
+\end{itemize}
+\item[] \underline{void clearAll}
+\begin{itemize}
+\item slúži k vymazaniu obsahu celého grafického okna aplikácie. Návratovým typom je void.
 \end{itemize}
 
 \item[] \underline{getPoints}
@@ -395,6 +472,16 @@ Trieda Draw slúži ku grafickému vykresleniu všetkých premenných.
 \item[] \underline{getDTSize}
 \begin{itemize}
 \item slúži k vrátenie veľkosti členskej premennej dt
+\end{itemize}
+
+\item[] \underline{getPolygon}
+\begin{itemize}
+\item slúži k vráteniu polygónu, ktorý obmedzuje územie pre DT
+\end{itemize}
+
+\item[] \underline{getPolygonSize}
+\begin{itemize}
+\item slúži k vráteniu veľkosti polygónu, ktorý obmedzuje územie pre DT
 \end{itemize}
 
 \item[] \underline{setPoints}
@@ -425,6 +512,11 @@ Trieda Draw slúži ku grafickému vykresleniu všetkých premenných.
 \item[] \underline{setColorScale}
 \begin{itemize}
 \item slúži k nastaveniu farebnej škály vykreslovania sklonu a expozície
+\end{itemize}
+
+\item[] \underline{setDrawMode}
+\begin{itemize}
+\item slúži k nastaveniu vykreslovania polygónu, ktorý obmedzuje územie pre DT
 \end{itemize}
 
 \end{enumerate}
