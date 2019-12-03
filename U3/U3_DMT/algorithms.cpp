@@ -23,11 +23,34 @@ double vy = q.y() - p1.y();
 double t = ux * vy - uy * vx;
 
 //Point in the left half plane
-if (t>0)
+if (t > 0)
     return 1;
-if (t<0)
+
+if (t < 0)
     return 0;
+
 return -1;
+}
+
+double Algorithms::getAngle2Vectors(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3, QPoint3D &p4)
+{
+    // Calculate Vector betwen 2 vectors.
+    double ux = p2.x() - p1.x();
+    double uy = p2.y() - p1.y();
+
+    double vx = p4.x() - p3.x();
+    double vy = p4.y() - p3.y();
+
+    //Norms
+    double nu = sqrt(ux * ux + uy * uy);
+    double nv = sqrt(vx * vx + vy * vy);
+
+    //Dot product
+    double scalar = ux * vx + uy * vy;
+
+    double angle = fabs(acos(scalar/(nu*nv)));
+
+    return angle;
 }
 
 double Algorithms::getCircleRadius(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3, QPoint3D &c){
@@ -741,4 +764,52 @@ std::vector<QPoint3D> Algorithms::generateShapes(int shape, int width, int heigh
     return points;
 }
 
+int Algorithms::positionPointPolygonWinding(QPoint3D &q, std::vector<QPoint3D> &pol)
+{
+    // Analyze Position of the Point and the Polygon
+    double wn = 0.0;
+
+    // Tolerance
+    double eps = 1.0e-6;
+
+    //double xir = pol[0].x();
+    //double yir = pol[0].y();
+
+
+    // The size of polygon
+    unsigned int n = pol.size();
+
+    //Browse all points of polygon
+    for (unsigned int i = 0; i < n; i++)
+    {
+
+        //Measure angle
+        double omega = getAngle2Vectors(pol[i], q, pol[(i+1)%n], q);
+
+        //Get orientation of the point and the polygon edge
+        int orient = getPointLinePosition(q, pol[i], pol[(i+1)%n]);
+
+        //Point in the left half plane
+        if (orient == 1)
+            wn += omega;
+
+        //Point in the right half plane
+        else
+            wn -= omega;
+    }
+
+    //Point inside polygon
+    if (fabs(fabs(wn) - 2 * M_PI) <= eps)
+        return 1;
+
+    //Point outside polygon
+
+    else if (fabs(fabs(wn)) <= eps)
+        return 0;
+
+
+    //Point on the boundary
+    else
+        return -1;
+}
 

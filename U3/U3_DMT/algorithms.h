@@ -26,6 +26,8 @@ public:
     static std::vector<Triangle> analyzeDMT(std::vector<Edge> &dt);
     static std::vector<QPoint3D> importMeasurement(std::string path, int width, int height,  double &min_z, double &max_z);
     static std::vector<QPoint3D> generateShapes(int shape, int width, int height);
+    static double getAngle2Vectors(QPoint3D &p1, QPoint3D &p2, QPoint3D &p3, QPoint3D &p4);
+    static int positionPointPolygonWinding(QPoint3D &q, std::vector<QPoint3D> &pol);
 };
 
 #endif // ALGORITHMS_H
