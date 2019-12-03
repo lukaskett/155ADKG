@@ -73,7 +73,7 @@ Problematika úlohy sa týka tvorby digitálneho modelu terénu. Pri vstupe mám
 
 \begin{center}
    \includegraphics[width=12cm]{./img/Delaunay_DTM.png}
-   \captionof{figure}{3D model vodného povrchu vytvorený pomocou Delaunay triangulácie}
+   \captionof{figure}{3D model vodného povrchu vytvorený pomocou Delaunay triangulácie [1]}
 \end{center}
 
 %------------------------------------------------------------------------
@@ -293,10 +293,6 @@ Vstupnými dátami pre tvorbu DMT sú body so súradnicami Y, X, Z. Tieto body j
    \includegraphics[width=14cm]{./img/select_polygon_to_DT_slope.png}
    \captionof{figure}{Analýza sklonu v oblasti vybratej polygónom}
 \end{center}
-
-%-------------------------------------------------------------------------
-\clearpage 
-\section{Zhodnotenie aplikácie}
 
 
 %-------------------------------------------------------------------------
@@ -701,22 +697,42 @@ Tieda Widget obashuje metódy ktoré sú odkazom na sloty umožňujúce vykonáv
 %-------------------------------------------------------------------------
 
 \clearpage
-\section{Záver}
-Výsledkom úlohy je funkčná aplikácia pre tvorbu digitálneho modelu terénu. Byla snaha tvořit aplikaci co nejvíc přívětivou, aby uživatel snadno pochopil k čemu jednotlivá tlačítka jsou. Proto bylo také menu rozděleno do logických celků: data, triangulace, vrstevnice, analýza a vyčištění okna. S výslednou funkčností jsme spokojení, i když si jsme vědomi omezení aplikace.
+\section{Záver a zhodnotenie aplikácie}
+Výsledkom úlohy je funkčná aplikácia pre tvorbu digitálneho modelu terénu. Snahou bolo vytvoriť aplikáciu čo najviac užívateľsky prívetivú. Cieľom bolo, aby užívateľ pochopil k čomu jednotlivé tlačítka slúžia. Z toho dôvodu bolo menu rozdelené do logických celkov : dáta, triangulácia, vrstevnice, analýza a vyčistenie grafického okna. S výslednou funkčnosťou sú autori aplikácie spokojný, aj keď sú si veľmi vedomí jej úskalí a možností na vylepšenie.
 
-\subsection{Řešené problémy}
-U analýzy DMT jsme řešili přizpůsobení obsahu comboBoxu na základě výběru v jiném comboBoxu. Situaci se podařilo vyřešit, ale bohužel funguje jen jednosměrně. Pokud se vrátíme zpět na počáteční hodnotu již se obsah druhého comboBoxu nepřizpůsobí. Funkčnost analýzy to neovlivňuje -- vše stéle funguje jen pod jinými možnostmi, ale je to dost zmatečné.
+\subsection{Riešené problémy}
+Pri analýze DMT sme riešili prispôsobenie obsahu comboBoxu na základe výberu v inom comboBoxe. Situáciu sa nám podarilo vyriešiť, no bohužiaľ funguje len jednosmerne. Pokiaľ sa vrátime späť na počiatočnú hodnotu, obsah druhého comboBoxu sa už neprispôsobí. Funkčnosť analýzy tým ale nie je ovplyvnená. Všetko funguje len pod inými možnosťami, priznávame, je to mierne mätúce.. 
 
-Další velký a nedořešený problém se objevil u generování terénních tvarů. Generování je silně závislé na velikosti okna aplikace. Pokud si okno nezvětšíme, při spuštění triangulace aplikace zamrzne a výsledek se nezobrazí. Snažili jsme se úpravou a přepsáním kódu chybu odstranit, ale bez úspěchu.
+Ďalší veľký a nedoriešený problém sa objavil pri generovaní terénnych tvarov. Generovanie je veľmi silno závislé na veľkosti okna aplikácie. Pokiaľ si užívateľ nezväčší okno, pri spustení triangulácie dôjdde k zamrznutiu aplikácie a výsledok sa nezobrazí. Snažili sme sa úpravou a prepísaním kódu chybu odstrániť, no napriek všetkej snahe skutok skončil bez úspechu.
 
-Jednoduchý popis vrstevnic se nám sice podařilo udělat, ale jeho přínos není až takový. Často je velmi nepřehledný a spíš na škodu. Navíc ne vždy se provede úplně korektně. Čas na řešení správné orientace a rozložení nám už nezbyl.
+Problematickou časťou v aplikácii je aj generovanie vrstevníc. Pri tvorbe aplikácie autori neriešili problém vyhladenia priebehu vrstevníc. To spôsobuje, že priebeh vygenerovaných vrstevníc nie je vyhladený, vrstevnice majú ostré záhyby a týp pádom výstup nie v zásade s kartografickými zásadami. 
 
-\subsection{Možné zlepšení}
-Aplikace by si zasloužila ještě další ladění, aby výběr barevných stupnic v comboBoxu pro svažitost a orientaci svahu běhal obousměrně. 
+\begin{center}
+   \includegraphics[width=12cm]{./img/ostre_contours.png}
+   \captionof{figure}{Ostrý priebeh vrstevníc}
+\end{center}
 
-Také generování terénních tvarů nabízí velký prostor pro zlepšení. Možnost kombinace jednotlivých tvarů do souvislého terénu by byla víc než zajímavá. Časová náročnost takového výstupu je v našem podání velmi velká. S aktuálním nastavením je výsledek generování tvarů vždy stejný a neobsahuje žádný náhodný faktor. V tom vídíme reálnější možnost zlepšení.
+Ďalším úskalím pri tvorbe vrstevníc je ich popis. V aplikácii sa využíva pre popis vrstevníc vektor metadat do ktorého je ukadalná výška vrstevnice. Veľkým problémom je rozmiestnenie generovaného popisu vrstevníc. Ten v niektorých prípadoch (viď. obrázok) je vygenerovaný v niekoľkonásobnom počte na malom území a týp pádom úplne prekrije vrstevnicu. Grafická informácia takto zobrazeného výškopisu je takmer nulová.  Riešením by bolo vymyslieť pravidlo, ktoré by omedzovalo počet vykreslených výškových kót vzhľadom na celú dĺžku segmentu vrstevnice. Ďalšou užitočnou úpravou by mohlo byť implementovanie pravidla pre rovnomerné rozmiestnenie popisu vrstevníc výškovými kótami. Bohužiaľ z časových možností tieto úpravy zostali len v rámci teoretického návrhu.
 
-Pro vrstevnice je jednoznačně potřeba udělat popis, který respektuje kartografické zásady. Teprve poté bude mít popis informační přínos.
+\begin{center}
+   \includegraphics[width=12cm]{./img/contours_problem.png}
+   \captionof{figure}{Priebeh vrstevníc pre kopu}
+\end{center}
+
+V niektorých prípadoch sa môže stať, že hlavné vrstevnice nebudú vygenerované správne. Táto situácia nastáva pri generovaní vrstevníc pre kopu. Autorom nie je známa príčina tejto anomálie, nakoľko v iných prípadoch došlo k správnemu vykresleniu vrstevníc.
+
+\begin{center}
+   \includegraphics[width=12cm]{./img/hill_contours.png}
+   \captionof{figure}{Priebeh vrstevníc pre kopu}
+\end{center}
+
+Pre vrstevnice je jednoznačne potrebné vytvoriť popis, ktorý rešpektuje kartografické zásady. Až po takejto úprave bude mať popis vrstevníc ten správny informačný prínos pre užívateľa. 
+
+\subsection{Možné zlepšenie}
+Aplikácia by si zaslúžila ešte ďalšie ladenie, aby výber farebných stupníc v comboBoxu pre sklonitosť a orientáciu fungoval obojsmerne.
+
+Taktiež generovanie terénnych tvarov ponúka veľký priestor pre zlepšienie. Možnosť kombinácie jednotlivých tvarov do súvislého terénu by bola viac ako zaujímavá. Časová náročnosť takéhoto výstupu je v podaní autorov aplikácie veľmi veľká. S aktuálnym nastavením je výsledok generovania tvarov vždy rovnaký a neobsahuje žiadny náhodný faktor. V tom vidíme reálnejšiu možnosť zlepšenia.
+
 
 %-------------------------------------------------------------------------
 
