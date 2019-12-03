@@ -702,7 +702,21 @@ Tieda Widget obashuje metódy ktoré sú odkazom na sloty umožňujúce vykonáv
 
 \clearpage
 \section{Záver}
-Výsledkom úlohy je funkčná aplikácia pre tvorbu digitálneho modelu terénu.
+Výsledkom úlohy je funkčná aplikácia pre tvorbu digitálneho modelu terénu. Byla snaha tvořit aplikaci co nejvíc přívětivou, aby uživatel snadno pochopil k čemu jednotlivá tlačítka jsou. Proto bylo také menu rozděleno do logických celků: data, triangulace, vrstevnice, analýza a vyčištění okna. S výslednou funkčností jsme spokojení, i když si jsme vědomi omezení aplikace.
+
+\subsection{Řešené problémy}
+U analýzy DMT jsme řešili přizpůsobení obsahu comboBoxu na základě výběru v jiném comboBoxu. Situaci se podařilo vyřešit, ale bohužel funguje jen jednosměrně. Pokud se vrátíme zpět na počáteční hodnotu již se obsah druhého comboBoxu nepřizpůsobí. Funkčnost analýzy to neovlivňuje -- vše stéle funguje jen pod jinými možnostmi, ale je to dost zmatečné.
+
+Další velký a nedořešený problém se objevil u generování terénních tvarů. Generování je silně závislé na velikosti okna aplikace. Pokud si okno nezvětšíme, při spuštění triangulace aplikace zamrzne a výsledek se nezobrazí. Snažili jsme se úpravou a přepsáním kódu chybu odstranit, ale bez úspěchu.
+
+Jednoduchý popis vrstevnic se nám sice podařilo udělat, ale jeho přínos není až takový. Často je velmi nepřehledný a spíš na škodu. Navíc ne vždy se provede úplně korektně. Čas na řešení správné orientace a rozložení nám už nezbyl.
+
+\subsection{Možné zlepšení}
+Aplikace by si zasloužila ještě další ladění, aby výběr barevných stupnic v comboBoxu pro svažitost a orientaci svahu běhal obousměrně. 
+
+Také generování terénních tvarů nabízí velký prostor pro zlepšení. Možnost kombinace jednotlivých tvarů do souvislého terénu by byla víc než zajímavá. Časová náročnost takového výstupu je v našem podání velmi velká. S aktuálním nastavením je výsledek generování tvarů vždy stejný a neobsahuje žádný náhodný faktor. V tom vídíme reálnější možnost zlepšení.
+
+Pro vrstevnice je jednoznačně potřeba udělat popis, který respektuje kartografické zásady. Teprve poté bude mít popis informační přínos.
 
 %-------------------------------------------------------------------------
 
