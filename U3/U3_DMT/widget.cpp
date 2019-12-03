@@ -39,8 +39,29 @@ void Widget::on_pushButton_createDT_clicked()
     //Delete contours
     ui -> Canvas -> clearContours();
 
+    //Select points inside polygon
+    std::vector<QPoint3D> points;
+    if(ui -> Canvas -> getPolygonSize() > 0)
+    {
+        //Get polygon and points
+        std::vector<QPoint3D> polygon = ui -> Canvas -> getPolygon();
+        std::vector<QPoint3D> allPoints = ui -> Canvas -> getPoints();
+        //Separate points inside or on the boundary of the polygon
+        for(QPoint3D point : allPoints)
+        {
+            int test = Algorithms::positionPointPolygonWinding(point, polygon);
+            if(abs(test) == 1)
+            {
+                points.push_back(point);
+            }
+        }
+    }
+
+    //All points, DT for whole area
+    else
+        points = ui -> Canvas -> getPoints();
+
     //Construct DT
-    std::vector<QPoint3D> points = ui -> Canvas -> getPoints();
     std::vector<Edge> dt = Algorithms::DT(points);
     ui -> Canvas -> setDt(dt);
 
@@ -161,6 +182,8 @@ void Widget::on_pushButton_clearSelected_clicked()
         ui -> Canvas -> clearSlope();
     else if (select == 4)
         ui -> Canvas -> clearAspect();
+    else if (select == 5)
+        ui -> Canvas -> clearPolygon();
 
     repaint();
 
@@ -226,4 +249,9 @@ void Widget::on_comboBox_analyze_currentTextChanged(const QString &arg1)
             ui->comboBox_colorScale->addItem("Low slopes(5-20)");
             ui->comboBox_colorScale->addItem("Sun schema");
         }
+}
+
+void Widget::on_checkBox_polygon_clicked()
+{
+    ui -> Canvas ->setDrawMode();
 }

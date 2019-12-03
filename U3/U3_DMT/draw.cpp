@@ -6,7 +6,8 @@
 
 Draw::Draw(QWidget *parent) : QWidget(parent)
 {
-
+    //Initialization
+    draw_mode = false; // true = polygon, false = point
 }
 
 void Draw::setContours(std::vector<Edge> &contours_, std::vector<double> &metadata_, int dz_)
@@ -28,6 +29,17 @@ void Draw::paintEvent(QPaintEvent *event)
     {
         painter.drawEllipse(points[i].x() - r/2 , points[i].y() - r/2, r, r);
     }
+
+    //Draw boundary polygon
+    QPolygon Qpolygon;
+    for (unsigned int i = 0; i < polygon.size(); i++)
+    {
+        QPoint point(polygon[i].x(), polygon[i].y());
+        Qpolygon.append(point);
+    }
+    QPen poly(Qt::red, 1);
+    painter.setPen(poly);
+    painter.drawPolygon(Qpolygon);
 
     //Draw edges
     QPen p(Qt::green, 1);
@@ -140,6 +152,7 @@ void Draw::paintEvent(QPaintEvent *event)
         else if(colorScale == 3)
             //Low slopes(5 to 20 ercent slope)
             cAspect = {QColor(152, 181, 129), QColor(114, 168, 144), QColor(124, 142, 173), QColor(140, 117, 160), QColor(180, 123, 161), QColor(203, 139, 143), QColor(197, 165, 138), QColor(189, 191, 137)};
+
         else if(colorScale == 4)
             //Sun color schema of world orientations
             cAspect = {Qt::white, QColor(230,230,15), Qt::yellow, QColor(220,150,115), Qt::red, QColor(230,180,80), QColor(255,170,0), QColor(230,220,200)};
@@ -196,6 +209,14 @@ void Draw::mousePressEvent(QMouseEvent *event)
     double random = std::rand() * 200.0 / RAND_MAX; //RAND_MAX is known constant
     p.setZ(random);
 
+    //Draw polygon or point
+    if(draw_mode)
+    {
+        QPoint3D qp(p.x(),p.y(),0);
+        polygon.push_back(qp);
+    }
+
+    else
     points.push_back(p);
 
     repaint();

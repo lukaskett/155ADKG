@@ -20,6 +20,8 @@ private: //co chci vykreslit musim mit zde
     std::vector<Edge> contours;
     std::vector<double> metadata;
     std::vector<Triangle> dmt;
+    std::vector<QPoint3D> polygon;
+    bool draw_mode;
     bool slope, aspect;
     int colorScale;
     int dz;
@@ -34,11 +36,13 @@ public:
     void setSlope(bool slope_){slope = slope_;}
     void setAspect(bool aspect_){aspect = aspect_;}
     void setColorScale(int colorScale_){colorScale = colorScale_;}
-
+    void setDrawMode(){draw_mode = !draw_mode;}
 
     int getDtSize(){return dt.size();}
     std::vector<Edge>& getDt(){return dt;} //nekopirujeme, vracime jen adresu, kdyby mela DT hodne bodu
     std::vector<QPoint3D> getPoints(){return points;}
+    std::vector<QPoint3D> getPolygon(){return polygon;}
+    int getPolygonSize(){return polygon.size();}
 
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
@@ -48,7 +52,8 @@ public:
     void clearContours(){contours.clear();}
     void clearSlope(){slope = FALSE;}
     void clearAspect(){aspect = FALSE;}
-    void clearAll(){points.clear(); dt.clear(); contours.clear(); slope = FALSE; aspect = FALSE;}
+    void clearPolygon(){polygon.clear();}
+    void clearAll(){points.clear(); dt.clear(); contours.clear(); slope = FALSE; aspect = FALSE; polygon.clear();}
 
 signals:
 

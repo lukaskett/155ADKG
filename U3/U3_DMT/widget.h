@@ -42,6 +42,8 @@ private slots:
 
     void on_comboBox_analyze_currentTextChanged(const QString &arg1);
 
+    void on_checkBox_polygon_clicked();
+
 private:
     Ui::Widget *ui;
 };
