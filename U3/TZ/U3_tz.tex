@@ -33,7 +33,7 @@
 \LARGE  \textbf{ Digitální model terénu a jeho analýzy}
 \vspace{3cm}
 
-\Large Bc. Lukáš Kettner Bc. Martin Hulín \\ 1.12.2019
+\Large Bc. Lukáš Kettner Bc. Martin Hulín \\ 3.12.2019
 
  \thispagestyle{empty} %neočísluje první stránku
 \end{titlepage}
@@ -52,7 +52,7 @@ Nad vzniknutou trianguláciou vygenerujte DMT a prevedte analýzy :
 \begin{itemize}
 \item Vizualizáciu s rozlíšením zvýraznených vrstevníc 
 \item Analyzujte sklon DMT, jednotlivé trojuholníky vizualizujte v závislosti na sklone
-\item Analyzujte expozíciiu DMT, jednotlivé trojuholníky vizualizujte v závislosti na ich expozícii ku svetovej strane 
+\item Analyzujte expozíciiu DMT, jednotlivé trojuholníky vizualizujte v závislosti na ich expozícii ku svetovej strane
 \end{itemize}
 		
 Zhodnoťte výsledný DMT z kartografického hladiska. Uvážte prípady, kedy 2D Delaunay triangulácia nebude dávať vhodné výsledky.
@@ -61,8 +61,9 @@ Zhodnoťte výsledný DMT z kartografického hladiska. Uvážte prípady, kedy 2
 V rámci úlohy sú vypracované tieto bonusové úlohy
 
 \begin{itemize}
-\item Automatický popis vrstevnic
+\item Triangulace nekonvexní oblasti zadané polygonem
 \item Výber farebných stupníc pre vizualizáciu sklonu a expozície
+\item Automatický popis vrstevnic
 \item Algoritmus pre automatické generovanie terénnych tvarov
 \end{itemize}
 %------------------------------------------------------------------------
@@ -90,8 +91,6 @@ Tento algoritmus predstavuje jeden z najpoužívanejích postupov pre tvorbu dig
 \end{enumerate}
 
 \subsubsection{Implementácia metódy}
-
-
 
 \begin{enumerate}
 \item Zoraď vstupnú množinu bodov podľa súradnice X
@@ -153,16 +152,36 @@ Expozícia je definovaná ako orientácia jednotlivých trojuholníkov k svetov�
 \clearpage 
 %------------------------------------------------------------------------
 \section{Bonusové úlohy}
+Následující odstavce upřesňují způsob řešení jednotlivých bonusových úloh.
 
-\subsection {Automatické generovanie terénnych tvarov }
-.
-
-\subsection{Automatický popis vrstevnic}
-Do pôvodneho algoritmu pre výpočet vrstevníc sme zakomponovali vektor metadat, do ktorého sa ukladala výška vrstevnice. Následne z tohto vektoru boli pre hlavné vrstevnice pridané výškové informácie. Tento spôsob nie je v súhlade s katografickými zásadami (orientácia, vhodné rozmiestnenie a umiestnenie výškových kót). Pri určitých typoch terénu sa popis vrstevnice zobrazí mnohonásobne a tým znemožní správnu vyzualizáciu hlavnej vrstevnice. Riešením by bola úprava algoritmu tak aby rešpektoval kartografické zásady. Mohlo by to byť dosiahnute implementáciou bufferu , prepojením algoritmusu pre výpočet sklonu s algoritmom výpočtu a vykreslenia vrstevníc, či obmedzením na počet vykreslovania popisu vrstevníc. Vzhladom na časové možnosti autorov aplikácie nebol tento problém riešený
+\subsection{Triangulace nekonvexní oblasti zadané polygonem}
+Po označení checkboxu s popisem \textit{only inside polygon} dojde k přepnutí kreslícího módu z  bodů na polygon. Postupným klikáním je možné vybrat zájmovou oblast pro provedení triangulace. Po stisknutí tlačítka \textit{Create DT} dojde k výběru bodů pomocí Winding Number algoritmu a výsledná triangulace je provedena jen s body, které leží uvnitř polygonu nebo na jeho hraně.
 
 \subsection{Výber farebných stupníc pre vizualizáciu sklonu a expozície}
-V rámci bonusových úloh bola riešená možnosť výberu farebných stupníp pre analýzu sklonu a expozície. Užívateľ má pre analýzu sklonu na výber zo základných farieb RGB (červená, zelená, modrá) alebo základnú šedú farbu. Skon je následne vizualizovaný v odtieňoch vybranej farby. Pre analýzu expozície má užívateľ k dispozícii 5 farebných stupníc. Defaultna farebná stupnica je vytvorená podľa stupnice programu Argis Pro. Ďalšie tri stupnice sú v sýtych farbách, odstupňované podľa rozsahu veľkosti sklonu na danom území. Poslednou stupnicou je takzvaná Sun color stupnica, ktorá zobrazuje orientáciu k svetovým stranám na základe  ,,intuitívnej" farby slnka ( sever - biela, východ - žltá, juh - červená, západ - oranžová).
+V rámci bonusových úloh bola riešená možnosť výberu farebných stupníp pre analýzu sklonu a expozície. Užívateľ má pre analýzu sklonu na výber zo základných farieb RGB (červená, zelená, modrá) alebo základnú šedú farbu. Skon je následne vizualizovaný v odtieňoch vybranej farby.
 
+Pre analýzu expozície má užívateľ k dispozícii 5 farebných stupníc. Defaultna farebná stupnica je vytvorená podľa stupnice programu Argis Pro. Ďalšie tri stupnice sú v sýtych farbách, odstupňované podľa rozsahu veľkosti sklonu na danom území. Poslednou stupnicou je takzvaná Sun color stupnica, ktorá zobrazuje orientáciu k svetovým stranám na základe  ,,intuitívnej" farby slnka ( sever - biela, východ - žltá, juh - červená, západ - oranžová).
+
+\subsection{Automatický popis vrstevnic}
+Do pôvodneho algoritmu pre výpočet vrstevníc sme zakomponovali vektor metadat, do ktorého sa ukladala výška vrstevnice. Následne z tohto vektoru boli pre hlavné vrstevnice pridané výškové informácie. Tento spôsob nie je v súhlade s katografickými zásadami (orientácia, vhodné rozmiestnenie a umiestnenie výškových kót).
+
+Pri určitých typoch terénu sa popis vrstevnice zobrazí mnohonásobne a tým znemožní správnu vyzualizáciu hlavnej vrstevnice. Riešením by bola úprava algoritmu tak aby rešpektoval kartografické zásady. Mohlo by to byť dosiahnute implementáciou bufferu , prepojením algoritmusu pre výpočet sklonu s algoritmom výpočtu a vykreslenia vrstevníc, či obmedzením na počet vykreslovania popisu vrstevníc. Vzhladom na časové možnosti autorov aplikácie nebol tento problém riešený.
+
+\subsection {Automatické generovanie terénnych tvarov }
+Pro správné fungování aplikace je nezbytné zvětšení okna aplikace na celou obrazovku. Tento problém se nám nepodařilo odstranit. V aplikaci je možné vygenerovat čtyři terénní tvary:
+
+\begin{itemize}
+\item kupu
+\item údolí
+\item hřbet
+\item spočinek/plošinku
+\end{itemize}
+
+Generování kupy ja založené na postupném generování elips se zmenšující se hlavní a vedlejší poloosou v intervalu celého kruhu. Všechny body jedné elipsy mají vždy stejnou souřadnici z, která pravidelně narůstá o hodnotu 50.
+
+Tvar údolí a hřbetu je velmi podobný. Proto i generování se liší jen v detailu. Každá vrstevnice je rozdělena na tři části -- rovný začátek, tvar údolí nebo hřbetu a rovný konec. Jednotlivé části na sebe plynule navazují. Body jsou generované v pravidelném rastru a stěžejní je hodnota souřadnice z. V případě údolí je hodnota počítána pomocí goniometrické funkce sinus. Pro terénní tvar hřbetu byla využita naopak funkce cosinus.
+
+Posledním možným tvarem je spočinek. Tam je generování opět rozděleno na dílčí části. Konkrétně na elipsu, kružnici a rovné úseky. Generování elips a kružnic probíhá pouze v intervalu $\frac{\pi}{2}$ až $\frac{3\pi}{2}$. Na půlkruhy a půlelipsy opět navazují rovné čáry. Souřadnice z se zvětšuje o hodnotu 5 každým krokem směrem "vzhůru".
 
 %------------------------------------------------------------------------
 \clearpage 
@@ -357,6 +376,10 @@ Trieda Draw slúži ku grafickému vykresleniu všetkých premenných.
 \item[] \underline{void clearAspect}
 \begin{itemize}
 \item slúži k vymazaniu expozície. Návratovým typom je void.
+\end{itemize}
+\item[] \underline{void clearPolygon}
+\begin{itemize}
+\item slúži k vymazaniu bodů polygonu. Návratovým typom je void.
 \end{itemize}
 
 \item[] \underline{getPoints}
