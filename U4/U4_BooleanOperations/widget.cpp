@@ -21,6 +21,12 @@ void Widget::on_pushButton_switchPolygon_clicked()
     ui -> Canvas -> changePolygon();
 }
 
+void Widget::on_pushButton_changeInOut_clicked()
+{
+    ui -> Canvas -> changeInOut();
+}
+
+
 void Widget::on_pushButton_createOverlay_clicked()
 {
     //Get polygons
@@ -46,4 +52,9 @@ void Widget::on_pushButton_clearAll_clicked()
 {
     ui -> Canvas -> clearAll();
     repaint();
+}
+
+void Widget::on_pushButton_removeLast_clicked()
+{
+    ui -> Canvas -> removeLast();
 }

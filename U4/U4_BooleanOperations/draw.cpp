@@ -5,6 +5,7 @@
 Draw::Draw(QWidget *parent) : QWidget(parent)
 {
     ab = true;
+    inout = false;
 }
 
 void Draw::mousePressEvent(QMouseEvent *event)
@@ -13,11 +14,17 @@ void Draw::mousePressEvent(QMouseEvent *event)
 
      //Add to A
      if(ab)
-         a.push_back(q);
+         if(inout)
+             inA.push_back(q);
+         else
+             a.push_back(q);
 
      //Add to B
      else
-         b.push_back(q);
+         if(!inout)
+             b.push_back(q);
+         else
+             inB.push_back(q);
 
      repaint();
 }
@@ -28,17 +35,27 @@ void Draw::paintEvent(QPaintEvent *event)
     painter.begin(this);
 
     //Draw A
-    QPen pA(Qt::green);
+    QPen pA(Qt::green, 2, Qt::SolidLine);
     painter.setPen(pA);
     drawPolygon(painter, a);
 
     //Draw B
-    QPen pB(Qt::blue);
+    QPen pB(Qt::blue, 2, Qt::SolidLine);
     painter.setPen(pB);
     drawPolygon(painter, b);
 
+    //Draw inner ring A
+    QPen pinA(Qt::green, 2, Qt::DashDotLine);
+    painter.setPen(pinA);
+    drawPolygon(painter, inA);
+
+    //Draw inner ring B
+    QPen pinB(Qt::blue, 2, Qt::DashDotLine);
+    painter.setPen(pinB);
+    drawPolygon(painter, inB);
+
     //Draw edges
-    QPen pE(Qt::red);
+    QPen pE(Qt::red, 3, Qt::SolidLine);
     pE.setWidth(2);
     painter.setPen(pE);
     for(int i = 0; i < res.size(); i++)
@@ -59,4 +76,23 @@ void Draw::drawPolygon(QPainter &painter, std::vector<QPointFB> &polygon)
     }
 
     painter.drawPolygon(polyg);
+}
+
+void Draw::removeLast()
+{
+    //Remove from A
+    if(ab)
+        if(inout)
+            inA.pop_back();
+        else
+            a.pop_back();
+
+    //Remove from B
+    else
+        if(!inout)
+            b.pop_back();
+        else
+            inB.pop_back();
+
+    repaint();
 }

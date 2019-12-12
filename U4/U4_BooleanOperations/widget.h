@@ -24,6 +24,10 @@ private slots:
 
     void on_pushButton_clearAll_clicked();
 
+    void on_pushButton_changeInOut_clicked();
+
+    void on_pushButton_removeLast_clicked();
+
 private:
     Ui::Widget *ui;
 };
