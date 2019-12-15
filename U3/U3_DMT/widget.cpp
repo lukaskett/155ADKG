@@ -113,6 +113,9 @@ void Widget::on_lineEdit_dz_editingFinished()
 
 void Widget::on_pushButton_importMeasurement_clicked()
 {
+    //Clear window
+    ui -> Canvas -> clearAll();
+
     //Get window size
     int width = ui -> Canvas -> size().width();
     int height = ui -> Canvas -> size().height();
