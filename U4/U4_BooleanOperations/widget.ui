@@ -48,9 +48,23 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="label_drawPolygonAB">
+       <property name="text">
+        <string>Polygon A</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_changeInOut">
        <property name="text">
         <string>Border/hole</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_drawHoleBorder">
+       <property name="text">
+        <string>Border</string>
        </property>
       </widget>
      </item>
