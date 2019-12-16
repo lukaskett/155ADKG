@@ -192,6 +192,27 @@ std::vector<Edge> Algorithms::booleanOperations(std::vector<QPointFB> &polygonA,
     return result;
 }
 
+std::vector<Edge> Algorithms::booleanOperationsHoles(std::vector<QPointFB> &polygon, std::vector<QPointFB> &holes, TPointPolygonPosition a, TPointPolygonPosition b)
+{
+    //Create polygon overlay
+    std::vector<Edge> result;
+
+    //Find intersections
+    computePolygonIntersection(polygon, holes);
+
+    //Set positions of edges
+    setPositionsAB(polygon, holes);
+
+    //Select edges by position:
+    selectEdges(holes, a, result);
+    selectEdges(polygon, b, result);
+
+    //Singular edges: always
+    //selectEdges(holes, On, result);
+
+    return result;
+}
+
 
 void Algorithms::processIntersection(QPointFB &pi, double &t, std::vector<QPointFB> &polygon, int &i)
 {
@@ -214,6 +235,7 @@ void Algorithms::computePolygonIntersection(std::vector<QPointFB> &pa, std::vect
     {
         //Create map of intersections
         std::map<double, QPointFB> intersections;
+
         //Polygon B
         for (int j = 0; j < pb.size(); j++)
         {

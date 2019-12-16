@@ -24,7 +24,11 @@ public:
 
     std::vector<QPointFB> getA(){return a;}
     std::vector<QPointFB> getB(){return b;}
+    std::vector<QPointFB> getAHole(){return inA;}
+    std::vector<QPointFB> getBHole(){return inB;}
     std::vector<Edge> getRes(){return res;}
+    bool getPolygonStatus(){return ab;}
+    bool getDrawStatus(){return inout;}
 
     void clearResults() {res.clear();}
     void clearAll() {res.clear(); a.clear(); b.clear(); inA.clear(); inB.clear();}
