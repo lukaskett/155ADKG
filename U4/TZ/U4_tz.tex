@@ -286,18 +286,39 @@ Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algori
 \end{enumerate}
 
 \subsection{Trieda Draw}
-Trieda Draw slúži ku grafickému vykresleniu množiny modov a konvexnej obálky nad touto množinou.
+Trieda Draw slúži ku grafickému vykresleniu množinových operácií.
 
 \subsubsection{Členské premenné}
 \begin{enumerate}
 
-\item[] \underline {std::vector}$<${QPoint}$>${points}
+\item[] \underline {std::vector}$<${QPointFB}$>${a, b}
 \begin{itemize}
-\item vektor bodov okolo ktorých vytvárame konvexnú obálku
+\item vektory bodov, ktoré tvoria  jednotlivé polygóny A a B. Polygón A sa vykresluje plnou čiarou zelenej farby, polygon B plnou čiarou modrej farby.
 \end{itemize}
-\item[] \underline {QPolygon ch}
+
+\item[] \underline {std::vector}$<${QPointFB}$>${inA, inB}
 \begin{itemize}
-\item polygón obsahujúci body konvexnej obálky
+\item vektory bodov, ktoré tvoria diery v jednotlivých polygónoch. U každého polygónu je možná len jedna diera. Diery sa vykreslujú rovnakou farbou ako polygóny, no čiarkovanou čiarou.
+\end{itemize}
+
+\item[] \underline {std::vector}$<${Edge}$>${res}
+\begin{itemize}
+\item je to vektor, ktorý obsahuje hrany tvoriace výsledok množinovej operácie. Tá je vykreslená červenou farbou.
+\end{itemize}
+
+\item[] \underline {std::vector}$<${Edge}$>${removeEdges}
+\begin{itemize}
+\item je to vektor, ktorý obsahuje hrany, ktoré majú byť vo výsledku zakryté / zafarbené. Ich vykreslenie je prevedené bilou farou, čo je mierne vidieť ale v rámci praktického použitia to bolo najjednoduchšie možné riešenie. 
+\end{itemize}
+
+\item[] \underline {bool ab}
+\begin{itemize}
+\item táto premenná indikuje v akom bode je kreslenie, či užívateľ kreslí polygón A alebo B. V deafault nastavení sa kreslí polygon A.
+\end{itemize}
+
+\item[] \underline {bool inout}
+\begin{itemize}
+\item premenná indikuje kreslenie hranice / diery. Defaultne nastavenie je kresba hranice.
 \end{itemize}
 \end{enumerate}
 
@@ -305,82 +326,138 @@ Trieda Draw slúži ku grafickému vykresleniu množiny modov a konvexnej obálk
 \begin{enumerate}
 \item[] \underline{paintEvent}
 \begin{itemize}
-\item slúži k vykresleniu naklikaných a vygenerovaných bodov, vykresleniu konvexnej obálky. Návratovým typom je void.
+\item slúži k vykresleniu naklikaných hran v tvare polygónov. Návratovým typom je void.
 \end{itemize}
 \item[] \underline{void mousePressEvent}
 \begin{itemize}
-\item slúži k vykresleniu bodu  stlačením tlačidla myši, v okamihu stlačenia tlačidla na myši sa uložia súradnice bodu do vektoru points. Návratovým typom je void.
+\item slúži k vykresleniu bodu  stlačením tlačidla myši, v okamihu stlačenia tlačidla na myši sa uložia súradnice bodu. Návratovým typom je void.
 \end{itemize}
-\item[] \underline{void clearCH}
+\item[] \underline{void drawPolygon}
 \begin{itemize}
-\item slúži k vymazaniu konvexnej obálky. Návratovým typom je void.
+\item slúži k vykresleniu polygónu. Návratovým typom je void.
 \end{itemize}
-\item[] \underline{void clearPoints}
+\item[] \underline{void clearResult}
 \begin{itemize}
-\item slúži k vymazaniu množiny bodov. Návratovým typom je void.
+\item slúži k vymazaniu výsledku vykonanej množinovej operácie. Návratovým typom je void.
 \end{itemize}
-\item[] \underline {std::vector}$<${QPoint}$>${getPoints}
+\item[] \underline{void removeLast}
 \begin{itemize}
-\item vektor, ktorý slúži k vráteniu množiny bodov points.
+\item slúži k vymazaniu poslednej pridanej hrany polygónu. Návratovým typom je void.
 \end{itemize}
-\item[] \underline {setCH}
+\item[] \underline{void clearAll}
 \begin{itemize}
-\item slúži na prevedenie konvexnej obálky do vykresľovacieho okna.
+\item slúži k vymazaniu obsahu celého grafického okna aplikácie. Návratovým typom je void.
 \end{itemize}
-\item[] \underline {generatePoints}
+
+\item[] \underline{getA}
 \begin{itemize}
-\item slúži ku generovaniu množiny bodov. Na vstupe je zadaná metóda, počet bodov, šírka a výška.
-\item na výstupe je vygenerovaná množina bodov podľa užívateľského zadania.
+\item slúži k vráteniu členskej premennej a
 \end{itemize}
-\item[] \underline {std::vector}$<${QPoint}$>${generatePointsU2}
+
+\item[] \underline{getB}
 \begin{itemize}
-\item slúži ku generovaniu množiny bodov. Na vstupe je zadaná metóda, počet bodov, šírka a výška.
-\item na výstupe je vygenerovaná množina bodov podľa užívateľského zadania. Generovanie konvexnej obálky prebehne automaticky 10x pre všetky typy tvaru generovanej množiny bodov a počty generovaných bodov v intervale od 1 000 do 1 000 000.
+\item slúži k vráteniu členskej premennej b
+\end{itemize}
+
+\item[] \underline{getAHole}
+\begin{itemize}
+\item slúži k vráteniu členskej premennej inA
+\end{itemize}
+
+\item[] \underline{getBHole}
+\begin{itemize}
+\item slúži k vráteniu členskej premennej inB
+\end{itemize}
+
+\item[] \underline{getRes}
+\begin{itemize}
+\item slúži kvráteniu členskej premennej res
+\end{itemize}
+
+\item[] \underline{getRemoveEdges}
+\begin{itemize}
+\item slúži k vráteniu členskej premennej removeEdges
+\end{itemize}
+
+\item[] \underline{bool getPolygonStatus}
+\begin{itemize}
+\item slúži k vráteniu členskej premennej ab
+\end{itemize}
+
+\item[] \underline{bool getDrawStatus}
+\begin{itemize}
+\item slúži k vráteniu členskej premennej inout
+\end{itemize}
+
+\item[] \underline{setA}
+\begin{itemize}
+\item slúži k nastaveniu členskej premennej a
+\end{itemize}
+\item[] \underline{setB}
+\begin{itemize}
+\item slúži k nastaveniu členskej premennej b
+\end{itemize}
+\item[] \underline{setRes}
+\begin{itemize}
+\item slúži k nastaveniu členskej premennej res
+\end{itemize}
+\item[] \underline{setRemoveEdges}
+\begin{itemize}
+\item slúži k nastaveniu členskej premennej removeEdges
+\end{itemize}
+\item[] \underline{void changePolygon}
+\begin{itemize}
+\item slúži k zmene polygónu pri vykreslovaní
 \end{itemize}
 \end{enumerate}
 
-\subsection{Tridy SortByX, SortByY}
-Sú to triedy, ktoré obsahujú zoraďovacie kritériá. Pomocou týchto funkcií zoradíme súbor bodov podľa X alebo podľa Y súradnice.
+\subsection{Trieda Edge}
+Je to definície datového typu Edge. Reprezentuje usporiadanú dvojicu vrcholov, ktoré tvoria hranu.
+
+\subsection{Trieda QPointFB}
+Je to odvodená trieda od triedy QPointF. Pridali sme k nej hodnotu parametru alpha/beta. 
+
+\subsection{Trieda Types}
+Tieda Types slúži pre definovanie nových datových typov, ktoré nám umožnili ľahšiu a prehladnejšiu implementáciu algoritmov.
 
 \subsection{Trieda Widget}
 Tieda Widget obashuje metódy ktoré sú odkazom na sloty umožňujúce vykonávať príkazy z grafického rozhrania aplikácie. Nemajú žiadne vstupné hodnoty, návratovým typom je void.
 
 \subsubsection{Metódy}
 \begin{enumerate}
-\item[] \underline{on\_pushButton\_createCH\_clicked}
+\item[] \underline{on\_pushButton\_switch\_clicked}
 \begin{itemize}
-\item tlačidlo \textbf{Create convex hull} po kliknutí naň sa vygeneruje konvexná obálka množiny bodov
+\item tlačidlo \textbf{Polygon A/B} po kliknutí naň sa zmení vykreslovanie polygonu A na B a opačne
 \end{itemize}
 
-\item[] \underline{on\_pushButton\_clearPoints\_clicked}
+\item[] \underline{on\_pushButton\_createOverlay\_clicked}
 \begin{itemize}
-\item tlačidlo \textbf{Clear points}  po kliknutí naň sa vymaže množina bodov
+\item tlačidlo \textbf{Create overlay}  po kliknutí naň sa vygeneruje zvolená množinová operácia
 \end{itemize}
 
-\item[] \underline{on\_pushButton\_clearCH\_clicked}
+\item[] \underline{on\_pushButton\_clearResult\_clicked}
 \begin{itemize}
-\item tlačidlo \textbf{Clear convex hull}  po kliknutí naň sa vymaže konvexná obálka
+\item tlačidlo \textbf{Clear result}  po kliknutí naň sa vymaže výsledok množinovej operácie
 \end{itemize}
-
-\item[] \underline{on\_pushButton\_generatePoints\_clicked}
+\item[] \underline{on\_pushButton\_clearAll\_clicked}
 \begin{itemize}
-\item tlačidlo \textbf{Generate points}  po kliknutí naň sa vygenerujú body v zvolenom tvare a počte
+\item tlačidlo \textbf{Clear all}  po kliknutí naň sa vymaže celé grafické okno Canvasu
 \end{itemize}
-
-\item[] \underline{on\_pushButton\_solveU2\_clicked}
+\item[] \underline{on\_pushButton\_changeInOut\_clicked}
 \begin{itemize}
-\item tlačidlo \textbf{Solve U2}  po kliknutí naň sa vykoná automatické generovanie konvexnej obálky 10x pre každý typ rozmiestnenia bodov ( raster, kruh, náhodné rozmiestnenie bodov) a počet bodov n $\in$ $\langle$ 1000, 5000, 10 000, 25 000, 50 000, 75 000, 100 000, 250 000, 500 000, 750 000, 1000 000 $\rangle$ . Pre každé generovanie konvexnej obálky je počítaná doba behu, ktorá sa spolu s počtom a typom generovaných bodov, typom algoritmu a poradím opakovania je ukladaná do textového súboru
+\item tlačidlo \textbf{Border / Holel}  kliknutím naň je možné meniť kresbu polygónu / hole
 \end{itemize}
-
+\item[] \underline{on\_pushButton\_removeLast\_clicked}
+\begin{itemize}
+\item tlačidlo \textbf{Removel lastl}  kliknutím naň sa odstráni posledná vytvorená hrana
+\end{itemize}
 \end{enumerate}
 
 %-------------------------------------------------------------------------
 
 \clearpage
 \section{Záver}
-Výsledkom úlohy je funkčná aplikácia a grafická prezentácia doby trvania jednotlivých algoritmov pre rôzne množiny bodov. Po vypracovaní úlohy sme došli k nasledujúcemu záveru. Najvhodnejší algoritmus pre generovanie konvexných obálok je Sweep Line. Táto metóda dosiahla najlepšie výsledky vo všetkých testovacích prípadoch. Obzvlásť výrazný časový rozdie oproti ostatným algoritmoml bol pri zväčšujúcej sa množine bodov usporiadanej v kruhovom tvare. Algoritmy Graham Scan a Jarvis Scan sú o poznanie pomalšie, hlavne pri rastri a náhodne generovanej množine bodov. Algoritmus Quick Hull dosahuje pre rastrovú a náhodnú množinu bodov takmer totožnú rýchlosť ako algoritmus Sweep Line, pri kruhovom rozložení bodov je pomalší, obdobne rýchly ako Graham Scan.
-
-V úlohe sme sa neimplementovali generovanie množiny bodov v tvare  elipsy a star - shaped rozloženia. Bolo by zaujímavé porovnať doby behov algoritmov aj pre takéto rozloženia množín bodov.
+Výsledkom úlohy je funkčná aplikácia a grafická prezentácia množinových operácií. V aplikácii je zakomponovaná tvorba dier (holes). Hrany, ktoré majú byť vo výsledku skyté sú vykreslované bielou farbou, čo si pozorný užívateľ aplikácie určite všimne. Bohužiaľ vzhľadom na časové možnosti autorov bola táto možnosť najvhodnejším možným riešením. Tento bod je určite námetom na vylepšenie aplikácie, kedy by hrany, ktoré nemajú byť vykreslované boli vyhľadané a odstránené.
 
 %-------------------------------------------------------------------------
 
