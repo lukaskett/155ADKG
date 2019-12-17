@@ -54,13 +54,21 @@ void Draw::paintEvent(QPaintEvent *event)
     painter.setPen(pinB);
     drawPolygon(painter, inB);
 
-    //Draw edges
-    QPen pE(Qt::red, 3, Qt::SolidLine);
-    pE.setWidth(2);
+    //Draw edges    
+    //1)Result
+    QPen pE(Qt::red, 2, Qt::SolidLine);
     painter.setPen(pE);
     for(int i = 0; i < res.size(); i++)
     {
         painter.drawLine(res[i].getStart(), res[i].getEnd());
+    }
+
+    //2)Remove few edges
+    QPen pR(Qt::white, 2, Qt::SolidLine);
+    painter.setPen(pR);
+    for(int i = 0; i < removeEdges.size(); i++)
+    {
+        painter.drawLine(removeEdges[i].getStart(), removeEdges[i].getEnd());
     }
 
     painter.end();
