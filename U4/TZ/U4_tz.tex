@@ -184,20 +184,7 @@ Výstupnými dátami je graficky reprezentované zobrazenie množinových operá
 %-------------------------------------------------------------------------
 \section{Dokumentácia}
 \subsection{Trieda Algorithms}
-Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algoritmy tvorby konvexnej obálky a pre deklaráciu ich pomocných metód.
-
-\subsubsection{Členské premenné}
-
-\begin{enumerate}
-\item[] \underline{static QPoint pivot} 
-\begin{itemize}
-\item bod obsahujúci súradnice pivota
-\end{itemize}
-\item[] \underline{QPoint kolinear X point} 
-\begin{itemize}
-\item bod obsahujúci súradnice pomocného bodu, kolineárneho s osou X
-\end{itemize}
-\end{enumerate}
+Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algoritmy tvorby množinových operácií s polygónmi.
 
 \subsubsection{Metódy}
 
@@ -214,48 +201,82 @@ Triedu Algorithms sme použili pre deklarovanie funkcií pre výpočtové algori
 \item Slúži na určenie polohy bodu voči priamke. Jej návratovou hodnotou je integer.
 \item na vstupe má : súradnice určovaného bodu q , súradnice bodov priamky $p_1$ $p_2$
 \item na výstupe hodnoty :
-\item[] -1 – bod sa nachádza na priamke
-\item[] 0 – bod sa nachádza vpravo od priamky
-\item[] 1 – bod sa nachádza vľavo od priamky
+\item[] - LeftHp
+\item[] - RightHp
+\item[] - Colinear
 \end{itemize}
 
-\item[] \underline{getPointLineDistance}
+\item[] \underline{positionPointPolygonWinding}
 \begin{itemize}
-\item je pomocnou metódou pre metódu positionPointPolygonWinding. Slúži na určenie polohy bodu voči priamke. Jej návratovou hodnotou je double.
-\item na vstupe má : súradnice určovaného bodu q , súradnice bodov priamky $p_1$ $p_2$
-\item na výstupe hodnotu vzdialenosti určovaného bodu od priamky.
+\item slúži k určeniu polohy bodu prostredníctvom Winding Number algoritmu. Jej návratový typ je integer.
+\item na vstupe má : QPointFB q – bod ktorého polohu určujeme, std$::$vector$<$QPointFB$>$ pol – polygon, voči ktorému určujeme polohu bodu q
+\item výstupom je hodnota :
+\item[] - Outer
+\item[] - Inner
 \end{itemize}
 
-\item[] \underline{Distance}
+\item[] \underline{get2LinesPosition}
 \begin{itemize}
-\item Slúži na porovnanie vzdialenosti dvoch bodov. 
-\item na vstupe má : súradnice bodov  $p_1$  a $p_2$
-\item na výstupe hodnotu vzdialenosti medzi dvoma bodmi.
+\item funkcia slúžia k výpočtu polohy dvoch priavok voči sebe. 
+\item na vstupe je sú body QPointFB p1, p2, p3, p4, pi
+\item na výstupe hodnoty :
+\item[] - Identical
+\item[] - Paralel
+\item[] - Intersected
+\item[] - NonIntersected
 \end{itemize}
 
-\item[] \underline{Angle}
+
+\item[] \underline{booleanOperations}
 \begin{itemize}
-\item Slúži na porovnanie veľkosti dvoch uhlov. 
-\item na vstupe má : súradnice bodov $p_1$ a $p_2$
-\item na výstupe väčší uhol.
+\item funkcia slúžia k prevedeniu množinových operácií.. 
+\item na vstupe je sú polygóny bodov QPointFB polygonA, polygonB a typ operácie 
+\item na výstupe je vektor hrán odpovedajúci zvolenej operácii pre polygóny
 \end{itemize}
 
-\item[] \underline{jarvisScan, qHull, grahamScan, sweepLine}
+
+\item[] \underline{processIntersection}
 \begin{itemize}
-\item Metódy slúžia k výpočtu konvexnej obálky podľa zvoleného výpočetného algoritmu. Vstupným typom je QPolygon
-\item na vstupe je vektror bodov {std::vector}$<${QPoint}$>${points}
-\item na výstupe je polygón obsahujúci množinu bodov a konvexnú obálku.
+\item funkcia slúžia k prevedeniu zaradenia vypočítaného priesečníku na správnu pozíciu v príslušnom polygóne. Jej návratovym typom je void. 
 \end{itemize}
 
-\item[] \underline{qh}
+
+\item[] \underline{computePolygonIntersection}
 \begin{itemize}
-\item Metódy slúžia k výpočtu konvexnej obálky podľa algoritmu Quick Hull. Je to pomocná metóda. Vstupným typom je void.
-\item na vstupe je index počiatočného a koncového bodu deliacej priamky start, end
-\item {std::vector}$<${QPoint}$>${points} vektor bodov okolo ktorých vytvárame konvexnú obálku
-\item QPolygon  convexHull ktorý obsahuje body konvexnej obálky
-\item na výstupe je polygón obsahujúci konvexnú obálku.
+\item funkcia slúžia k výpočtu priesečníku. Jej návratovym typom je void. 
 \end{itemize}
 
+
+\item[] \underline{setPositionsAB}
+\begin{itemize}
+\item funkcia je pomocnou funkciou pre boolenOperations. Jej návratovym typom je void. 
+\end{itemize}
+
+
+\item[] \underline{setPositions}
+\begin{itemize}
+\item funkcia slúži k určeniu pozície hrany. Jej návratovym typom je void. 
+\end{itemize}
+
+
+\item[] \underline{selectEdges}
+\begin{itemize}
+\item funkcia slúži k vybraniu príslušných hrán. Jej návratovym typom je void. 
+\end{itemize}
+
+
+\item[] \underline{booleanOperationsHoles}
+\begin{itemize}
+\item funkcia slúžia k prevedeniu množinových operácií pri zadaní Holes. 
+\item na vstupe je sú polygóny bodov QPointFB polygonA, polygonB a typ operácie 
+\item na výstupe je vektor hrán odpovedajúci zvolenej operácii pre polygóny
+\end{itemize}
+
+
+\item[] \underline{mergeVectors}
+\begin{itemize}
+\item funkcia slúži k zlúčeniu vektorov hrán. Jej návratovym typom je void. 
+\end{itemize}
 \end{enumerate}
 
 \subsection{Trieda Draw}
