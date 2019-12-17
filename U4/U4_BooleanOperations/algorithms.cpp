@@ -192,7 +192,7 @@ std::vector<Edge> Algorithms::booleanOperations(std::vector<QPointFB> &polygonA,
     return result;
 }
 
-std::vector<Edge> Algorithms::booleanOperationsHoles(std::vector<QPointFB> &polygon, std::vector<QPointFB> &holes, TPointPolygonPosition a, TPointPolygonPosition b)
+std::vector<Edge> Algorithms::booleanOperationsHoles(std::vector<QPointFB> &polygon, std::vector<QPointFB> &holes, TPointPolygonPosition a)
 {
     //Create polygon overlay
     std::vector<Edge> result;
@@ -205,10 +205,6 @@ std::vector<Edge> Algorithms::booleanOperationsHoles(std::vector<QPointFB> &poly
 
     //Select edges by position:
     selectEdges(holes, a, result);
-    selectEdges(polygon, b, result);
-
-    //Singular edges: always
-    //selectEdges(holes, On, result);
 
     return result;
 }
@@ -313,4 +309,11 @@ void Algorithms::selectEdges(std::vector<QPointFB> &pol, TPointPolygonPosition p
             edges.push_back(e);
         }
     }
+}
+
+void Algorithms::mergeVectors(std::vector<Edge> &v1, std::vector<Edge> &v2, std::vector<Edge> &v)
+{
+    v.reserve(v.size() + v1.size() + v2.size());
+    v.insert(v.end(), v1.begin(), v1.end());
+    v.insert(v.end(), v2.begin(), v2.end());
 }

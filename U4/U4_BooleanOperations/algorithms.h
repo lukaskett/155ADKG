@@ -14,12 +14,13 @@ public:
     static TPointPolygonPosition positionPointPolygonWinding(QPointFB &q, std::vector<QPointFB> &pol);
     static T2LinesPosition get2LinesPosition(QPointFB &p1, QPointFB &p2, QPointFB &p3, QPointFB &p4, QPointFB &pi);
     static std::vector<Edge> booleanOperations(std::vector<QPointFB> &polygonA,std::vector<QPointFB> &polygonB, TBooleanOperation operation);
-    static std::vector<Edge> booleanOperationsHoles(std::vector<QPointFB> &polygon, std::vector<QPointFB> &holes, TPointPolygonPosition a, TPointPolygonPosition b);
+    static std::vector<Edge> booleanOperationsHoles(std::vector<QPointFB> &polygon, std::vector<QPointFB> &holes, TPointPolygonPosition a);
     static void processIntersection(QPointFB &pi, double &t, std::vector<QPointFB> &polygon, int &i);
     static void computePolygonIntersection(std::vector<QPointFB> &pa, std::vector<QPointFB> &pb);
     static void setPositionsAB(std::vector<QPointFB> &pa, std::vector<QPointFB> &pb);
     static void setPositions(std::vector<QPointFB> &pa, std::vector<QPointFB> &pb);
     static void selectEdges(std::vector<QPointFB> &pol, TPointPolygonPosition position, std::vector<Edge> &edges);
+    static void mergeVectors(std::vector<Edge> &v1, std::vector<Edge> &v2, std::vector<Edge> &v);
 };
 
 #endif // ALGORITHMS_H
