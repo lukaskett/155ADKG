@@ -107,6 +107,30 @@ void Widget::on_pushButton_createOverlay_clicked()
 
     }
 
+    //Difference B - A
+    else if(ui -> comboBox -> currentIndex() == 3)
+    {
+        //Polygon A and hole B
+        std::vector<Edge>res_holeB1 = Algorithms::booleanOperationsHoles(polB, holeA, Inner);
+        std::vector<Edge>res_holeB2 = Algorithms::booleanOperationsHoles(holeA, polB, Inner);
+        Algorithms::mergeVectors(res_holeB1, res_holeB2, res_hole);
+
+        //Polygon B and hole A
+        std::vector<Edge>res_holeA1 = Algorithms::booleanOperationsHoles(polA, holeB, Outer);
+
+        //Hole A and hole B
+        std::vector<Edge>res_holeB3 = Algorithms::booleanOperationsHoles(holeA, holeB, Inner);
+
+        //Merge single cases
+        Algorithms::mergeVectors(res_holeA1, res_holeB3, res_hole);
+
+        //Remove
+        std::vector<Edge>remove_holB_polA = Algorithms::booleanOperationsHoles(holeB, polA, Inner);
+        std::vector<Edge>remove_holB_holA = Algorithms::booleanOperationsHoles(holeB, holeA, Inner);
+        Algorithms::mergeVectors(remove_holB_polA, remove_holB_holA, remove);
+
+    }
+
     //Merge basic select(res) and updated for holes(res_holes)
     std::vector<Edge> res_com;
     Algorithms::mergeVectors(res_hole, res, res_com);
