@@ -118,11 +118,17 @@ Tento algoritmus uplatňuje ako ohodnocovacie pravidlo polohu vrcholu v polygón
 \subsection {Ohodnotenie hran}
 Výber hran pre množinové operácie znázorňuje nasledujúca tabuľka.
 
- Operácia \hspace {1.5cm} PolygonA \hspace {1.0cm} PolygonB 
-\newline Union \hspace {1.5cm} outer \hspace {1.0cm} outer 
-\newline Intersect \hspace {1.4cm} inner \hspace {1.0cm} inner 
-\newline DifferenceAB \hspace {1.0cm} outer \hspace {1.0cm} inner 
-\newline DifferenceBA \hspace {1.0cm} inner \hspace {1.0cm}outer
+\begin{table}[h]
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Operace & A             & B             \\ \hline \hline
+		$C = A\cap B$  & Inner         & Inner         \\ \hline
+		$C = A\cup B$  & Outer         & Outer         \\ \hline
+		$C = A\cap \overline{B}$  & Outer         & Inner         \\ \hline
+		$C = B\cap \overline{A}$  & Inner         & Outer         \\ \hline
+		$C = A\bigtriangleup B$  & Inner + Outer & Inner + Outer \\ \hline
+	\end{tabular}
+\end{table}
 
 \subsection {Vytvorenie hran}
 Vrcholy, ktorým náleží príslušne ohodnotenie sme následne spojili do hrán a uložili do vektoru, ktorý je vykreslovaný.
