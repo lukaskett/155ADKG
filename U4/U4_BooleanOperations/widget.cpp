@@ -58,8 +58,10 @@ void Widget::on_pushButton_createOverlay_clicked()
     std::vector<Edge> res = Algorithms::booleanOperations(polA, polB, oper);
 
     //Process holes
-    std::vector<Edge> res_hole;
-    if(ui -> comboBox -> currentIndex() == 0) //Union
+    std::vector<Edge> res_hole, remove;
+
+    //Union
+    if(ui -> comboBox -> currentIndex() == 0)
     {
         //Polygon B and hole A
         std::vector<Edge>res_holeA1 = Algorithms::booleanOperationsHoles(polB, holeA, Outer);
@@ -72,7 +74,8 @@ void Widget::on_pushButton_createOverlay_clicked()
         Algorithms::mergeVectors(res_holeB1, res_holeB2, res_hole);
     }
 
-    else if(ui -> comboBox -> currentIndex() == 1) //Intersect
+    //Intersect
+    else if(ui -> comboBox -> currentIndex() == 1)
     {
         //Hole A and hole B
         std::vector<Edge>res_holeA = Algorithms::booleanOperationsHoles(holeA, holeB, Inner);
@@ -80,39 +83,37 @@ void Widget::on_pushButton_createOverlay_clicked()
         Algorithms::mergeVectors(res_holeA, res_holeB, res_hole);
     }
 
-    else if(ui -> comboBox -> currentIndex() == 2) //Difference A - B
+    //Difference A - B
+    else if(ui -> comboBox -> currentIndex() == 2)
     {
-        //Clear
-        res.clear();
-
-        //Polygon A and polygon B
-        std::vector<Edge>res_polA = Algorithms::booleanOperationsHoles(holeB, polA, Outer);
-        std::vector<Edge>res_polB = Algorithms::booleanOperationsHoles(holeB, polA, Outer);
-        Algorithms::mergeVectors(res_polA, res_polB, res_hole);
-
         //Polygon A and hole B
-        std::vector<Edge>res_holeB1 = Algorithms::booleanOperationsHoles(polA, holeB, On);
-        std::vector<Edge>res_holeB2 = Algorithms::booleanOperationsHoles(polB, holeA, Inner);
+        std::vector<Edge>res_holeB1 = Algorithms::booleanOperationsHoles(polA, holeB, Inner);
+        std::vector<Edge>res_holeB2 = Algorithms::booleanOperationsHoles(holeB, polA, Inner);
         Algorithms::mergeVectors(res_holeB1, res_holeB2, res_hole);
 
         //Polygon B and hole A
-        std::vector<Edge>res_holeA1 = Algorithms::booleanOperationsHoles(polB, holeA, On);
-        std::vector<Edge>res_holeA2 = Algorithms::booleanOperationsHoles(holeA, polB, Inner);
-        Algorithms::mergeVectors(res_holeA1, res_holeA2, res_hole);
+        std::vector<Edge>res_holeA1 = Algorithms::booleanOperationsHoles(polB, holeA, Outer);
 
-        //Hole A and hole B
-        std::vector<Edge>res_holeA3 = Algorithms::booleanOperationsHoles(holeA, holeB, Inner);
+        //Hole A and hole B        
         std::vector<Edge>res_holeB3 = Algorithms::booleanOperationsHoles(holeB, holeA, Inner);
-        Algorithms::mergeVectors(res_holeA3, res_holeB3, res_hole);
+
+        //Merge single cases
+        Algorithms::mergeVectors(res_holeA1, res_holeB3, res_hole);
+
+        //Remove
+        std::vector<Edge>remove_holA_polB = Algorithms::booleanOperationsHoles(holeA, polB, Inner);
+        std::vector<Edge>remove_holA_holB = Algorithms::booleanOperationsHoles(holeA, holeB, Inner);
+        Algorithms::mergeVectors(remove_holA_polB, remove_holA_holB, remove);
 
     }
 
-    //Merge selected edges
+    //Merge basic select(res) and updated for holes(res_holes)
     std::vector<Edge> res_com;
     Algorithms::mergeVectors(res_hole, res, res_com);
 
     //Set results and update
     ui -> Canvas -> setRes(res_com);
+    ui -> Canvas -> setRemoveEdges(remove);
     repaint();
 }
 
