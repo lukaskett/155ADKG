@@ -130,6 +130,8 @@ Výber hran pre množinové operácie znázorňuje nasledujúca tabuľka.
 	\end{tabular}
 \end{table}
 
+Pro operaci sjednocení(UNION) jsou vybrány vnější(OUTER) hrany polygonu A a polygonu B. Při výběru operace průnik(INTERSECT) jsou vybrány vnitřní(INNER) hrany polygonu A a polygonu B. U rozdílu AB(DIFFERENCE AB) jsou vybrány vnější hrany polygonu A a vnitřní hrany polygonu B plus kolineární segmenty polygonu A -- atribut hrany ON. U opačného případu - roudílu BA(DIFFERENCE BA) jsou vybrány vnější hrany polygonu B a vnitřní hrany polygonu A plus kolineární segmenty polygonu B.
+
 \subsection {Vytvorenie hran}
 Vrcholy, ktorým náleží príslušne ohodnotenie sme následne spojili do hrán a uložili do vektoru, ktorý je vykreslovaný.
 
@@ -140,7 +142,10 @@ Vrcholy, ktorým náleží príslušne ohodnotenie sme následne spojili do hrá
 \item \hspace {1.0cm} $Edge e (pol[i], pol[(i+1)\%pol.size()]);$ vytvorenie hrany
 \item \hspace {1.0cm} $edges.push_back(e);$ pridanie hrany do vektoru hran
 \end{enumerate}
-\clearpage 
+%\clearpage
+
+\subsection{Problematické situace}
+Průsečík dvou polygonů nemusí být vždy jednoznačný. Pokud je středový bod přímo na hraně polygonu nelze jednoznačně říct jestli je vunitř nebo vně. Stejně tak pro hrany. Výsledek operací průnik a sjednocení má méně než tři segmenty a řešením je tedy prázdná množina. V Případě společného bodu je délka "hrany" nulová.
 %------------------------------------------------------------------------
 \section{Vstupné dáta}
 Vstupnými dátami sú dva polygóny, naklikané ručne v grafickom rozhraní aplikácie. Pomocou tlačítka PolagonA/B je možné prepínať medzi kresbou jednotlivých polygónov.
@@ -186,6 +191,40 @@ Výstupnými dátami je graficky reprezentované zobrazenie množinových operá
    \includegraphics[width=10cm]{./img/aplikacia_diera_Union.png}
    \captionof{figure}{Ukážka grafického rozhrania aplikácie - Holes pri operácii Union}
 \end{center}
+
+\subsection{Problematické případy}
+Aplikace nemá implementované importování polygonů, takže je nasimulování problematických situací mírně komplikovanější a neumožnuje jednoduché opakování.
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_union.png}
+	\captionof{figure}{Problematické případy - společný body - sjednocení}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_intersect.png}
+	\captionof{figure}{Problematické případy - společný body - průnik}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_edge_union.png}
+	\captionof{figure}{Problematické případy - společná hrana - sjednocení}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_edge_intersect.png}
+	\captionof{figure}{Problematické případy - společná hrana - průnik}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_edge_diffAB.png}
+	\captionof{figure}{Problematické případy - společná hrana - rozdíl A - B}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_edge_diffBA.png}
+	\captionof{figure}{Problematické případy - společná hrana - rozdíl B - A}
+\end{center}
+
 
 %-------------------------------------------------------------------------
 \section{Dokumentácia}
