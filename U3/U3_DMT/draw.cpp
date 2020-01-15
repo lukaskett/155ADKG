@@ -80,7 +80,9 @@ void Draw::paintEvent(QPaintEvent *event)
     if(slope == TRUE)
     {
     //Rescale color scale
-    double k = 255.0 / 180;
+    double k = 255.0 / 90;
+    //QMessageBox::information(this, "Minimum and maximum slope", QString("MIN: %1, MAX: %2").arg(min_sl).arg(max_sl));
+
     for(Triangle t : dmt)
     {
         //Get triangle vertices
@@ -89,7 +91,7 @@ void Draw::paintEvent(QPaintEvent *event)
         QPoint3D p3 = t.getP3();
 
         //Get slope, it is equal to the color
-        int slope = 150 - t.getSlope() * k;
+        int slope =  static_cast<int>(255 - t.getSlope() * k);
 
         //Set color brush
         QColor colorSlope;
@@ -117,7 +119,6 @@ void Draw::paintEvent(QPaintEvent *event)
         triangle.append(QPointF(p3.x(), p3.y()));
 
         painter.drawPolygon(triangle);
-
         }
     }
 

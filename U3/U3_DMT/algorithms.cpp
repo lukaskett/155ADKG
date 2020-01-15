@@ -510,6 +510,45 @@ std::vector<QPoint3D> Algorithms::importMeasurement(std::string path, int width,
          points[i].setY((points[i].y() - min_y) * ky + boundary_gap);
      }
 
+     //Enlarge Z coordinates if the diff is too small(for analysis reasons)
+     if(fabs(max_z - min_z) < 50)
+     {
+         //Update z-coord
+         for (unsigned i = 0; i < points.size(); i++)
+         {
+             double new_z = (points[i].getZ() - min_z) * 10;
+             points[i].setZ(new_z);
+         }
+
+         //Inicialize
+         min_x = std::numeric_limits<double>::max();
+         min_y = std::numeric_limits<double>::max();
+         min_z = std::numeric_limits<double>::max();
+
+         max_x = std::numeric_limits<double>::min();
+         max_y = std::numeric_limits<double>::min();
+         max_z = std::numeric_limits<double>::min();
+
+         //Udpate MAX/MIN values
+         //Update z-coord
+         for (unsigned i = 0; i < points.size(); i++)
+         {
+             double x = points[i].x();
+             double y = points[i].y();
+             double z = points[i].getZ();
+
+             //Actualize MIN and MAX values
+             if(x > max_x) max_x = x;
+             if(y > max_y) max_y = y;
+             if(z > max_z) max_z = z;
+
+             if(x < min_x) min_x = x;
+             if(y < min_y) min_y = y;
+             if(z < min_z) min_z = z;
+         }
+
+     }
+
      return points;
 }
 
