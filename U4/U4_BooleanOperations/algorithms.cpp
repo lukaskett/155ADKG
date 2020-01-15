@@ -33,6 +33,16 @@ TPointLinePosition Algorithms::getPointLinePosition(QPointFB &q, QPointFB &p1, Q
     return Colinear;
 }
 
+double Algorithms::getDistance(QPointFB &p1, QPointFB &p2)
+{
+    //Calculate distance betweeen two points
+    double dx = p1.x() - p2.x();
+    double dy = p1.y() - p2.y();
+    double dist = sqrt(dx * dx + dy * dy);
+
+    return dist;
+}
+
 
 double Algorithms::getAngle2Vectors(QPointFB &p1, QPointFB &p2, QPointFB &p3, QPointFB &p4)
 {
