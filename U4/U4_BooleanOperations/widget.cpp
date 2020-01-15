@@ -135,32 +135,7 @@ void Widget::on_pushButton_createOverlay_clicked()
     //Merge basic select(res) and updated for holes(res_holes)
     std::vector<Edge> res_com;
     Algorithms::mergeVectors(res_hole, res, res_com);
-/*
-    // Validate the result(not closed area)
-    //1) There is less then 3 edges
-    if(remove.size() < 3)
-        remove.clear();
 
-    //2) All edges have boundary atribut
-    for(unsigned i = 0; i < remove.size(); i++)
-    {
-        //Get start end end point
-        QPointFB start = remove[i].getStart();
-        QPointFB end = remove[i].getEnd();
-
-        //Check position atribut
-        if(start.getPosition() == On && end.getPosition() == On)
-            remove.erase(remove.begin()+((i-1)%remove.size()));
-
-        //3) Delete edges with zero length(point)
-
-        // Tolerance
-        double eps = 1.0e-6;
-        if(fabs(Algorithms::getDistance(start,end)) <= eps)
-            remove.erase(remove.begin()+((i-1)%remove.size()));
-    }
-
-*/
     //Set results and update
     ui -> Canvas -> setRes(res_com);
     ui -> Canvas -> setRemoveEdges(remove);
