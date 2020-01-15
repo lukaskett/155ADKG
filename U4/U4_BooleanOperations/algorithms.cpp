@@ -201,10 +201,6 @@ std::vector<Edge> Algorithms::booleanOperations(std::vector<QPointFB> &polygonA,
         selectEdges(polygonB, On, result);
     }
 
-    //Singular edges
-    selectEdges(polygonB, On, result);
-    selectEdges(polygonA, On, result);
-
     return result;
 }
 
