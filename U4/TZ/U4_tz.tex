@@ -116,6 +116,7 @@ Tento algoritmus uplatňuje ako ohodnocovacie pravidlo polohu vrcholu v polygón
 \end{enumerate}
 
 \subsection {Ohodnotenie hran}
+\label{subsec:ohodnoceni}
 Výber hran pre množinové operácie znázorňuje nasledujúca tabuľka.
 
 \begin{table}[h]
@@ -130,7 +131,9 @@ Výber hran pre množinové operácie znázorňuje nasledujúca tabuľka.
 	\end{tabular}
 \end{table}
 
-Pro operaci sjednocení(UNION) jsou vybrány vnější(OUTER) hrany polygonu A a polygonu B. Při výběru operace průnik(INTERSECT) jsou vybrány vnitřní(INNER) hrany polygonu A a polygonu B. U rozdílu AB(DIFFERENCE AB) jsou vybrány vnější hrany polygonu A a vnitřní hrany polygonu B plus kolineární segmenty polygonu A -- atribut hrany ON. U opačného případu - roudílu BA(DIFFERENCE BA) jsou vybrány vnější hrany polygonu B a vnitřní hrany polygonu A plus kolineární segmenty polygonu B.
+Pro operaci sjednocení(UNION) jsou vybrány vnější(OUTER) hrany polygonu A a polygonu B. Při výběru operace průnik(INTERSECT) jsou vybrány vnitřní(INNER) hrany polygonu A a polygonu B.
+
+U rozdílu AB(DIFFERENCE AB) jsou vybrány vnější hrany polygonu A, vnitřní hrany polygonu B a kolineární segmenty polygonu A -- atribut hrany ON. U opačného případu - rozdílu BA(DIFFERENCE BA) jsou vybrány vnější hrany polygonu B, vnitřní hrany polygonu A a kolineární segmenty polygonu B.
 
 \subsection {Vytvorenie hran}
 Vrcholy, ktorým náleží príslušne ohodnotenie sme následne spojili do hrán a uložili do vektoru, ktorý je vykreslovaný.
@@ -193,16 +196,28 @@ Výstupnými dátami je graficky reprezentované zobrazenie množinových operá
 \end{center}
 
 \subsection{Problematické případy}
-Aplikace nemá implementované importování polygonů, takže je nasimulování problematických situací mírně komplikovanější a neumožnuje jednoduché opakování.
+Do aplikace bylo naimplementované importování polygonů, aby bylo jednodušeji a hlavně přesněji testovat singulární případy. Při importu je potřeba nejdříve zvolit jaké body budeme importovat -- polygon A, polygon B, díru v polygonu A nebo díru v polygonu B.
+
+Byl vytvořen ukázkový soubor s polygonem A a k němu několik ukázkových souborů s polygonem B. Varianty společný bod, dva společné body, společná část hrany a dvě společné části hran. Následně proběhlo testování aplikace a byla vytvořena obrázová dokumentace.
 
 \begin{center}
 	\includegraphics[width=10cm]{./img/singular_union.png}
-	\captionof{figure}{Problematické případy - společný body - sjednocení}
+	\captionof{figure}{Problematické případy - společný bod - sjednocení}
 \end{center}
 
 \begin{center}
 	\includegraphics[width=10cm]{./img/singular_intersect.png}
-	\captionof{figure}{Problematické případy - společný body - průnik}
+	\captionof{figure}{Problematické případy - společný bod - průnik}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_two_points_union.png}
+	\captionof{figure}{Problematické případy - společné dva body - sjednoceni}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_two_points_intersect.png}
+	\captionof{figure}{Problematické případy - společné dva body - průnik}
 \end{center}
 
 \begin{center}
@@ -224,6 +239,19 @@ Aplikace nemá implementované importování polygonů, takže je nasimulování
 	\includegraphics[width=10cm]{./img/singular_edge_diffBA.png}
 	\captionof{figure}{Problematické případy - společná hrana - rozdíl B - A}
 \end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_edges_union.png}
+	\captionof{figure}{Problematické případy - společné části hran - sjednocení}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=10cm]{./img/singular_edges_intersect.png}
+	\captionof{figure}{Problematické případy - společné části hran - průnik}
+\end{center}
+
+\subsection{Řešení problematických případů}
+Viz \ref{subsec:ohodnoceni}
 
 
 %-------------------------------------------------------------------------
