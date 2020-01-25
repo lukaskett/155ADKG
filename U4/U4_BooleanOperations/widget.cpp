@@ -3,12 +3,17 @@
 #include "algorithms.h"
 #include "types.h"
 #include <cmath>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QTextStream>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    ui -> label_drawPolygonAB -> setStyleSheet("QLabel { color: green }");
+    ui -> label_drawHoleBorder -> setStyleSheet("QLabel { color: green }");
 }
 
 Widget::~Widget()
@@ -26,18 +31,27 @@ void Widget::on_pushButton_switchPolygon_clicked()
     bool ab = ui -> Canvas -> getPolygonStatus();
 
     if(!ab)
+    {
         ui -> label_drawPolygonAB -> setText(QString("Polygon B"));
+        ui -> label_drawPolygonAB -> setStyleSheet("QLabel { color: blue }");
+        ui -> label_drawHoleBorder -> setStyleSheet("QLabel { color: blue }");
+    }
 
     else
+    {
         ui -> label_drawPolygonAB -> setText(QString("Polygon A"));
+        ui -> label_drawPolygonAB -> setStyleSheet("QLabel { color: green }");
+        ui -> label_drawHoleBorder -> setStyleSheet("QLabel { color: green }");
+    }
+
 }
 
 void Widget::on_pushButton_changeInOut_clicked()
 {
     ui -> Canvas -> changeInOut();
 
+    //Hole or border status
     bool inout = ui -> Canvas -> getDrawStatus();
-
     if(inout)
         ui -> label_drawHoleBorder -> setText(QString("Hole"));
     else
@@ -157,4 +171,62 @@ void Widget::on_pushButton_clearAll_clicked()
 void Widget::on_pushButton_removeLast_clicked()
 {
     ui -> Canvas -> removeLast();
+}
+
+void Widget::on_pushButton_import_clicked()
+{
+    //Clear window
+    ui -> Canvas -> clearResults();
+
+    //Get current directory
+    QDir current_path = QDir::currentPath();
+    current_path.cdUp();
+    QString path = current_path.path();
+
+    //Select text file with polygons coordinates
+    QString source_file = QFileDialog::getOpenFileName(this, "Select text file with polygon/hole coordinates", path, "Text file (*.txt)");
+
+    //Convert path from QString to string
+    std::string source_file_std = source_file.toStdString();
+
+    //Load measured points
+    std::vector<QPointFB> points;
+    Algorithms::importMeasurement(source_file_std, points);
+
+    //Test if file was opened correctly size > 0
+    if (points.empty())
+        QMessageBox::warning(this, "Import error", "File can NOT be opened or read correctly");
+
+    else
+    {
+        //Set imported points
+        //Get which polygon/hole insert points to
+        int into = ui -> comboBox_import -> currentIndex();
+
+        //Decide which polygon
+        if(into == 0)
+        {
+            ui -> Canvas -> clearA();
+            ui -> Canvas -> setA(points);
+        }
+
+        else if(into == 1)
+        {
+            ui -> Canvas -> clearB();
+            ui -> Canvas -> setB(points);
+        }
+
+        else if(into == 2)
+        {
+            ui -> Canvas -> clearInA();
+            ui -> Canvas -> setInA(points);
+        }
+
+        else if(into == 3)
+        {
+            ui -> Canvas -> clearInB();
+            ui -> Canvas -> setInB(points);
+        }
+    }
+
 }

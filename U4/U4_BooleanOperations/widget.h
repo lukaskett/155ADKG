@@ -28,6 +28,8 @@ private slots:
 
     void on_pushButton_removeLast_clicked();
 
+    void on_pushButton_import_clicked();
+
 private:
     Ui::Widget *ui;
 };

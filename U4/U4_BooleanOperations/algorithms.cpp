@@ -329,3 +329,27 @@ void Algorithms::mergeVectors(std::vector<Edge> &v1, std::vector<Edge> &v2, std:
     v.insert(v.end(), v1.begin(), v1.end());
     v.insert(v.end(), v2.begin(), v2.end());
 }
+
+void Algorithms::importMeasurement(std::string path, std::vector<QPointFB> &points)
+{
+    //std::vector<QPointFB> points;
+
+    //Open the file
+    std::ifstream measurement_file;
+    measurement_file.open(path);
+
+    //Check if the file is opened
+    if(!measurement_file.is_open())
+        measurement_file.close();
+
+    //Go through whole file and store all measured points
+     while(measurement_file.good())
+     {
+         double x, y;
+         measurement_file >> x;
+         measurement_file >> y;
+         points.push_back(QPointFB(x, y));
+     }
+
+     measurement_file.close();
+}

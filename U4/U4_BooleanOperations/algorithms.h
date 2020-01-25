@@ -4,6 +4,8 @@
 #include "types.h"
 #include "qpointfb.h"
 #include "edge.h"
+#include <fstream>
+#include <iostream>
 
 class Algorithms
 {
@@ -22,6 +24,7 @@ public:
     static void setPositions(std::vector<QPointFB> &pa, std::vector<QPointFB> &pb);
     static void selectEdges(std::vector<QPointFB> &pol, TPointPolygonPosition position, std::vector<Edge> &edges);
     static void mergeVectors(std::vector<Edge> &v1, std::vector<Edge> &v2, std::vector<Edge> &v);
+    static void importMeasurement(std::string path, std::vector<QPointFB> &points);
 };
 
 #endif // ALGORITHMS_H
