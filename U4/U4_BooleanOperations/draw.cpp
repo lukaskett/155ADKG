@@ -90,17 +90,22 @@ void Draw::removeLast()
 {
     //Remove from A
     if(ab)
-        if(inout)
+    {
+        if(inout && inA.size() > 0)
             inA.pop_back();
-        else
+
+        else if (a.size() > 0)
             a.pop_back();
+    }
 
     //Remove from B
     else
-        if(!inout)
+        {
+        if(!inout && b.size() > 0)
             b.pop_back();
-        else
-            inB.pop_back();
 
+        else if(inB.size() > 0)
+            inB.pop_back();
+        }
     repaint();
 }
